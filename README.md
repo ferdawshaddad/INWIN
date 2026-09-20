@@ -155,10 +155,10 @@ flutter run
 
 This project was developed as a **Projet de Fin d'Études (PFE)** / Graduation Project.
 
-- **Author / Student**: [Your Name]
-- **Academic Institution**: [Your University / Faculty Name]
-- **Degree Program**: [Degree / Diploma Name]
-- **Academic Supervisor**: [Supervisor Name]
+- **Author / Student**: [Ferdaws Haddad]
+- **Academic Institution**: [Iset'COM]
+- **Degree Program**: [ICT Management]
+- **Academic Supervisor**: [Haifa Ben Saber]
 - **Company / Host Partner**: INWIN
 
 ---
