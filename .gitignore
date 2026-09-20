@@ -63,3 +63,8 @@ __pycache__/
 node_modules/
 functions/lib/
 functions/node_modules/
+*.exe
+*.psd
+*.zip
+*.rar
+*.tar.gz
