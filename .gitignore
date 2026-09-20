@@ -1,0 +1,65 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.g.dart
+*.freezed.dart
+
+# Firebase — NEVER commit credentials
+google-services.json
+GoogleService-Info.plist
+lib/firebase_options.dart
+.firebaserc
+firebase_export_metadata.json
+**/firebase_export_metadata.json
+
+# Android
+android/local.properties
+android/.gradle/
+android/app/debug.keystore
+android/key.properties
+android/app/release/
+*.jks
+*.keystore
+
+# iOS
+ios/Flutter/flutter_export_environment.sh
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Runner.xcworkspace/
+ios/Runner/GeneratedPluginRegistrant.*
+**/*.xcworkspace
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.p8
+secrets/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.iml
+*.ipr
+*.iws
+.metadata
+
+# Misc
+*.log
+*.pyc
+__pycache__/
+node_modules/
+functions/lib/
+functions/node_modules/

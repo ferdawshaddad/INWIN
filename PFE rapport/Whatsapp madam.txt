@@ -1,0 +1,220 @@
+[1:44 PM, 21/05/2026] Madam Haifa: En lisant, le rapport je vous prie de considérer ces remarques : 
+* La problématique actuelle est un peu descriptive, longue, pas assez orientée “enjeu”.
+Je propose que vous remplacez :  “How can we design a digital platform that simplifies event organization...”
+par :  How can a centralized mobile platform improve the management of personal and professional events while integrating customizable corporate gifting services to enhance user experience, operational efficiency, and business branding?
+ou encore mieux :  How can digital transformation improve the coordination, personalization, and management of event planning and corporate gifting services through a centralized mobile platform adapted to both individuals and businesses?
+je préfere la seconde proposition. 
+
+Il faut clarifier le positionnement. Est ce  * marketplace,   * application événementielle,   * CRM,   * plateforme de communication,   * plateforme de goodies ? 
+Donc à ajouter :  “Project Positioning” Avec :
+* Marketplace B2C + B2B
+* Event Management Platform
+* Corporate Branding Solution
+* Digital Coordination Tool
+
+A mon avis pour SOWT , supprimer :
+* “simple interface”
+* “easy booking process”
+* “mobile-first services”
+et ajouter :
+Strengths
+* Hybrid B2B/B2C business model
+* Cross-platform mobile accessibility
+* Real-time communication system
+* Centralized workflow management
+Weaknesses
+* Dependence on third-party providers
+* No integrated payment gateway yet
+* Limited logistics management
+* Scalability challenges
+Opportunities
+* Growth of digital event economy
+* Expansion toward SaaS event services
+* AI-powered recommendation systems
+Threats
+* Provider inconsistency
+* User trust and service quality issues
+* International marketplace competition
+
+ÉTUDE DE MARCHÉ — PAS ASSEZ PROFESSIONNELLE
+je vois une analyse questionnaire,   PAS une étude de marché.
+ce qu’il faut ajouter
+ 2.5 Market Study avec :
+2.5.1 Market Size et y ajouter :
+* croissance du marché événementiel,
+* croissance mobile commerce,
+* digital transformation in Tunisia,
+* corporate branding market.
+2.5.2 Market Trends
+* mobile-first behavior,
+* personalized experiences,
+* automation,
+* online quotation systems,
+* AI recommendations,
+* instant communication.
+2.5.3 Target Market, ici a séparer : * Individuals * SMEs * Corporate clients * Event organizers
+5. pour les CONCURRENTS , au niveau du benchmark  il faut : * comparer, * critiquer, * mesurer.
+Par exemple :   Critère    de MyEvent,Teewine,  INWIN 
+ Mobile App      
+Corporate Gifts 
+Event Management
+Messaging  
+Budget Tracking 
+B2B Features Partially    
+Personalization :  Medium  High  ....
+
+SOLUTION PROPOSÉE, il ANQUE D’ARCHITECTURE BUSINESS
+Il faut expliquer  COMMENT la plateforme crée de la valeur.
+donc à ajouter : Value Proposition pour 
+Pour particuliers : * gain de temps, * simplification, * inspiration.
+Pour entreprises ; * branding, * automatisation, * centralisation.
+Pour prestataires :  visibilité,  acquisition clients,  communication directe.
+
+PERSONAS IL MANQUE UNE VRAIE CHARTE
+A ajouter donc  3 personas minimumdétaillés et  cohérents avec enquête.
+  Persona 1-Individual User
+Nom :
+Âge :
+Objectif : Organiser anniversaire rapidement
+Pain Points :
+* manque temps
+* difficulté trouver prestataires
+Besoins :
+* réservation rapide
+* budget tracking
+* idées créatives
+
+Persona 2 - SME Marketing Manager
+Objectif : 
+Organiser séminaires + goodies
+Besoins :
+* devis rapides
+* personnalisation logo
+* gestion centralisée
+
+Persona 3 -Service Provider
+Objectif : recevoir clients et gérer réservations
+Besoins : 
+* visibilité
+* communication rapide
+* gestion demandes
+[1:54 PM, 21/05/2026] Madam Haifa: Coté UML @Moune Oueldi  : Coté UML 
+USE CASE , il faut séparer clairement :
+* Customer
+* Business Client
+* Admin
+* Service Provider
+Je vois des rôles sont mélangés ! 
+Ajouter : Service Provider Actor avec : * Manage Availability * Respond to Requests * Manage Quotations
+
+CLASS DIAGRAM
+Il faut ajouter  Classes principales
+User : * id * role * email * phone
+EventRequest : * type * budget * status * date
+CorporateGift * logo * color* quantity 
+Message * sender * receiver * timestamp
+Provider * services * rating * availability
+Quotation * amount * status * createdAt
+
+Mettre les relations importantes
+* User 1..* EventRequest
+* EventRequest 1..* Quotation
+* User 1..* Message
+* Provider 1..* Service
+
+SEQUENCE DIAGRAMS  * très UI-centric, * pas assez backend-oriented.
+Aj…
+[1:57 PM, 21/05/2026] Madam Haifa: Je reviens encore au coté MARKETING ajouter :Business Model Canvas pricipalement : * Revenue streams * Key partners * Customer relationships * Channels * Cost structure
+
+ Supprimer :
+* répétitions théoriques longues,
+* définitions Wikipédia,
+* descriptions inutiles de technologies,
+* textes trop évidents.
+Exemple :  “Flutter is a framework developed by Google…”
+Coté forme : “company organition chart” a remplacer par “Company Organizational Chart”
+ “Critiquedel’existant” à remplacer par  “Critique of Existing Solutions”
+ “definition of Methodologies” à rempalcer par  “Definition of Methodologies”
+ uniformiser : * majuscules, * titres, * police, * ponctuation, * espaces avant “:”.
+Et surtout a ajouter : 
+* Product Backlog détaillé
+* Sprint Backlog
+* User Stories
+* KPI…
+[1:58 PM, 21/05/2026] Madam Haifa: Ce que je souhaite voir dans votre prochaine version  : * analyse stratégique plus consistanyr, * UML amélioré, * étude de marché détaillée, * architecture métier
+[2:00 PM, 21/05/2026] Madam Haifa: De point de vue structure rapport , il faut faire des déplacements comme suit : 
+Benchmarking	: Chapitre 1
+SWOT	 :Chapitre 1
+Questionnaire	: Chapitre 2
+Scrum	: Chapitre 2
+UML	: Chapitre 3
+Architecture ;	Chapitre 3
+Firebase :	Chapitre 3
+Interfaces: Chapitre 4
+[2:03 PM, 21/05/2026] Madam Haifa: plan à respecter  : Chapter 1 Project Context and Strategic Analysis
+1.1 Host Company Presentation
+HorizonLux Overview
+Services
+Organizational Structure
+1.2 Project Context
+Consumer Behavior
+Digital Transformation in Event Industry
+Corporate Gifting Evolution
+1.3 Problem Statement à reformuler
+1.4 Project Idea and Objectives
+1.5 Market Study
+1.5.1 Event Market Analysis
+1.5.2 Corporate Gifting Market
+1.5.3 Market Trends
+1.5.4 Target Market
+1.6 Competitor Analysis
+1.6.1 Direct Competitors
+1.6.2 Indirect Competitors
+1.6.3 Comparative Benchmark Table
+1.6.4 Critique of Existing Solutions
+1.7 Strategic Analysis
+1.8 Proposed Solution
+1.9 Conclusion
+Chapter 2 Marketing and Project Management
+2.1 Questionnaire Methodology
+Objectives
+Sample
+Data Collection
+2.2 Survey …
+[2:06 PM, 21/05/2026] Madam Haifa: Et dans le chapitre 2 vous mettez  ; 2.10 Project Management Methodology
+2.11 Product Backlog
+Avec : User Stories , Priorités, Features
+PUIS VOUS METTTEZ PLANNING DES 6 OU 7 SPRINTS
+2.12 Sprint Planning
+Dans Sprint Planning mettre :
+Sprint 1
+Authentication & Setup
+Login
+Registration
+Firebase setup
+Sprint 2
+Service Discovery
+Provider listing
+Search system
+Categories
+Sprint 3
+Reservation Management
+Request submission
+Booking workflow
+Sprint 4
+Messaging System
+Chat
+Notifications
+Sprint 5
+Budget & Reviews
+Ratings
+Budget tracking
+Sprint 6
+Corporate Gift Module
+Product customization
+Logo integration
+Sprint 7
+Testing & Deployment
+Bug fixing
+Optimization
+Final deployment

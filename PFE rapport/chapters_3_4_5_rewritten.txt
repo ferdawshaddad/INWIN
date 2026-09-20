@@ -1,0 +1,454 @@
+CHAPTER 3
+FUNCTIONAL ANALYSIS, UML, AND TECHNICAL ARCHITECTURE
+
+3.1 Introduction
+
+This chapter presents the functional analysis and the technical structure of the INWIN application. The objective of this chapter is to identify the main actors of the system, define the implemented functional requirements, and explain the architecture adopted to build the mobile application. In order to remain aligned with the actual implementation, the analysis presented in this chapter is based on the existing Flutter and Firebase application.
+
+INWIN is designed as a mobile platform that centralizes the management of event requests and personalized corporate gift requests. The application supports both B2C and B2B users through differentiated flows, while the administrative side manages quotes, project follow-up, and communication with clients.
+
+3.2 Identification of Actors
+
+The INWIN application relies on three main actors in its current implementation:
+
+- Customer
+- Business Client
+- Administrator
+
+The Customer represents an individual user who accesses the platform for personal event organization. This actor follows the B2C flow and can browse event categories, submit event requests, track project progress, receive notifications, and communicate with the administrator.
+
+The Business Client represents a company user. This actor follows the B2B flow and has access to both the event module and the corporate gift module. In addition to event requests, the business client can configure personalized gift requests, upload logos or supporting files, follow quotations, and exchange messages with the administrator.
+
+The Administrator is the internal management actor of the platform. The administrator is responsible for viewing incoming requests, reviewing request details, preparing quotations, updating request status, and maintaining communication with customers and business clients.
+
+In the current version of the application, no dedicated provider account is implemented as a separate authenticated role. Therefore, the system should not be described as having an operational service-provider portal in its present state.
+
+3.3 Functional Requirements
+
+The functional requirements of the INWIN application are derived from the features that are effectively implemented in the current mobile application.
+
+3.3.1 Functional Requirements for Customers and Business Clients
+
+The platform allows users to:
+
+- create an account
+- log in securely using email and password
+- verify their email address after registration
+- manage and update profile information
+- browse available event categories
+- browse gift categories in the B2B flow
+- submit event requests
+- submit personalized corporate gift requests
+- upload logos and attachments related to requests
+- view ongoing and archived projects
+- track the status of each request
+- accept or reject a quotation
+- exchange messages with the administrator
+- download the bon de commande in PDF format after quote acceptance
+
+3.3.2 Functional Requirements for the Administrator
+
+The administrative module allows the administrator to:
+
+- view all requests submitted by users
+- filter requests according to status
+- access the details of each request
+- mark a request as under review
+- define supplier price and quoted price
+- send quotations to users
+- update production and delivery statuses
+- cancel requests when necessary
+- exchange messages with customers
+
+3.3.3 Non-Functional Requirements
+
+The application must satisfy a set of non-functional requirements in order to deliver a reliable and practical user experience:
+
+- usability: the interface must remain simple and easy to use for both individuals and companies
+- reactivity: the application must provide smooth navigation and fast access to project information
+- portability: the application is developed with Flutter in order to support mobile cross-platform deployment
+- scalability: Firebase services are used to support data synchronization and future growth of the platform
+- security: user access is controlled through Firebase Authentication and role-based routing logic
+- maintainability: the application is organized into features, models, services, widgets, and routing layers
+
+3.4 UML-Oriented Analysis
+
+The UML analysis of INWIN focuses on the application entities and the interactions between the implemented modules. In the current system, the most important conceptual classes are the user, the request, and the message. Around these entities, several services support authentication, request management, notifications, file handling, and messaging.
+
+The class AppUser represents the authenticated user of the application. It contains identification and profile information such as uid, full name, company name, email, phone, role, client type, profile picture, FCM token, and creation date. This class reflects the distinction between B2B and B2C users and also differentiates customer accounts from administrative accounts.
+
+The class QuoteRequest represents the central business entity of the application. It stores the information related to a submitted project request. A request may concern either an event or a personalized gift. This class includes the request identifier, customer information, request type, status, detailed form content, attachments, quotation information, notes, and timestamps.
+
+The class ChatMessage represents the communication unit exchanged inside a project. Each message is linked to a specific request and contains the sender identity, sender name, role flag, text, attachments, sending date, and read status.
+
+The application also relies on service classes such as AuthService, RequestService, MessageService, NotificationService, and StorageService. These services do not represent business entities but rather the technical operations required by the mobile application.
+
+3.5 Technical Architecture
+
+The INWIN application follows a mobile client and cloud backend architecture. The frontend is developed with Flutter and structured around feature modules. The backend relies on Firebase services for authentication, real-time data storage, file handling, and automated notifications.
+
+The main architectural components are as follows:
+
+- Flutter for the mobile frontend
+- Riverpod for state management
+- GoRouter for navigation and route protection
+- Firebase Authentication for account management
+- Cloud Firestore for storing users, requests, and messages
+- Firebase Cloud Messaging for push notifications
+- Cloud Functions for event-driven backend behavior
+- PDF and Printing packages for bon de commande generation
+
+The architecture is organized in a modular way. The application contains:
+
+- models to represent business data
+- services to encapsulate Firebase and app logic
+- presentation screens for user interaction
+- reusable widgets for visual consistency
+- router logic to protect routes according to role and client type
+
+3.6 Data Model
+
+The Firestore data organization of the application is centered around three principal structures.
+
+The first structure is the users collection:
+
+users/{uid}
+- fullName
+- companyName
+- email
+- phone
+- role
+- clientType
+- photoUrl
+- fcmToken
+- createdAt
+
+The second structure is the requests collection:
+
+requests/{requestId}
+- customerId
+- customerName
+- companyName
+- type
+- status
+- details
+- attachmentUrls
+- supplierPrice
+- quotedPrice
+- adminNote
+- customerNote
+- createdAt
+- updatedAt
+
+The third structure is the messages subcollection linked to each request:
+
+requests/{requestId}/messages/{messageId}
+- requestId
+- senderId
+- senderName
+- isAdmin
+- text
+- attachments
+- createdAt
+- isRead
+
+This model makes it possible to centralize all interactions related to one project inside the same request context.
+
+3.7 Access Logic and Security
+
+The access control of the application is based on Firebase Authentication and application routing rules.
+
+When the user is not authenticated, the application only authorizes access to public routes such as splash, onboarding, login, and register screens. Once the user is authenticated, the system verifies the email verification status for customer accounts. If the email is not verified, the user is redirected to the verification screen.
+
+The application also enforces business logic restrictions according to client type. B2C users cannot access the gift routes, whereas B2B users can access both the gifts module and the events module. Administrative users are redirected to dedicated administrative screens where they can manage all user requests.
+
+This logic improves consistency between the functional model and the actual navigation structure of the mobile application.
+
+3.8 Conclusion
+
+This chapter presented the main actors, the implemented functional requirements, and the technical architecture of the INWIN application. The analysis confirms that the application is built around three main roles: customer, business client, and administrator. It also shows that the platform is structured around a centralized request-based workflow supported by Firebase services and a modular Flutter frontend. The next chapter presents the system workflows and the dynamic behavior of the application.
+
+
+CHAPTER 4
+SYSTEM WORKFLOW AND DYNAMIC ARCHITECTURE
+
+4.1 Introduction
+
+This chapter explains how the INWIN application behaves during execution through its main workflows. While the previous chapter focused on actors, requirements, and architecture, this chapter presents the operational logic of the system. The objective is to describe how a user request moves through the application from submission to completion, and how communication, notifications, and quote validation are handled.
+
+4.2 Global Workflow of the Application
+
+The INWIN application is based on a centralized request workflow. Every project begins with a client request and then evolves through a controlled lifecycle managed by the administrator.
+
+The main workflow can be summarized as follows:
+
+1. The user creates an account and logs in.
+2. The user is redirected according to role and client type.
+3. The user browses the available modules.
+4. The user fills in an event request or a corporate gift request.
+5. The request is saved in Cloud Firestore.
+6. The administrator receives notification of the new request.
+7. The administrator reviews the project details.
+8. The administrator prepares a quote and updates the request.
+9. The customer receives a status notification.
+10. The customer accepts or rejects the quote.
+11. If the quote is accepted, the project continues toward production and delivery.
+12. During the project lifecycle, both sides can exchange messages inside the project detail space.
+
+This workflow allows the application to centralize project coordination and reduce communication fragmentation.
+
+4.3 Request Lifecycle
+
+The core of the INWIN workflow is the request lifecycle. Each request evolves through a set of predefined statuses stored in the QuoteRequest model. These statuses make the project progress visible to both the user and the administrator.
+
+The implemented statuses are:
+
+- pending
+- reviewing
+- quoted
+- accepted
+- rejected
+- inProduction
+- delivered
+- cancelled
+
+The meaning of these statuses is as follows:
+
+The status pending indicates that the request has just been submitted by the user and is awaiting administrative review.
+
+The status reviewing indicates that the administrator is currently analyzing the client request and preparing the quotation.
+
+The status quoted indicates that a quote has been sent to the user. At this stage, the user can accept or reject the proposal.
+
+The status accepted means that the customer approved the quotation. The project may then proceed to production and operational execution.
+
+The status rejected means that the user refused the quotation proposed by the administrator.
+
+The status inProduction indicates that the project is being processed operationally after validation.
+
+The status delivered indicates that the project has reached its final completion stage.
+
+The status cancelled indicates that the project was cancelled before completion.
+
+This state-based workflow is one of the strongest elements of the application because it makes project progression transparent and easy to follow.
+
+4.4 Authentication Workflow
+
+The authentication workflow begins when the user opens the application. At startup, the router checks whether the user is authenticated or not. If the user is not authenticated, the application redirects to public entry screens. If authentication succeeds, the system retrieves the corresponding user data from Firestore and applies role-based routing.
+
+For customer accounts, email verification is also part of the workflow. After registration, an email verification message is sent automatically. As long as the email is not verified, the user remains redirected to the dedicated verification screen.
+
+This mechanism reinforces account reliability while keeping the onboarding process integrated into the mobile experience.
+
+4.5 Request Submission Workflow
+
+The request submission workflow differs slightly according to user type.
+
+For B2C users, the platform focuses on event-related services. The user selects an event type, enters project details, chooses budget and preferences, and submits the request.
+
+For B2B users, the platform provides access to both event services and gift customization. In the corporate gift workflow, the user selects a category, customizes the request, uploads the logo if necessary, and submits the complete request form.
+
+Once submitted, the application creates a QuoteRequest entry in Cloud Firestore. The request becomes available to the administrator and enters the pending state.
+
+4.6 Administrator Management Workflow
+
+After a request is created, the administrator accesses it from the administrative request list. The administrator can inspect the customer information, the request type, the attachments, and the detailed specifications submitted by the user.
+
+The administrative workflow then includes the following actions:
+
+- mark the request as reviewing
+- set supplier price
+- define quoted price
+- add administrative note if needed
+- send the quote
+- update status after acceptance
+- move the request to production
+- mark the project as delivered or cancelled
+
+This workflow transforms the app into a centralized operational coordination tool rather than a simple catalog interface.
+
+4.7 Notification Workflow
+
+The INWIN application includes a notification workflow based on Firebase Cloud Messaging and Firebase Cloud Functions.
+
+Three automated notification scenarios are implemented.
+
+The first scenario occurs when a new request is submitted. A Cloud Function detects the creation of a new request and sends a notification to administrative users.
+
+The second scenario occurs when the request status changes. If the administrator updates the request to reviewing, quoted, accepted, inProduction, delivered, rejected, or cancelled, the customer receives a push notification informing them of the change.
+
+The third scenario occurs when a new message is created inside a request conversation. The system sends a notification to the other party so that the exchange remains reactive.
+
+This automatic notification system strengthens responsiveness and improves coordination between clients and the platform administration.
+
+4.8 Messaging Workflow
+
+The application supports direct communication inside the context of a request. Each project contains a dedicated message thread stored as a Firestore subcollection.
+
+When a message is sent, the system stores the message with the sender information, the request identifier, the date, and the read status. Both the customer and the administrator can view the chronological conversation directly from the project detail interface.
+
+This workflow reduces the need for external communication tools and keeps all project exchanges inside the same digital environment.
+
+4.9 Quote Validation and PDF Workflow
+
+One of the most important implemented workflows of the INWIN application is the quote validation process.
+
+When the administrator sends a quote, the user can open the project details and choose whether to accept or reject the proposal. If the user accepts, the request status changes to accepted and the application allows the generation of a bon de commande in PDF format.
+
+This PDF acts as a formalized document linked to the validated project. It reinforces the professional aspect of the platform and represents an important bridge between digital request handling and operational execution.
+
+4.10 Dynamic Interaction Between Frontend and Backend
+
+The dynamic behavior of the application depends on the interaction between the Flutter frontend and the Firebase backend.
+
+The frontend collects user input, displays project information, and renders project progression. Firestore acts as the primary data source for request and messaging synchronization. Cloud Functions introduce backend automation by reacting to changes in the database. Firebase Cloud Messaging completes this dynamic architecture by notifying the affected users in real time.
+
+This interaction model ensures that the application remains event-driven, reactive, and centered on project lifecycle management.
+
+4.11 Conclusion
+
+This chapter explained the operational workflows of the INWIN application. The analysis showed that the app is built around a status-driven request lifecycle supported by authentication, messaging, notifications, and quote validation mechanisms. The combination of these workflows turns the platform into a structured digital coordination system for event organization and personalized corporate gifting. The next chapter presents the execution and the implemented user interfaces.
+
+
+CHAPTER 5
+EXECUTION AND IMPLEMENTED INTERFACES
+
+5.1 Introduction
+
+This chapter presents the practical implementation of the INWIN application through its main interfaces and backend integration features. The purpose of this chapter is to describe the modules that are effectively available in the current version of the application and to show how the technical architecture was translated into a functional mobile product.
+
+5.2 Authentication Module
+
+The authentication module is the entry point of the application. It includes registration, login, and email verification interfaces.
+
+During registration, the user provides full name, email address, phone number, password, and client type. In the case of a business client, the registration form also includes the company name. After a successful registration, the application sends an email verification message to the new user.
+
+The login interface allows the user to authenticate with email and password. Once the user is authenticated, the application retrieves the profile data stored in Firestore and redirects the user according to role and profile type.
+
+The email verification screen is an important part of the implemented flow for customer accounts. It ensures that the user confirms ownership of the email address before accessing the main customer routes.
+
+5.3 Home Interface
+
+The home screen acts as the central dashboard of the customer side of the application. It adapts to the client profile.
+
+For B2B users, the home screen displays two main quick actions:
+
+- corporate gifts
+- corporate events
+
+For B2C users, the home screen displays the event-oriented entry point only.
+
+In addition to navigation shortcuts, the home interface also presents recent projects, access to notifications, and branding-oriented content blocks. This makes the home screen both a functional and visual summary of the user’s ongoing activity.
+
+5.4 Gift Module
+
+The gift module is available only for B2B users. It allows companies to request personalized corporate gifts through a category-based interface.
+
+The main gift categories currently implemented include:
+
+- notebooks
+- bottles and mugs
+- keychains
+- pens
+- bags and tote bags
+- gift boxes
+
+After selecting a category, the user accesses the gift configuration screen. This screen allows the user to define product-related details such as quantity, material, preferences, and logo placement. The user may also upload supporting files related to the branding request.
+
+The logo positioning widget is one of the most distinctive interfaces of the gift module. It provides a more visual customization experience and reinforces the application’s orientation toward branded corporate requests.
+
+5.5 Events Module
+
+The events module is available to both B2B and B2C users, but the workflows differ according to client type.
+
+For B2B users, the event module includes corporate-oriented event categories such as seminars, team building events, product launches, conferences, inaugurations, and annual company events.
+
+For B2C users, the event module includes more personal event categories such as birthdays, baby showers, engagement-related celebrations, private parties, and traditional events.
+
+Each event form allows the user to submit a request with specific details. Depending on the flow, the form may include event type, date, location, budget, preferences, and descriptive notes. This distinction between B2B and B2C event flows reflects one of the important design choices of the INWIN platform.
+
+5.6 Project Tracking Interface
+
+The project tracking interface is one of the key modules of the application. It allows users to follow all submitted requests from a centralized space.
+
+The projects list separates ongoing and archived projects. Each item displays essential request information such as category or event type, current status, and quote progress.
+
+When the user opens a project detail screen, the application displays:
+
+- request summary
+- detailed form information
+- attachments
+- current quotation if available
+- status progression
+- actions to accept or reject quote
+- chat section
+- PDF download when applicable
+
+This interface is particularly valuable because it transforms the request into a traceable digital project rather than a one-time form submission.
+
+5.7 Messaging Interface
+
+The messaging interface is integrated directly into the project detail screen. This choice ensures that communication remains contextualized around the corresponding project.
+
+Users can send messages related to a specific request without leaving the application. The administrative side has access to the same conversation thread from the request detail screen. This feature improves responsiveness and centralizes project communication.
+
+5.8 Profile Management Interface
+
+The profile interface allows users to view and update personal information. Depending on the account type, the user may edit full name, company information, phone number, and profile image. The screen also provides access to additional actions such as notifications and logout.
+
+This module contributes to user autonomy and supports the maintenance of up-to-date account data.
+
+5.9 Administrative Interfaces
+
+The administrative side of the application is one of the most operationally significant modules.
+
+The administrator request list screen displays all incoming requests and provides filtering by project status. This allows the administrator to quickly identify requests that are pending, under review, quoted, active, delivered, or cancelled.
+
+The administrator request detail screen provides a complete management interface. From this screen, the administrator can:
+
+- review user and project information
+- inspect attachments
+- enter supplier price
+- define quoted price
+- add notes
+- send quotation
+- update request status
+- move the project through its lifecycle
+- exchange messages with the client
+
+This interface effectively functions as the operational coordination center of the platform.
+
+5.10 Backend Integration
+
+The implementation of INWIN depends on several Firebase services.
+
+Firebase Authentication is used for account creation, login, logout, password reset, and email verification.
+
+Cloud Firestore is used to store user profiles, project requests, and message exchanges.
+
+Firebase Cloud Messaging is used to send notifications to users and administrators.
+
+Cloud Functions are used to automate the notification workflow when a new request is created, when a request status changes, and when a new message is sent.
+
+The application also includes PDF generation for the bon de commande feature. This enables the platform to produce a formal document after a quotation has been accepted.
+
+5.11 Important Implementation Note
+
+The current application includes upload-related interfaces and request attachments, and the architectural design targets file management through Firebase Storage. However, in the present development state, the storage service contains a temporary placeholder mechanism for uploads while the final storage configuration is being stabilized. Therefore, the report should present file handling as an implemented functional capability with a prototype-level storage integration still subject to final backend completion.
+
+5.12 Features That Should Not Be Overstated
+
+To remain aligned with the implemented application, the report should not describe the current version of INWIN as including:
+
+- integrated online payment
+- a dedicated provider portal
+- advanced logistics tracking
+- an AI recommendation engine
+- a complete review and rating subsystem
+
+These elements may be mentioned as future improvements, but not as fully implemented modules.
+
+5.13 Conclusion
+
+This chapter presented the practical execution of the INWIN application and the main interfaces implemented in the current version. The system successfully integrates authentication, differentiated B2B and B2C flows, request submission, project tracking, messaging, notification handling, quotation management, and PDF generation inside a single mobile environment. The result is a coherent application that supports the digital coordination of event organization and personalized corporate gift requests through a centralized workflow.
+

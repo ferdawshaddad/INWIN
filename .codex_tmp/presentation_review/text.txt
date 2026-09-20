@@ -1,0 +1,363 @@
+         Contribution to the Development of
+                       INWIN:
+        A Smart Platform for Event Organization
+           and Corporate Gift Customization
+                                 Prepared by : Mouna Oueldi, Ferdaws
+                                               Haddad
+
+                                      Supervised by : Mme. Haifa Ben
+                                                  Saber
+
+
+I NSTITUT SUPÉRIEUR DES ÉTUDES TECHNOLOGIQUES EN
+COMMUNICATIONS DE TUNIS D É P A R T E M E N T G T I C
+                 Presentation
+                    Outline
+01              Introduction                  04        Functional Analysis and Requirements
+                                                                     Engineering
+
+02     General Project Framework and
+                                              05         System Architecture and Workflow
+         Management Methodology                                      Designs
+
+03   Theoretical Studyand Marketing Plan      06                     Execution
+
+
+
+
+                         07                Conclusion
+     01
+
+
+Introduction
+01   Introduction
+
+
+
+
+                              Our projet
+
+
+
+
+        INWIN is an innovative mobile platform that combines event
+        organization and corporate gift management in a single solution. It
+        helps individuals and businesses find trusted service providers,
+        manage reservations, communicate efficiently, and customize
+        corporate gifts.
+             02
+
+General Project Framework and
+  Management Methodology
+                           Problem Statement
+
+
+
+                        Difficulty finding
+                         reliable event
+ Organizing events            service
+requires significant       providers.
+                                                How can digital transformation improve
+effort, coordination,
+      and time.                                 the coordination, personalization, and
+                                                management of event planning and
+                                                corporate gifting services through a
+                                                centralized mobile platform adapted to
+                                                both individuals and businesses?
+                                   Lack of a
+ Need for gift                    centralized
+customization                      solution.
+ (logos, text,
+    colors).
+
+
+                                                                                         6
+Centralized platform                           Simplified ordering
+for event organization.                        and planning process.
+
+
+
+
+                                               Personalized event
+ Integrated corporate
+                                               management services.
+ gift customization.
+
+
+
+
+                          Proposed Solutions
+         Le benchmarking
+
+
+
+
+Wide range of service providers in one platform.
+Integrated messaging and booking features.
+Budget
+ tracking and expense management tools.
+Ratings and reviews help users choose reliable
+providers.
+
+
+Focuses mainly on personal events.
+Does not support corporate gift management.
+Limited features for businesses and corporate
+events.
+Limited customization and branding options for
+companies.
+                                                   1
+S
+S     O
+    W O
+    W     T
+          T
+    All-in-one platform combining event
+    organization+corporate gift customization
+    reduces the need to use multiple platforms or
+    providers.
+    High level of personalization
+    Direct communication
+
+
+
+
+S
+S
+     W
+     W
+High development complexity
+Need strong supplier network
+Clear market gap in Tunisia
+Increasing demand from businesses for
+personalized promotional items
+Riseofmobile-firstservices
+Corporatebrandingtrend
+
+
+
+
+             O
+             O
+Traditional offline service providers
+                                          T
+                                          T
+Low trust in online service quality
+Price competition from informal or low-
+cost providers.
+Existing competitors in separate
+domains
+WELL SUITED FOR MOBILE                    Chosen Methodology for
+AND SOFTWARE PROJECTS
+                                              INWIN : Scrum
+
+              IMPROVES PRODUCTIVITY
+              AND TASK MANAGEMENT
+
+
+
+                           ALLOWS RAPID DEVELOPMENT
+                               THROUGH SPRINTS
+
+
+
+                                         ENCOURAGES TEAM WORK
+                                          AND COMMUNICATION
+         03
+
+Theoretical Study and
+   Marketing Plan
+                                    Key Concepts
+
+
+
+     Event Organization &
+                                  Role of Mobile Technologies        Impact of Digital Technologies
+  Corporate Gift Management
+
+
+
+Simplifies event planning and    Fast and accessible services     Reduces time and management
+coordination.                    anytime and anywhere.            complexity.
+Centralizes reservations,        Real-time communication          Improves user experience and
+communication, and budget        between clients and service      service accessibility.
+management.                      providers.                       Provides a centralized platform for
+Supports corporate branding      Features: notifications,         event organization and corporate
+through customized promotional   geolocation, reservations, and   gift customization
+products.                        personalization.
+
+                                                                                                  4
+                                Technologies Used in INWIN
+
+
+            Flutter                                                               Figma
+                                                Firebase
+
+
+Cross-platform mobile
+development (Android & iOS) :        Authentication, database, real-   UI/UX design and interactive
+   Single codebase                   time messaging, notifications :   prototyping
+   Fast development                     Real-time database                Modern interface design
+   High performance                     Secure authentication             Collaborative work
+                                        Easy backend management           Rapid prototyping
+
+
+
+
+                                                                                               4
+                                      MARKET STUDY
+
+
+
+ Market Size                           Market Trends                            Target Market
+
+EVENT INDUSTRY                         MOBILE-FIRST                          INDIVIDUALS
+MOBILE COMMERCE                       PERSONALIZATION                        SMES / LARGE ENTERPRISES
+DIGITALIZATION                        AUTOMATION                             CORPORATE ORGANIZATIONS
+CORPORATE BRANDING                    INSTANT MESSAGING                      EVENT ORGANIZERS
+
+
+                                    Instant Messaging
+
+                                   Opportunity for INWIN
+
+
+            Centralized platform for Event Management + Corporate Gift Customization
+
+
+                                     Unique Value Proposition                    For Businesses
+         For Individuals
+    Save time                                                               Brand visibility
+    Easy planning                                                           Automated quotations
+    Better communication                                                    Centralized services
+                             Marketing Mix
+
+                                                        Price
+Product
+Mobil
+Mobilee app :
+   customization Corporate gift               Commission fees
+   Event management                          Free
+                                             Free basic access
+
+                                  1    2
+
+
+
+
+PLACE                             4     3
+                                             PROMOTION
+
+Android
+Android & iOS                                          Media
+                                                Social Media
+                                                    Website
+                                                Partnerships
+                                                 Digital Ads
+                04
+
+
+
+Functional Analysis and Requirements
+             Engineering
+                                Functional Requirements
+
+
+         CUSTOMER:
+ • Register / Login / Profile                                        SYSTEM:
+         management                                         • Authentication & role
+   • Browse events & gifts                                        management
+• Send event & gift requests                              • Data storage (requests,
+    • Track project status                                     users, messages)
+• Accept / reject quotations              ADMIN:              • File upload (logos,
+    • Chat + notifications          • Manage requests              documents)
+                                     • Send quotations    • Real-time notifications
+                                      • Update project
+                                          status
+                                    • Communicate with
+                                          clients
+                            Security
+Performance
+
+
+
+                                                   Reliability
+
+                  Non-Functional Requirements
+
+
+
+
+      Usability
+                                   Compatibility
+Global Use Case Diagram
+              05
+
+
+System Architecture and Workf low
+             Designs
+ Class
+Diagram
+Sequence Diagrams
+Activity Diagrams
+Execution
+Login Interface
+Registration Interface
+Email Verification
+Home Interface
+Notifications
+Gifts Catalogue Interface   Gift Request Interface
+gift request interface after an image file has
+                been uploaded
+Event Catalogue Interface
+Event Request Interface
+Profile Management Interface
+Administrator
+Features : Main
+   Interface
+Administrator Features :
+ Details Interface and
+      Messeging
+the functionalities that allow the administrator to prepare
+quotations and manage the evolution of customer requests
+Project Tracking and Accepting Quotes
+               Proccess
+  the purchase
+ order generated
+    after the
+customer accepts
+  the quotation.
+           06
+
+
+
+Conclusion & Perspectives
+                        Conclusion
+
+
+
+
+In conclusion, INWIN offers an innovative solution that combines
+event management and corporate gift customization within a
+single mobile application. It simplifies organization, improves
+communication, and provides a better user experience for both
+individuals and businesses. As future work, we plan to integrate
+online payments, intelligent recommendations, additional
+partnerships, and expand the platform to reach a wider market
+           Perspectives
+
+
+AI-based event recommendations.
+Integrated online payment system.
+AI chatbot assistance.
+Advanced analytics dashboard.
+Multi-language support.
+Event planning calendar synchronization.
+Loyalty and reward system.
+Vendor performance analytics.
+Delivery tracking for corporate gifts.
+Advanced personalization tools.
+ Thank you for
+your attention !
+     do you have questions ?
+

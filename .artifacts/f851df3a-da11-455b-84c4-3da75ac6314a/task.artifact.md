@@ -1,0 +1,5 @@
+- [x] Update `_ProductColorLayer` class in `logo_positioner.dart`
+- [x] Update `_previewConfigs` for notebook categories
+- [x] Update `_ProductLayerImage` widget to support `blendMode`
+- [x] Fix color inheritance for relief layers
+- [x] Verify changes

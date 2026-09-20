@@ -1,0 +1,3016 @@
+cat /home/claude/inwin_app/lib/core/models/app_user.dart 2>/dev/null | head -30
+echo "---"
+cat /home/claude/inwin_app/lib/core/services/auth_service.dart 2>/dev/null | head -30
+mkdir -p /home/claude/inwin_app/lib/core/models
+mkdir -p /home/claude/inwin_app/lib/core/services
+mkdir -p /home/claude/inwin_app/lib/core/constants
+mkdir -p /home/claude/inwin_app/lib/core/router
+mkdir -p /home/claude/inwin_app/lib/features/auth/presentation/screens
+mkdir -p /home/claude/inwin_app/lib/features/home/presentation/screens
+mkdir -p /home/claude/inwin_app/lib/features/events/presentation/screens
+mkdir -p /home/claude/inwin_app/lib/features/profile/presentation/screens
+echo "Dirs ready"
+cat > /home/claude/inwin_app/lib/core/models/app_user.dart << 'DART'
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+enum UserRole { customer, admin }
+
+/// B2B = entreprise (gifts + events pro)
+/// B2C = particulier (personal events only)
+enum ClientType { b2b, b2c }
+
+extension ClientTypeX on ClientType {
+  String get label =>
+      this == ClientType.b2b ? 'Entreprise' : 'Particulier';
+  bool get isB2B => this == ClientType.b2b;
+  bool get isB2C => this == ClientType.b2c;
+}
+
+class AppUser {
+  final String uid;
+  final String fullName;
+  final String? companyName; // null for B2C
+  final String email;
+  final String phone;
+  final UserRole role;
+  final ClientType clientType;
+  final String? photoUrl;
+  final String? fcmToken;
+  final DateTime createdAt;
+
+  const AppUser({
+    required this.uid,
+    required this.fullName,
+    this.companyName,
+    required this.email,
+    required this.phone,
+    required this.role,
+    required this.clientType,
+    this.photoUrl,
+    this.fcmToken,
+    required this.createdAt,
+  });
+
+  factory AppUser.fromFirestore(DocumentSnapshot doc) {
+    final d = doc.data() as Map<String, dynamic>;
+    return AppUser(
+      uid: doc.id,
+      fullName: d['fullName'] ?? '',
+      companyName: d['companyName'],
+      email: d['email'] ?? '',
+      phone: d['phone'] ?? '',
+      role: d['role'] == 'admin' ? UserRole.admin : UserRole.customer,
+      clientType: d['clientType'] == 'b2c'
+          ? ClientType.b2c
+          : ClientType.b2b,
+      photoUrl: d['photoUrl'],
+      fcmToken: d['fcmToken'],
+      createdAt:
+          (d['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+    'fullName': fullName,
+    if (companyName != null) 'companyName': companyName,
+    'email': email,
+    'phone': phone,
+    'role': role.name,
+    'clientType': clientType.name,
+    'photoUrl': photoUrl,
+    'fcmToken': fcmToken,
+    'createdAt': Timestamp.fromDate(createdAt),
+  };
+
+  AppUser copyWith({
+    String? fullName,
+    String? companyName,
+    String? phone,
+    String? photoUrl,
+    String? fcmToken,
+  }) =>
+      AppUser(
+        uid: uid,
+        fullName: fullName ?? this.fullName,
+        companyName: companyName ?? this.companyName,
+        email: email,
+        phone: phone ?? this.phone,
+        role: role,
+        clientType: clientType,
+        photoUrl: photoUrl ?? this.photoUrl,
+        fcmToken: fcmToken ?? this.fcmToken,
+        createdAt: createdAt,
+      );
+}
+cat > /home/claude/inwin_app/lib/core/services/auth_service.dart << 'DART'
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/app_user.dart';
+
+final authServiceProvider =
+    Provider<AuthService>((ref) => AuthService());
+
+final currentUserProvider = StreamProvider<AppUser?>((ref) {
+  return ref.watch(authServiceProvider).userStream;
+});
+
+class AuthService {
+  final _auth = FirebaseAuth.instance;
+  final _db   = FirebaseFirestore.instance;
+
+  Stream<AppUser?> get userStream {
+    return _auth.authStateChanges().asyncMap((firebaseUser) async {
+      if (firebaseUser == null) return null;
+      try {
+        final doc = await _db
+            .collection('users')
+            .doc(firebaseUser.uid)
+            .get();
+        if (!doc.exists) return null;
+        return AppUser.fromFirestore(doc);
+      } catch (_) {
+        return null;
+      }
+    });
+  }
+
+  Future<AppUser> signIn({
+    required String email,
+    required String password,
+  }) async {
+    final cred = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    final doc =
+        await _db.collection('users').doc(cred.user!.uid).get();
+    return AppUser.fromFirestore(doc);
+  }
+
+  Future<AppUser> register({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+    required ClientType clientType,
+    String? companyName, // only for B2B
+  }) async {
+    final cred = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    final user = AppUser(
+      uid: cred.user!.uid,
+      fullName: fullName,
+      companyName:
+          clientType.isB2B ? companyName : null,
+      email: email,
+      phone: phone,
+      role: UserRole.customer,
+      clientType: clientType,
+      createdAt: DateTime.now(),
+    );
+
+    await _db
+        .collection('users')
+        .doc(user.uid)
+        .set(user.toMap());
+    await cred.user!.updateDisplayName(fullName);
+    return user;
+  }
+
+  Future<void> signOut() => _auth.signOut();
+
+  Future<void> resetPassword(String email) =>
+      _auth.sendPasswordResetEmail(email: email);
+
+  Future<void> updateFcmToken(String uid, String token) =>
+      _db.collection('users').doc(uid).update({'fcmToken': token});
+
+  Future<void> updateProfile(
+    String uid, {
+    String? fullName,
+    String? phone,
+    String? companyName,
+    String? photoUrl,
+  }) {
+    final data = <String, dynamic>{};
+    if (fullName != null)    data['fullName']    = fullName;
+    if (phone != null)       data['phone']       = phone;
+    if (companyName != null) data['companyName'] = companyName;
+    if (photoUrl != null)    data['photoUrl']    = photoUrl;
+    return _db.collection('users').doc(uid).update(data);
+  }
+}
+cat > /home/claude/inwin_app/lib/features/auth/presentation/screens/register_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/app_user.dart';
+import '../../../../core/services/auth_service.dart';
+
+class RegisterScreen extends ConsumerStatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  ConsumerState<RegisterScreen> createState() =>
+      _RegisterScreenState();
+}
+
+class _RegisterScreenState
+    extends ConsumerState<RegisterScreen> {
+  final _formKey   = GlobalKey<FormState>();
+  final _nameCtrl  = TextEditingController();
+  final _coCtrl    = TextEditingController(); // company — B2B only
+  final _emailCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
+  final _passCtrl  = TextEditingController();
+
+  ClientType _clientType = ClientType.b2b; // default
+  bool _obscure = true;
+  bool _loading = false;
+  String? _error;
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose(); _coCtrl.dispose();
+    _emailCtrl.dispose(); _phoneCtrl.dispose();
+    _passCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _register() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() { _loading = true; _error = null; });
+    try {
+      await ref.read(authServiceProvider).register(
+        fullName:    _nameCtrl.text.trim(),
+        email:       _emailCtrl.text.trim(),
+        phone:       _phoneCtrl.text.trim(),
+        password:    _passCtrl.text,
+        clientType:  _clientType,
+        companyName: _clientType.isB2B
+            ? _coCtrl.text.trim()
+            : null,
+      );
+    } on Exception catch (e) {
+      setState(() =>
+          _error = e.toString().replaceAll('Exception: ', ''));
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  String? _req(String? v) =>
+      (v?.trim().isEmpty ?? true) ? 'Champ requis' : null;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                IconButton(
+                  onPressed: () => context.go('/login'),
+                  icon: const Icon(Icons.arrow_back_ios_new,
+                      size: 20),
+                  padding: EdgeInsets.zero,
+                ),
+                const SizedBox(height: 16),
+                Text('Créer un compte',
+                  style: Theme.of(context)
+                      .textTheme.displayLarge),
+                const SizedBox(height: 8),
+                Text(
+                  'Rejoignez INWIN pour vos projets sur mesure.',
+                  style: Theme.of(context).textTheme.bodyMedium),
+                const SizedBox(height: 28),
+
+                // ── Client type selector ──────────────────────────
+                const Text('Vous êtes :',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.navyBlue)),
+                const SizedBox(height: 10),
+                Row(children: [
+                  Expanded(
+                    child: _TypeCard(
+                      type: ClientType.b2b,
+                      selected: _clientType == ClientType.b2b,
+                      onTap: () => setState(
+                          () => _clientType = ClientType.b2b),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _TypeCard(
+                      type: ClientType.b2c,
+                      selected: _clientType == ClientType.b2c,
+                      onTap: () => setState(
+                          () => _clientType = ClientType.b2c),
+                    ),
+                  ),
+                ]),
+                const SizedBox(height: 20),
+
+                // ── Common fields ─────────────────────────────────
+                _Field(
+                  label: 'Nom complet',
+                  ctrl: _nameCtrl,
+                  icon: Icons.person_outline,
+                  validator: _req,
+                ),
+                const SizedBox(height: 14),
+
+                // ── Company name — B2B only ───────────────────────
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  child: _clientType.isB2B
+                      ? Column(children: [
+                          _Field(
+                            label: "Nom d'entreprise",
+                            ctrl: _coCtrl,
+                            icon: Icons.business_outlined,
+                            validator: _clientType.isB2B
+                                ? _req
+                                : null,
+                          ),
+                          const SizedBox(height: 14),
+                        ])
+                      : const SizedBox.shrink(),
+                ),
+
+                _Field(
+                  label: 'Adresse e-mail',
+                  ctrl: _emailCtrl,
+                  icon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: _req,
+                ),
+                const SizedBox(height: 14),
+                _Field(
+                  label: 'Numéro de téléphone',
+                  ctrl: _phoneCtrl,
+                  icon: Icons.phone_outlined,
+                  keyboardType: TextInputType.phone,
+                  validator: _req,
+                ),
+                const SizedBox(height: 14),
+                _Field(
+                  label: 'Mot de passe',
+                  ctrl: _passCtrl,
+                  icon: Icons.lock_outlined,
+                  obscure: _obscure,
+                  validator: (v) => (v?.length ?? 0) < 6
+                      ? 'Minimum 6 caractères'
+                      : null,
+                  suffix: IconButton(
+                    icon: Icon(_obscure
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    onPressed: () =>
+                        setState(() => _obscure = !_obscure),
+                  ),
+                ),
+
+                if (_error != null) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppColors.cancelled
+                          .withOpacity(0.1),
+                      borderRadius:
+                          BorderRadius.circular(10)),
+                    child: Text(_error!,
+                      style: const TextStyle(
+                          color: AppColors.cancelled,
+                          fontSize: 13)),
+                  ),
+                ],
+                const SizedBox(height: 28),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _loading ? null : _register,
+                    child: _loading
+                        ? const SizedBox(
+                            width: 20, height: 20,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white))
+                        : const Text('Créer un compte'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("J'ai déjà un compte ? "),
+                    GestureDetector(
+                      onTap: () => context.go('/login'),
+                      child: const Text('Se connecter',
+                        style: TextStyle(
+                          color: AppColors.lightGold,
+                          fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Client type selector card ────────────────────────────────────────────
+class _TypeCard extends StatelessWidget {
+  final ClientType type;
+  final bool selected;
+  final VoidCallback onTap;
+  const _TypeCard({
+    required this.type,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isB2B = type == ClientType.b2b;
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(
+            vertical: 16, horizontal: 12),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.navyBlue.withOpacity(0.06)
+              : Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: selected
+                ? AppColors.navyBlue
+                : AppColors.divider,
+            width: selected ? 2 : 0.5,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              isB2B ? '🏢' : '👤',
+              style: const TextStyle(fontSize: 28)),
+            const SizedBox(height: 8),
+            Text(
+              isB2B ? 'Entreprise' : 'Particulier',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: selected
+                    ? AppColors.navyBlue
+                    : AppColors.textPrimary),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              isB2B
+                  ? 'Cadeaux & événements pro'
+                  : 'Événements personnels',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 11,
+                color: selected
+                    ? AppColors.navyBlue.withOpacity(0.7)
+                    : AppColors.textSecondary,
+                height: 1.3,
+              ),
+            ),
+            if (selected) ...[
+              const SizedBox(height: 8),
+              Container(
+                width: 20, height: 20,
+                decoration: const BoxDecoration(
+                  color: AppColors.navyBlue,
+                  shape: BoxShape.circle),
+                child: const Icon(Icons.check,
+                    size: 12, color: Colors.white),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Reusable field ───────────────────────────────────────────────────────
+class _Field extends StatelessWidget {
+  final String label;
+  final TextEditingController ctrl;
+  final IconData icon;
+  final bool obscure;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final Widget? suffix;
+
+  const _Field({
+    required this.label,
+    required this.ctrl,
+    required this.icon,
+    this.obscure = false,
+    this.keyboardType,
+    this.validator,
+    this.suffix,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: ctrl,
+      obscureText: obscure,
+      keyboardType: keyboardType,
+      validator: validator,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, size: 20),
+        suffixIcon: suffix,
+      ),
+    );
+  }
+}
+cat > /home/claude/inwin_app/lib/features/home/presentation/screens/home_shell.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/app_user.dart';
+import '../../../../core/services/auth_service.dart';
+
+class HomeShell extends ConsumerWidget {
+  final Widget child;
+  const HomeShell({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(currentUserProvider).valueOrNull;
+    final isB2C = user?.clientType == ClientType.b2c;
+
+    return isB2C
+        ? _B2CShell(child: child)
+        : _B2BShell(child: child);
+  }
+}
+
+// ─── B2B Shell — 5 tabs ───────────────────────────────────────────────────
+class _B2BShell extends StatelessWidget {
+  final Widget child;
+  const _B2BShell({required this.child});
+
+  int _idx(BuildContext ctx) {
+    final loc = GoRouterState.of(ctx).matchedLocation;
+    if (loc.startsWith('/home'))     return 0;
+    if (loc.startsWith('/gifts'))    return 1;
+    if (loc.startsWith('/events'))   return 2;
+    if (loc.startsWith('/projects')) return 3;
+    if (loc.startsWith('/profile'))  return 4;
+    return 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: child,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+              top: BorderSide(
+                  color: AppColors.divider, width: 0.5)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _idx(context),
+          onTap: (i) {
+            const routes = [
+              '/home', '/gifts', '/events',
+              '/projects', '/profile',
+            ];
+            context.go(routes[i]);
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home),
+                label: 'Accueil'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.card_giftcard_outlined),
+                activeIcon: Icon(Icons.card_giftcard),
+                label: 'Cadeaux'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.event_outlined),
+                activeIcon: Icon(Icons.event),
+                label: 'Événements'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.inventory_2_outlined),
+                activeIcon: Icon(Icons.inventory_2),
+                label: 'Projets'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                activeIcon: Icon(Icons.person),
+                label: 'Profil'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── B2C Shell — 3 tabs ───────────────────────────────────────────────────
+class _B2CShell extends StatelessWidget {
+  final Widget child;
+  const _B2CShell({required this.child});
+
+  int _idx(BuildContext ctx) {
+    final loc = GoRouterState.of(ctx).matchedLocation;
+    if (loc.startsWith('/home'))    return 0;
+    if (loc.startsWith('/events'))  return 1;
+    if (loc.startsWith('/profile')) return 2;
+    return 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: child,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+              top: BorderSide(
+                  color: AppColors.divider, width: 0.5)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _idx(context),
+          onTap: (i) {
+            const routes = [
+              '/home', '/events/b2c', '/profile',
+            ];
+            context.go(routes[i]);
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home),
+                label: 'Accueil'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.celebration_outlined),
+                activeIcon: Icon(Icons.celebration),
+                label: 'Événements'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                activeIcon: Icon(Icons.person),
+                label: 'Profil'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+cat > /home/claude/inwin_app/lib/features/home/presentation/screens/home_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/app_user.dart';
+import '../../../../core/models/quote_request.dart';
+import '../../../../core/services/auth_service.dart';
+import '../../../../core/services/request_service.dart';
+import '../../../../core/widgets/status_badge.dart';
+
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userAsync = ref.watch(currentUserProvider);
+    return userAsync.when(
+      loading: () => const Scaffold(
+          body: Center(child: CircularProgressIndicator())),
+      error: (e, _) => Scaffold(
+          body: Center(child: Text('$e'))),
+      data: (user) {
+        if (user == null) return const SizedBox();
+        return user.clientType == ClientType.b2c
+            ? _B2CHome(user: user, ref: ref)
+            : _B2BHome(user: user, ref: ref);
+      },
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// B2B HOME
+// ══════════════════════════════════════════════════════════════════════════
+class _B2BHome extends StatelessWidget {
+  final AppUser user;
+  final WidgetRef ref;
+  const _B2BHome({required this.user, required this.ref});
+
+  @override
+  Widget build(BuildContext context) {
+    final requestsAsync = ref.watch(
+      StreamProvider((r) => r
+          .read(requestServiceProvider)
+          .watchCustomerRequests(user.uid)),
+    );
+
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      body: CustomScrollView(
+        slivers: [
+          // App bar
+          SliverAppBar(
+            floating: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: null,
+            flexibleSpace: null,
+            expandedHeight: 0,
+          ),
+          // Greeting
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 16, 20, 0),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text('Bonjour,',
+                        style: Theme.of(context)
+                            .textTheme.bodyMedium),
+                      Text(
+                        '${user.fullName.split(' ').first} 👋',
+                        style: Theme.of(context)
+                            .textTheme.displayLarge
+                            ?.copyWith(fontSize: 26)),
+                    ],
+                  ),
+                  _NotificationBell(),
+                ],
+              ),
+            ),
+          ),
+          // Quick actions — B2B
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 24, 20, 0),
+              child: Text('Demander un devis',
+                style: Theme.of(context)
+                    .textTheme.titleLarge),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 12, 20, 0),
+              child: Row(children: [
+                Expanded(
+                  child: _QuickCard(
+                    emoji: '🎁',
+                    label: 'Cadeaux professionnels',
+                    color: AppColors.navyBlue,
+                    onTap: () => context.go('/gifts'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _QuickCard(
+                    emoji: '🎪',
+                    label: 'Organiser un événement',
+                    color: AppColors.lightGold,
+                    onTap: () => context.go('/events'),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          // Expert banner
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 12, 20, 0),
+              child: _ExpertBanner(),
+            ),
+          ),
+          // Recent projects
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 28, 20, 8),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Projets récents',
+                    style: Theme.of(context)
+                        .textTheme.titleLarge),
+                  TextButton(
+                    onPressed: () =>
+                        context.go('/projects'),
+                    child: const Text('Voir tout',
+                      style: TextStyle(
+                          color: AppColors.lightGold)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          requestsAsync.when(
+            loading: () => const SliverToBoxAdapter(
+              child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(32),
+                    child: CircularProgressIndicator()))),
+            error: (_, __) =>
+                const SliverToBoxAdapter(
+                    child: SizedBox()),
+            data: (requests) {
+              if (requests.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: _B2BEmptyState(),
+                );
+              }
+              final recent = requests.take(3).toList();
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (ctx, i) => _RequestCard(
+                    request: recent[i],
+                    onTap: () => context.go(
+                        '/projects/${recent[i].id}'),
+                  ),
+                  childCount: recent.length,
+                ),
+              );
+            },
+          ),
+          const SliverToBoxAdapter(
+              child: SizedBox(height: 32)),
+        ],
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// B2C HOME
+// ══════════════════════════════════════════════════════════════════════════
+class _B2CHome extends StatelessWidget {
+  final AppUser user;
+  final WidgetRef ref;
+  const _B2CHome({required this.user, required this.ref});
+
+  @override
+  Widget build(BuildContext context) {
+    final requestsAsync = ref.watch(
+      StreamProvider((r) => r
+          .read(requestServiceProvider)
+          .watchCustomerRequests(user.uid)),
+    );
+
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            expandedHeight: 0,
+          ),
+          // Greeting
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 16, 20, 0),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text('Bonjour,',
+                        style: Theme.of(context)
+                            .textTheme.bodyMedium),
+                      Text(
+                        '${user.fullName.split(' ').first} 🎉',
+                        style: Theme.of(context)
+                            .textTheme.displayLarge
+                            ?.copyWith(fontSize: 26)),
+                    ],
+                  ),
+                  _NotificationBell(),
+                ],
+              ),
+            ),
+          ),
+          // Hero CTA
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 24, 20, 0),
+              child: _B2CHeroBanner(
+                onTap: () =>
+                    context.go('/events/b2c'),
+              ),
+            ),
+          ),
+          // B2C event categories strip
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 24, 20, 8),
+              child: Text('Vos événements',
+                style: Theme.of(context)
+                    .textTheme.titleLarge),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: _B2CCategoryStrip(),
+          ),
+          // Expert banner
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 16, 20, 0),
+              child: _ExpertBanner(
+                  label: 'Parler à un wedding planner'),
+            ),
+          ),
+          // Recent requests
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  20, 28, 20, 8),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Mes demandes',
+                    style: Theme.of(context)
+                        .textTheme.titleLarge),
+                  TextButton(
+                    onPressed: () =>
+                        context.go('/projects'),
+                    child: const Text('Voir tout',
+                      style: TextStyle(
+                          color: AppColors.lightGold)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          requestsAsync.when(
+            loading: () => const SliverToBoxAdapter(
+              child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(32),
+                    child:
+                        CircularProgressIndicator()))),
+            error: (_, __) =>
+                const SliverToBoxAdapter(
+                    child: SizedBox()),
+            data: (requests) {
+              if (requests.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: _B2CEmptyState(),
+                );
+              }
+              final recent = requests.take(3).toList();
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (ctx, i) => _RequestCard(
+                    request: recent[i],
+                    onTap: () => context.go(
+                        '/projects/${recent[i].id}'),
+                  ),
+                  childCount: recent.length,
+                ),
+              );
+            },
+          ),
+          const SliverToBoxAdapter(
+              child: SizedBox(height: 32)),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── B2C Hero banner ──────────────────────────────────────────────────────
+class _B2CHeroBanner extends StatelessWidget {
+  final VoidCallback onTap;
+  const _B2CHeroBanner({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.navyBlue,
+              Color(0xFF283593),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+                const Text('Votre événement de rêve',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    height: 1.3)),
+                const SizedBox(height: 6),
+                const Text(
+                  'Mariages · Fiançailles · Anniversaires'
+                  ' · Baby showers · Tout type d\'événement',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    height: 1.5)),
+                const SizedBox(height: 14),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.lightGold,
+                    borderRadius:
+                        BorderRadius.circular(10)),
+                  child: const Text(
+                    'Demander un devis',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600)),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          const Text('💍', style: TextStyle(fontSize: 52)),
+        ]),
+      ),
+    );
+  }
+}
+
+// ─── B2C category strip ───────────────────────────────────────────────────
+const _b2cCategories = [
+  ('💍', 'Mariage'),
+  ('💒', 'Fiançailles'),
+  ('🎂', 'Anniversaire'),
+  ('👶', 'Baby Shower'),
+  ('🎓', 'Remise de diplôme'),
+  ('🥳', 'Soirée privée'),
+  ('🍽️', 'Dîner de gala'),
+  ('✨', 'Autre'),
+];
+
+class _B2CCategoryStrip extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 88,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(
+            horizontal: 20),
+        itemCount: _b2cCategories.length,
+        separatorBuilder: (_, __) =>
+            const SizedBox(width: 10),
+        itemBuilder: (_, i) {
+          final (emoji, label) = _b2cCategories[i];
+          return GestureDetector(
+            onTap: () =>
+                context.go('/events/b2c?category=$label'),
+            child: Container(
+              width: 72,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                    color: AppColors.divider,
+                    width: 0.5)),
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center,
+                children: [
+                  Text(emoji,
+                    style:
+                        const TextStyle(fontSize: 24)),
+                  const SizedBox(height: 5),
+                  Text(label,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// ─── Empty states ─────────────────────────────────────────────────────────
+class _B2BEmptyState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.all(32),
+    child: Column(children: [
+      Container(
+        width: 72, height: 72,
+        decoration: BoxDecoration(
+          color: AppColors.navyBlue.withOpacity(0.07),
+          shape: BoxShape.circle),
+        child: const Icon(Icons.inbox_outlined,
+            size: 34, color: AppColors.navyBlue),
+      ),
+      const SizedBox(height: 14),
+      const Text('Aucun projet pour le moment',
+        style: TextStyle(
+          fontSize: 15, fontWeight: FontWeight.w600)),
+      const SizedBox(height: 6),
+      const Text(
+        'Créez votre première demande de devis.',
+        style: TextStyle(color: AppColors.textSecondary),
+        textAlign: TextAlign.center),
+    ]),
+  );
+}
+
+class _B2CEmptyState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.all(32),
+    child: Column(children: [
+      const Text('🎊',
+          style: TextStyle(fontSize: 48)),
+      const SizedBox(height: 14),
+      const Text('Aucun événement planifié',
+        style: TextStyle(
+          fontSize: 15, fontWeight: FontWeight.w600)),
+      const SizedBox(height: 6),
+      const Text(
+        'Décrivez votre événement et recevez un devis personnalisé.',
+        style: TextStyle(color: AppColors.textSecondary),
+        textAlign: TextAlign.center),
+    ]),
+  );
+}
+
+// ─── Shared widgets ───────────────────────────────────────────────────────
+class _QuickCard extends StatelessWidget {
+  final String emoji, label;
+  final Color color;
+  final VoidCallback onTap;
+  const _QuickCard({
+    required this.emoji, required this.label,
+    required this.color, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(emoji,
+                style: const TextStyle(fontSize: 28)),
+            const SizedBox(height: 12),
+            Text(label,
+              style: const TextStyle(
+                color: Colors.white, fontSize: 13,
+                fontWeight: FontWeight.w600,
+                height: 1.3)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ExpertBanner extends StatelessWidget {
+  final String label;
+  const _ExpertBanner({
+    this.label = 'Parler à un expert',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.navyBlue.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+            color: AppColors.navyBlue.withOpacity(0.12))),
+      child: Row(children: [
+        Container(
+          width: 48, height: 48,
+          decoration: BoxDecoration(
+            color: AppColors.lightGold.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(12)),
+          child: const Icon(Icons.headset_mic_outlined,
+              color: AppColors.lightGold, size: 24),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Besoin d\'aide ?',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600)),
+              Text(label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.textSecondary)),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(0, 34),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12),
+            textStyle: const TextStyle(fontSize: 12)),
+          child: const Text('Contacter'),
+        ),
+      ]),
+    );
+  }
+}
+
+class _NotificationBell extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 42, height: 42,
+      decoration: BoxDecoration(
+        color: AppColors.navyBlue.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(12)),
+      child: const Icon(Icons.notifications_outlined,
+          color: AppColors.navyBlue, size: 20),
+    );
+  }
+}
+
+class _RequestCard extends StatelessWidget {
+  final QuoteRequest request;
+  final VoidCallback onTap;
+  const _RequestCard(
+      {required this.request, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final isEvent = request.type == RequestType.event;
+    return Card(
+      margin: const EdgeInsets.symmetric(
+          horizontal: 20, vertical: 4),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(children: [
+            Container(
+              width: 44, height: 44,
+              decoration: BoxDecoration(
+                color: isEvent
+                    ? AppColors.lightGold.withOpacity(0.1)
+                    : AppColors.navyBlue.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(10)),
+              child: Icon(
+                isEvent
+                    ? Icons.celebration_outlined
+                    : Icons.card_giftcard_outlined,
+                color: isEvent
+                    ? AppColors.lightGold
+                    : AppColors.navyBlue,
+                size: 20),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    request.details['category'] ??
+                        request.details['eventType'] ??
+                        'Demande',
+                    style: Theme.of(context)
+                        .textTheme.titleMedium,
+                    overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: 2),
+                  Text(
+                    request.details['material'] ??
+                        request.details['location'] ??
+                        '',
+                    style: Theme.of(context)
+                        .textTheme.bodyMedium),
+                ],
+              ),
+            ),
+            StatusBadge(
+                status: request.status, small: true),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+cat > /home/claude/inwin_app/lib/features/events/presentation/screens/b2c_event_form_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/quote_request.dart';
+import '../../../../core/services/auth_service.dart';
+import '../../../../core/services/request_service.dart';
+
+// B2C event categories
+const _b2cEventTypes = [
+  ('💍', 'Mariage',            'Organisation complète de votre mariage'),
+  ('💒', 'Fiançailles',        'Soirée de fiançailles mémorable'),
+  ('🎂', 'Anniversaire',       'Fête d\'anniversaire sur mesure'),
+  ('👶', 'Baby Shower',        'Célébration de l\'arrivée de bébé'),
+  ('🎓', 'Remise de diplôme',  'Cérémonie et réception diplôme'),
+  ('🥳', 'Soirée privée',      'Soirée entre amis ou en famille'),
+  ('🍽️', 'Dîner de gala',     'Dîner élégant et raffiné'),
+  ('✨', 'Autre',               'Décrivez votre événement'),
+];
+
+const _budgetRanges = [
+  'Moins de 500 TND',
+  '500 – 1 000 TND',
+  '1 000 – 3 000 TND',
+  '3 000 – 5 000 TND',
+  'Plus de 5 000 TND',
+  'À définir avec INWIN',
+];
+
+const _guestRanges = [
+  'Moins de 20 personnes',
+  '20 – 50 personnes',
+  '50 – 100 personnes',
+  '100 – 200 personnes',
+  'Plus de 200 personnes',
+];
+
+class B2cEventFormScreen extends ConsumerStatefulWidget {
+  /// Pre-selected category from the home strip (optional)
+  final String? preselectedCategory;
+
+  const B2cEventFormScreen({
+    super.key,
+    this.preselectedCategory,
+  });
+
+  @override
+  ConsumerState<B2cEventFormScreen> createState() => _State();
+}
+
+class _State extends ConsumerState<B2cEventFormScreen> {
+  final _formKey    = GlobalKey<FormState>();
+  final _noteCtrl   = TextEditingController();
+  final _locationCtrl = TextEditingController();
+
+  String? _selectedType;
+  DateTime? _eventDate;
+  String _budget    = _budgetRanges.first;
+  String _guests    = _guestRanges.first;
+  bool _loading     = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Pre-select if coming from home category strip
+    if (widget.preselectedCategory != null) {
+      _selectedType = widget.preselectedCategory;
+    }
+  }
+
+  @override
+  void dispose() {
+    _noteCtrl.dispose();
+    _locationCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickDate() async {
+    final d = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(const Duration(days: 30)),
+      firstDate: DateTime.now().add(const Duration(days: 1)),
+      lastDate: DateTime.now().add(const Duration(days: 730)),
+      builder: (ctx, child) => Theme(
+        data: Theme.of(ctx).copyWith(
+          colorScheme: const ColorScheme.light(
+              primary: AppColors.navyBlue)),
+        child: child!),
+    );
+    if (d != null) setState(() => _eventDate = d);
+  }
+
+  Future<void> _submit() async {
+    if (_selectedType == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Veuillez choisir un type d\'événement.')));
+      return;
+    }
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _loading = true);
+    try {
+      final user =
+          ref.read(currentUserProvider).valueOrNull!;
+
+      final req = QuoteRequest(
+        id: '',
+        customerId: user.uid,
+        customerName: user.fullName,
+        companyName: null, // B2C — no company
+        type: RequestType.event,
+        status: RequestStatus.pending,
+        details: {
+          'eventType':  _selectedType,
+          'clientType': 'b2c',
+          if (_eventDate != null)
+            'eventDate': _eventDate!.toIso8601String(),
+          'location':   _locationCtrl.text.trim(),
+          'guests':     _guests,
+          'budget':     _budget,
+          'note':       _noteCtrl.text.trim(),
+        },
+        attachmentUrls: [],
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
+
+      await ref.read(requestServiceProvider)
+          .createRequest(req);
+      if (mounted) _showSuccess();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur: $e'),
+              backgroundColor: AppColors.cancelled));
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  void _showSuccess() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 64, height: 64,
+              decoration: BoxDecoration(
+                color: AppColors.accepted.withOpacity(0.1),
+                shape: BoxShape.circle),
+              child: const Icon(Icons.check_circle,
+                  color: AppColors.accepted, size: 36),
+            ),
+            const SizedBox(height: 16),
+            const Text('Demande envoyée ! 🎉',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600)),
+            const SizedBox(height: 8),
+            const Text(
+              'Notre équipe vous contactera avec un devis personnalisé sous 24-48h.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppColors.textSecondary,
+                height: 1.5)),
+          ],
+        ),
+        actions: [
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                context.go('/projects');
+              },
+              child: const Text('Voir mes demandes'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Mon événement'),
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+
+            // ── Type selector ────────────────────────────────
+            const _Label('Quel type d\'événement ?'),
+            const SizedBox(height: 12),
+            GridView.count(
+              crossAxisCount: 4,
+              shrinkWrap: true,
+              physics:
+                  const NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              children: _b2cEventTypes.map((t) {
+                final (emoji, label, _) = t;
+                final selected = _selectedType == label;
+                return GestureDetector(
+                  onTap: () =>
+                      setState(() => _selectedType = label),
+                  child: AnimatedContainer(
+                    duration:
+                        const Duration(milliseconds: 150),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? AppColors.navyBlue
+                              .withOpacity(0.08)
+                          : Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(12),
+                      border: Border.all(
+                        color: selected
+                            ? AppColors.navyBlue
+                            : AppColors.divider,
+                        width: selected ? 2 : 0.5,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center,
+                      children: [
+                        Text(emoji,
+                          style: const TextStyle(
+                              fontSize: 22)),
+                        const SizedBox(height: 4),
+                        Text(label,
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: selected
+                                ? FontWeight.w600
+                                : FontWeight.w400,
+                            color: selected
+                                ? AppColors.navyBlue
+                                : AppColors.textSecondary),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+
+            // ── Date ─────────────────────────────────────────
+            const SizedBox(height: 20),
+            const _Label('Date souhaitée'),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: _pickDate,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      color: AppColors.divider)),
+                child: Row(children: [
+                  const Icon(
+                    Icons.calendar_today_outlined,
+                    size: 18,
+                    color: AppColors.navyBlue),
+                  const SizedBox(width: 12),
+                  Text(
+                    _eventDate == null
+                        ? 'Sélectionner une date'
+                        : DateFormat('dd/MM/yyyy')
+                            .format(_eventDate!),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: _eventDate == null
+                          ? AppColors.textHint
+                          : AppColors.textPrimary)),
+                ]),
+              ),
+            ),
+
+            // ── Location ──────────────────────────────────────
+            const SizedBox(height: 16),
+            const _Label('Lieu souhaité'),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _locationCtrl,
+              decoration: const InputDecoration(
+                labelText: 'Ex: Tunis, Hammamet, Salle privée...',
+                prefixIcon: Icon(
+                    Icons.location_on_outlined, size: 20)),
+            ),
+
+            // ── Guests ───────────────────────────────────────
+            const SizedBox(height: 16),
+            const _Label('Nombre d\'invités'),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              value: _guests,
+              decoration: const InputDecoration(
+                labelText: 'Nombre d\'invités',
+                prefixIcon: Icon(Icons.people_outline,
+                    size: 20)),
+              items: _guestRanges
+                  .map((g) => DropdownMenuItem(
+                      value: g, child: Text(g)))
+                  .toList(),
+              onChanged: (v) =>
+                  setState(() => _guests = v!),
+            ),
+
+            // ── Budget ───────────────────────────────────────
+            const SizedBox(height: 16),
+            const _Label('Budget estimé'),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              value: _budget,
+              decoration: const InputDecoration(
+                labelText: 'Budget',
+                prefixIcon: Icon(
+                    Icons.account_balance_wallet_outlined,
+                    size: 20)),
+              items: _budgetRanges
+                  .map((b) => DropdownMenuItem(
+                      value: b, child: Text(b)))
+                  .toList(),
+              onChanged: (v) =>
+                  setState(() => _budget = v!),
+            ),
+
+            // ── Description ──────────────────────────────────
+            const SizedBox(height: 16),
+            const _Label('Décrivez votre événement'),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _noteCtrl,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                labelText:
+                    'Thème, ambiance, préférences, '
+                    'besoins particuliers...',
+                alignLabelWithHint: true,
+              ),
+            ),
+
+            const SizedBox(height: 32),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _loading ? null : _submit,
+                child: _loading
+                    ? const SizedBox(
+                        width: 20, height: 20,
+                        child:
+                            CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white))
+                    : const Text('ENVOYER MA DEMANDE'),
+              ),
+            ),
+            const SizedBox(height: 32),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Label extends StatelessWidget {
+  final String text;
+  const _Label(this.text);
+  @override
+  Widget build(BuildContext context) => Text(text,
+    style: const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      color: AppColors.navyBlue));
+}
+cat > /home/claude/inwin_app/lib/core/router/app_router.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/constants/app_theme.dart';
+import '../../features/auth/presentation/screens/splash_screen.dart';
+import '../../features/auth/presentation/screens/onboarding_screen.dart';
+import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/auth/presentation/screens/register_screen.dart';
+import '../../features/home/presentation/screens/home_shell.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/gifts/presentation/screens/gifts_screen.dart';
+import '../../features/gifts/presentation/screens/gift_configurator_screen.dart';
+import '../../features/events/presentation/screens/events_screen.dart';
+import '../../features/events/presentation/screens/event_form_screen.dart';
+import '../../features/events/presentation/screens/b2c_event_form_screen.dart';
+import '../../features/projects/presentation/screens/projects_screen.dart';
+import '../../features/projects/presentation/screens/project_detail_screen.dart';
+import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/terms/presentation/screens/terms_screen.dart';
+import '../../features/admin/presentation/screens/admin_requests_screen.dart';
+import '../../features/admin/presentation/screens/admin_request_detail_screen.dart';
+import '../services/auth_service.dart';
+import '../models/app_user.dart';
+
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final authState = ref.watch(currentUserProvider);
+
+  return GoRouter(
+    initialLocation: '/splash',
+    redirect: (context, state) async {
+      if (authState.isLoading) return null;
+
+      final user      = authState.valueOrNull;
+      final isAuth    = user != null;
+      final loc       = state.matchedLocation;
+      final pubRoutes = [
+        '/splash', '/onboarding', '/login', '/register'
+      ];
+
+      if (loc == '/splash') {
+        final prefs = await SharedPreferences.getInstance();
+        final done  = prefs.getBool('onboarding_done') ?? false;
+        if (!done) return '/onboarding';
+        if (!isAuth) return '/login';
+        if (user.role == UserRole.admin) return '/admin';
+        // B2C lands on home (their home shows events CTA)
+        return '/home';
+      }
+
+      if (!isAuth && !pubRoutes.contains(loc)) return '/login';
+      if (isAuth && pubRoutes.contains(loc) &&
+          loc != '/splash') {
+        if (user.role == UserRole.admin) return '/admin';
+        return '/home';
+      }
+
+      // Block B2C users from accessing B2B-only routes
+      if (isAuth &&
+          user.role == UserRole.customer &&
+          user.clientType == ClientType.b2c) {
+        if (loc.startsWith('/gifts')) return '/home';
+      }
+
+      return null;
+    },
+
+    routes: [
+      // ── Public ──────────────────────────────────────────────────
+      GoRoute(
+        path: '/splash',
+        builder: (_, __) => const SplashScreen()),
+      GoRoute(
+        path: '/onboarding',
+        builder: (_, __) => const OnboardingScreen()),
+      GoRoute(
+        path: '/login',
+        builder: (_, __) => const LoginScreen()),
+      GoRoute(
+        path: '/register',
+        builder: (_, __) => const RegisterScreen()),
+
+      // ── Admin ────────────────────────────────────────────────────
+      GoRoute(
+        path: '/admin',
+        builder: (_, __) => const AdminRequestsScreen(),
+        routes: [
+          GoRoute(
+            path: 'request/:id',
+            builder: (_, s) => AdminRequestDetailScreen(
+              requestId: s.pathParameters['id']!)),
+        ],
+      ),
+
+      // ── Customer shell (B2B + B2C) ───────────────────────────────
+      ShellRoute(
+        builder: (_, __, child) =>
+            HomeShell(child: child),
+        routes: [
+          // Home — shows B2B or B2C dashboard automatically
+          GoRoute(
+            path: '/home',
+            builder: (_, __) => const HomeScreen()),
+
+          // B2B only — Gifts
+          GoRoute(
+            path: '/gifts',
+            builder: (_, __) => const GiftsScreen(),
+            routes: [
+              GoRoute(
+                path: ':category',
+                builder: (_, s) =>
+                    GiftConfiguratorScreen(
+                      category:
+                          s.pathParameters['category']!)),
+            ],
+          ),
+
+          // B2B only — Events (pro planning)
+          GoRoute(
+            path: '/events',
+            builder: (_, __) => const EventsScreen(),
+            routes: [
+              GoRoute(
+                path: ':type',
+                builder: (_, s) => EventFormScreen(
+                  eventType:
+                      s.pathParameters['type']!)),
+            ],
+          ),
+
+          // B2C — Personal events
+          // /events/b2c  OR  /events/b2c?category=Mariage
+          GoRoute(
+            path: '/events/b2c',
+            builder: (_, s) => B2cEventFormScreen(
+              preselectedCategory:
+                  s.uri.queryParameters['category'],
+            ),
+          ),
+
+          // Projects (both B2B and B2C)
+          GoRoute(
+            path: '/projects',
+            builder: (_, __) =>
+                const ProjectsScreen(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (_, s) =>
+                    ProjectDetailScreen(
+                      requestId:
+                          s.pathParameters['id']!)),
+            ],
+          ),
+
+          // Profile (both)
+          GoRoute(
+            path: '/profile',
+            builder: (_, __) =>
+                const ProfileScreen()),
+
+          // Terms & Conditions (both)
+          GoRoute(
+            path: '/terms',
+            builder: (_, __) =>
+                const TermsScreen()),
+        ],
+      ),
+    ],
+
+    errorBuilder: (_, state) => Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline,
+                size: 56, color: AppColors.cancelled),
+            const SizedBox(height: 16),
+            const Text('Page introuvable',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600)),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () =>
+                  GoRouter.of(state.extra as BuildContext? ??
+                      state.error!.source as BuildContext)
+                      .go('/home'),
+              child:
+                  const Text('Retour à l\'accueil')),
+          ],
+        ),
+      ),
+    ),
+  );
+});
+cat > /home/claude/inwin_app/lib/features/profile/presentation/screens/profile_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/app_user.dart';
+import '../../../../core/services/auth_service.dart';
+
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(currentUserProvider).valueOrNull;
+    final isB2C = user?.clientType == ClientType.b2c;
+
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      appBar: AppBar(title: const Text('Profil')),
+      body: ListView(
+        children: [
+          // ── Avatar + name ─────────────────────────────────
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 28),
+            child: Column(children: [
+              Container(
+                width: 88, height: 88,
+                decoration: BoxDecoration(
+                  color: AppColors.navyBlue.withOpacity(0.08),
+                  shape: BoxShape.circle),
+                child: user?.photoUrl != null
+                    ? ClipOval(child: Image.network(
+                        user!.photoUrl!, fit: BoxFit.cover))
+                    : Center(
+                        child: Text(
+                          user?.fullName.isNotEmpty == true
+                              ? user!.fullName[0].toUpperCase()
+                              : '?',
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.navyBlue))),
+              ),
+              const SizedBox(height: 12),
+              Text(user?.fullName ?? '',
+                style: const TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 2),
+              // Show company for B2B, client type badge for everyone
+              if (!isB2C && user?.companyName != null)
+                Text(user!.companyName!,
+                  style: const TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 14)),
+              const SizedBox(height: 6),
+              // Client type badge
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10, vertical: 3),
+                decoration: BoxDecoration(
+                  color: isB2C
+                      ? AppColors.accepted.withOpacity(0.1)
+                      : AppColors.navyBlue.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(12)),
+                child: Text(
+                  isB2C ? '👤 Particulier' : '🏢 Entreprise',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: isB2C
+                        ? AppColors.accepted
+                        : AppColors.navyBlue)),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+
+          // ── Menu items ────────────────────────────────────
+          _MenuItem(
+            icon: Icons.person_outline,
+            label: 'Gérer le profil',
+            onTap: () => _showEditProfile(
+                context, ref, user, isB2C),
+          ),
+          _MenuItem(
+            icon: Icons.notifications_outlined,
+            label: 'Notifications',
+            onTap: () {},
+          ),
+          _MenuItem(
+            icon: Icons.lock_outlined,
+            label: 'Changer le mot de passe',
+            onTap: () => _showChangePassword(
+                context, ref, user),
+          ),
+          _MenuItem(
+            icon: Icons.gavel_outlined,
+            label: 'Termes et Conditions',
+            onTap: () => context.push('/terms'),
+          ),
+          _MenuItem(
+            icon: Icons.help_outline,
+            label: 'Assistance',
+            onTap: () {},
+          ),
+          const SizedBox(height: 8),
+          _MenuItem(
+            icon: Icons.logout,
+            label: 'Déconnexion',
+            color: AppColors.cancelled,
+            onTap: () => _confirmSignOut(context, ref),
+          ),
+          const SizedBox(height: 32),
+          const Center(
+            child: Text('INWIN v1.0.0',
+              style: TextStyle(
+                color: AppColors.textHint, fontSize: 12))),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  void _confirmSignOut(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16)),
+        title: const Text('Déconnexion'),
+        content: const Text(
+            'Voulez-vous vraiment vous déconnecter ?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () async {
+              await ref.read(authServiceProvider).signOut();
+              if (context.mounted) {
+                Navigator.pop(context);
+                context.go('/login');
+              }
+            },
+            style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.cancelled),
+            child: const Text('Déconnecter')),
+        ],
+      ),
+    );
+  }
+
+  void _showEditProfile(BuildContext context, WidgetRef ref,
+      AppUser? user, bool isB2C) {
+    if (user == null) return;
+    final nameCtrl = TextEditingController(
+        text: user.fullName);
+    final coCtrl   = TextEditingController(
+        text: user.companyName ?? '');
+    final phoneCtrl = TextEditingController(
+        text: user.phone);
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20))),
+      builder: (_) => Padding(
+        padding: EdgeInsets.only(
+          left: 20, right: 20, top: 24,
+          bottom:
+              MediaQuery.of(context).viewInsets.bottom + 24,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Modifier le profil',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600)),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.close)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _tf(nameCtrl, 'Nom complet'),
+            // Show company field only for B2B
+            if (!isB2C) ...[
+              const SizedBox(height: 12),
+              _tf(coCtrl, "Nom d'entreprise"),
+            ],
+            const SizedBox(height: 12),
+            _tf(phoneCtrl, 'Téléphone',
+                type: TextInputType.phone),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  await ref.read(authServiceProvider)
+                      .updateProfile(
+                        user.uid,
+                        fullName: nameCtrl.text.trim(),
+                        companyName: isB2C
+                            ? null
+                            : coCtrl.text.trim(),
+                        phone: phoneCtrl.text.trim(),
+                      );
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: const Text('Sauvegarder')),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showChangePassword(
+      BuildContext context, WidgetRef ref, AppUser? user) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16)),
+        title: const Text('Changer le mot de passe'),
+        content: const Text(
+          'Un lien de réinitialisation sera envoyé à votre adresse e-mail.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () async {
+              if (user != null) {
+                await ref.read(authServiceProvider)
+                    .resetPassword(user.email);
+              }
+              if (context.mounted) {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Email de réinitialisation envoyé.')));
+              }
+            },
+            child: const Text('Envoyer')),
+        ],
+      ),
+    );
+  }
+
+  Widget _tf(TextEditingController c, String label,
+      {TextInputType? type}) =>
+      TextField(
+        controller: c,
+        keyboardType: type,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12)),
+          contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12, vertical: 12),
+        ),
+      );
+}
+
+class _MenuItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final Color? color;
+  const _MenuItem({
+    required this.icon, required this.label,
+    required this.onTap, this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = color ?? AppColors.textPrimary;
+    return Column(children: [
+      ListTile(
+        tileColor: Colors.white,
+        leading: Icon(icon, color: c, size: 22),
+        title: Text(label,
+          style: TextStyle(
+            color: c, fontSize: 15,
+            fontWeight: FontWeight.w400)),
+        trailing: color == null
+            ? const Icon(Icons.arrow_forward_ios,
+                size: 14, color: AppColors.textHint)
+            : null,
+        onTap: onTap,
+      ),
+      const Divider(height: 0.5, indent: 56),
+    ]);
+  }
+}
+# Admin request detail needs to show clientType label
+# Write a small patch for admin to show B2C vs B2B context
+cat > /home/claude/inwin_app/lib/features/admin/presentation/screens/admin_requests_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/quote_request.dart';
+import '../../../../core/services/auth_service.dart';
+import '../../../../core/services/request_service.dart';
+import '../../../../core/widgets/status_badge.dart';
+import '../widgets/stats_header.dart';
+
+class AdminRequestsScreen extends ConsumerStatefulWidget {
+  const AdminRequestsScreen({super.key});
+
+  @override
+  ConsumerState<AdminRequestsScreen> createState() => _State();
+}
+
+class _State extends ConsumerState<AdminRequestsScreen> {
+  RequestStatus? _filterStatus;
+  RequestType?   _filterType;
+  // null = all, 'b2b' = enterprises only, 'b2c' = particuliers only
+  String?        _filterClient;
+
+  @override
+  Widget build(BuildContext context) {
+    final requestsAsync = ref.watch(
+      StreamProvider((ref) =>
+          ref.read(requestServiceProvider).watchAllRequests()),
+    );
+
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      appBar: AppBar(
+        title: RichText(
+          text: const TextSpan(children: [
+            TextSpan(text: 'IN',
+              style: TextStyle(fontSize: 22,
+                fontWeight: FontWeight.w900,
+                color: AppColors.lightGold)),
+            TextSpan(text: 'WIN',
+              style: TextStyle(fontSize: 22,
+                fontWeight: FontWeight.w900,
+                color: AppColors.navyBlue)),
+            TextSpan(text: ' Admin',
+              style: TextStyle(fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textSecondary)),
+          ]),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, size: 20),
+            onPressed: () async {
+              await ref.read(authServiceProvider).signOut();
+              if (context.mounted) context.go('/login');
+            },
+          ),
+        ],
+      ),
+      body: requestsAsync.when(
+        loading: () =>
+            const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(child: Text('Erreur: $e')),
+        data: (all) {
+          // Apply filters
+          final filtered = all.where((r) {
+            if (_filterStatus != null &&
+                r.status != _filterStatus) return false;
+            if (_filterType != null &&
+                r.type != _filterType) return false;
+            if (_filterClient != null) {
+              final ct =
+                  r.details['clientType'] as String? ?? 'b2b';
+              if (ct != _filterClient) return false;
+            }
+            return true;
+          }).toList();
+
+          return Column(children: [
+            AdminStatsHeader(requests: all),
+            const Divider(height: 1),
+            _FilterBar(
+              selectedStatus: _filterStatus,
+              selectedType:   _filterType,
+              selectedClient: _filterClient,
+              onStatusChanged:
+                  (s) => setState(() => _filterStatus = s),
+              onTypeChanged:
+                  (t) => setState(() => _filterType = t),
+              onClientChanged:
+                  (c) => setState(() => _filterClient = c),
+            ),
+            const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 8),
+              child: Row(children: [
+                Text('${filtered.length} demande'
+                    '${filtered.length != 1 ? 's' : ''}',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w500)),
+                const Spacer(),
+                if (_filterStatus != null ||
+                    _filterType != null ||
+                    _filterClient != null)
+                  GestureDetector(
+                    onTap: () => setState(() {
+                      _filterStatus = null;
+                      _filterType   = null;
+                      _filterClient = null;
+                    }),
+                    child: const Text(
+                      'Effacer les filtres',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.lightGold)),
+                  ),
+              ]),
+            ),
+            Expanded(
+              child: filtered.isEmpty
+                  ? const Center(child: Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.inbox_outlined,
+                            size: 56,
+                            color: AppColors.textHint),
+                        SizedBox(height: 12),
+                        Text('Aucune demande',
+                          style: TextStyle(
+                            color: AppColors.textSecondary)),
+                      ]))
+                  : ListView.builder(
+                      padding:
+                          const EdgeInsets.only(bottom: 20),
+                      itemCount: filtered.length,
+                      itemBuilder: (ctx, i) =>
+                          _AdminRequestTile(
+                            request: filtered[i],
+                            onTap: () => context.go(
+                              '/admin/request/'
+                              '${filtered[i].id}'),
+                          ),
+                    ),
+            ),
+          ]);
+        },
+      ),
+    );
+  }
+}
+
+// ─── Filter bar ───────────────────────────────────────────────────────────
+class _FilterBar extends StatelessWidget {
+  final RequestStatus? selectedStatus;
+  final RequestType?   selectedType;
+  final String?        selectedClient;
+  final ValueChanged<RequestStatus?> onStatusChanged;
+  final ValueChanged<RequestType?>   onTypeChanged;
+  final ValueChanged<String?>        onClientChanged;
+
+  const _FilterBar({
+    required this.selectedStatus,
+    required this.selectedType,
+    required this.selectedClient,
+    required this.onStatusChanged,
+    required this.onTypeChanged,
+    required this.onClientChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 46,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(
+            horizontal: 12, vertical: 8),
+        children: [
+          // Client type toggles
+          _Chip(label: '🏢 B2B',
+            active: selectedClient == 'b2b',
+            onTap: () => onClientChanged(
+                selectedClient == 'b2b' ? null : 'b2b')),
+          _Chip(label: '👤 B2C',
+            active: selectedClient == 'b2c',
+            onTap: () => onClientChanged(
+                selectedClient == 'b2c' ? null : 'b2c')),
+
+          // Divider
+          Container(width: 1, height: 26,
+            color: AppColors.divider,
+            margin: const EdgeInsets.symmetric(
+                horizontal: 6, vertical: 2)),
+
+          // Type toggles
+          _Chip(label: '🎁',
+            active: selectedType == RequestType.gift,
+            onTap: () => onTypeChanged(
+                selectedType == RequestType.gift
+                    ? null : RequestType.gift)),
+          _Chip(label: '🎪',
+            active: selectedType == RequestType.event,
+            onTap: () => onTypeChanged(
+                selectedType == RequestType.event
+                    ? null : RequestType.event)),
+
+          Container(width: 1, height: 26,
+            color: AppColors.divider,
+            margin: const EdgeInsets.symmetric(
+                horizontal: 6, vertical: 2)),
+
+          // Status quick filters
+          for (final entry in {
+            'En attente': RequestStatus.pending,
+            'Devis': RequestStatus.quoted,
+            'Accepté': RequestStatus.accepted,
+            'Production': RequestStatus.inProduction,
+          }.entries)
+            _Chip(
+              label: entry.key,
+              active: selectedStatus == entry.value,
+              onTap: () => onStatusChanged(
+                  selectedStatus == entry.value
+                      ? null : entry.value)),
+        ],
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  final String label;
+  final bool active;
+  final VoidCallback onTap;
+  const _Chip({
+    required this.label, required this.active,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) =>
+      GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 130),
+          margin: const EdgeInsets.only(right: 6),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 12, vertical: 5),
+          decoration: BoxDecoration(
+            color: active
+                ? AppColors.navyBlue
+                : Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: active
+                  ? AppColors.navyBlue
+                  : AppColors.divider)),
+          child: Text(label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: active
+                  ? Colors.white
+                  : AppColors.textSecondary)),
+        ),
+      );
+}
+
+// ─── Request tile ─────────────────────────────────────────────────────────
+class _AdminRequestTile extends StatelessWidget {
+  final QuoteRequest request;
+  final VoidCallback onTap;
+  const _AdminRequestTile({
+    required this.request, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isEvent  = request.type == RequestType.event;
+    final isNew    = request.status == RequestStatus.pending;
+    final clientType =
+        request.details['clientType'] as String? ?? 'b2b';
+    final isB2C    = clientType == 'b2c';
+
+    return Card(
+      margin: const EdgeInsets.symmetric(
+          horizontal: 12, vertical: 4),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(children: [
+            // Type icon with new-dot
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 44, height: 44,
+                  decoration: BoxDecoration(
+                    color: isEvent
+                        ? AppColors.lightGold.withOpacity(0.1)
+                        : AppColors.navyBlue.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(10)),
+                  child: Icon(
+                    isEvent
+                        ? Icons.celebration_outlined
+                        : Icons.card_giftcard_outlined,
+                    color: isEvent
+                        ? AppColors.lightGold
+                        : AppColors.navyBlue,
+                    size: 20),
+                ),
+                if (isNew)
+                  Positioned(
+                    top: -3, right: -3,
+                    child: Container(
+                      width: 10, height: 10,
+                      decoration: const BoxDecoration(
+                        color: AppColors.cancelled,
+                        shape: BoxShape.circle))),
+              ],
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Expanded(
+                      child: Text(request.customerName,
+                        style: Theme.of(context)
+                            .textTheme.titleMedium
+                            ?.copyWith(fontSize: 14),
+                        overflow: TextOverflow.ellipsis)),
+                    StatusBadge(
+                        status: request.status,
+                        small: true),
+                  ]),
+                  const SizedBox(height: 2),
+                  // Company OR particulier tag
+                  Text(
+                    isB2C
+                        ? '👤 Particulier  ·  '
+                            '${request.details['eventType'] ?? ''}'
+                        : '🏢 ${request.companyName ?? ''}  ·  '
+                            '${request.details['category'] ?? request.details['eventType'] ?? ''}',
+                    style: Theme.of(context)
+                        .textTheme.bodyMedium
+                        ?.copyWith(fontSize: 12),
+                    overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: 4),
+                  Row(children: [
+                    if (request.details['quantity'] != null) ...[
+                      const Icon(Icons.tag,
+                          size: 11,
+                          color: AppColors.textHint),
+                      const SizedBox(width: 2),
+                      Text('${request.details['quantity']} u.',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: AppColors.textHint)),
+                      const SizedBox(width: 10),
+                    ],
+                    if (request.details['guests'] != null) ...[
+                      const Icon(Icons.people_outline,
+                          size: 11,
+                          color: AppColors.textHint),
+                      const SizedBox(width: 2),
+                      Text(request.details['guests'],
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: AppColors.textHint)),
+                      const SizedBox(width: 10),
+                    ],
+                    if (request.details['budget'] != null) ...[
+                      const Icon(
+                          Icons.account_balance_wallet_outlined,
+                          size: 11,
+                          color: AppColors.lightGold),
+                      const SizedBox(width: 2),
+                      Flexible(child: Text(
+                        request.details['budget'],
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: AppColors.lightGold),
+                        overflow: TextOverflow.ellipsis)),
+                      const SizedBox(width: 10),
+                    ],
+                    const Spacer(),
+                    Text(
+                      DateFormat('dd/MM/yy HH:mm')
+                          .format(request.createdAt),
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: AppColors.textHint)),
+                  ]),
+                ],
+              ),
+            ),
+            const SizedBox(width: 4),
+            const Icon(Icons.chevron_right,
+                color: AppColors.textHint, size: 18),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+mkdir -p /home/claude/inwin_app/lib/features/admin/presentation/screens
+mkdir -p /home/claude/inwin_app/lib/features/admin/presentation/widgets
+
+# re-run
+cat > /home/claude/inwin_app/lib/features/admin/presentation/screens/admin_requests_screen.dart << 'DART'
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/models/quote_request.dart';
+import '../../../../core/services/auth_service.dart';
+import '../../../../core/services/request_service.dart';
+import '../../../../core/widgets/status_badge.dart';
+import '../widgets/stats_header.dart';
+
+class AdminRequestsScreen extends ConsumerStatefulWidget {
+  const AdminRequestsScreen({super.key});
+  @override
+  ConsumerState<AdminRequestsScreen> createState() => _State();
+}
+
+class _State extends ConsumerState<AdminRequestsScreen> {
+  RequestStatus? _filterStatus;
+  RequestType?   _filterType;
+  String?        _filterClient; // 'b2b' | 'b2c' | null
+
+  @override
+  Widget build(BuildContext context) {
+    final requestsAsync = ref.watch(
+      StreamProvider((ref) =>
+          ref.read(requestServiceProvider).watchAllRequests()),
+    );
+
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      appBar: AppBar(
+        title: RichText(
+          text: const TextSpan(children: [
+            TextSpan(text: 'IN', style: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.w900,
+              color: AppColors.lightGold)),
+            TextSpan(text: 'WIN', style: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.w900,
+              color: AppColors.navyBlue)),
+            TextSpan(text: ' Admin', style: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w500,
+              color: AppColors.textSecondary)),
+          ]),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, size: 20),
+            onPressed: () async {
+              await ref.read(authServiceProvider).signOut();
+              if (context.mounted) context.go('/login');
+            },
+          ),
+        ],
+      ),
+      body: requestsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(child: Text('Erreur: $e')),
+        data: (all) {
+          final filtered = all.where((r) {
+            if (_filterStatus != null && r.status != _filterStatus) return false;
+            if (_filterType != null && r.type != _filterType) return false;
+            if (_filterClient != null) {
+              final ct = r.details['clientType'] as String? ?? 'b2b';
+              if (ct != _filterClient) return false;
+            }
+            return true;
+          }).toList();
+
+          return Column(children: [
+            AdminStatsHeader(requests: all),
+            const Divider(height: 1),
+            _FilterBar(
+              selectedStatus: _filterStatus,
+              selectedType: _filterType,
+              selectedClient: _filterClient,
+              onStatusChanged: (s) => setState(() => _filterStatus = s),
+              onTypeChanged:   (t) => setState(() => _filterType = t),
+              onClientChanged: (c) => setState(() => _filterClient = c),
+            ),
+            const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(children: [
+                Text('${filtered.length} demande${filtered.length != 1 ? 's' : ''}',
+                  style: const TextStyle(fontSize: 13, color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500)),
+                const Spacer(),
+                if (_filterStatus != null || _filterType != null || _filterClient != null)
+                  GestureDetector(
+                    onTap: () => setState(() {
+                      _filterStatus = null;
+                      _filterType   = null;
+                      _filterClient = null;
+                    }),
+                    child: const Text('Effacer les filtres',
+                      style: TextStyle(fontSize: 12, color: AppColors.lightGold))),
+              ]),
+            ),
+            Expanded(
+              child: filtered.isEmpty
+                  ? const Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.inbox_outlined, size: 56, color: AppColors.textHint),
+                        SizedBox(height: 12),
+                        Text('Aucune demande',
+                          style: TextStyle(color: AppColors.textSecondary)),
+                      ]))
+                  : ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      itemCount: filtered.length,
+                      itemBuilder: (ctx, i) => _AdminRequestTile(
+                        request: filtered[i],
+                        onTap: () => context.go('/admin/request/${filtered[i].id}'),
+                      ),
+                    ),
+            ),
+          ]);
+        },
+      ),
+    );
+  }
+}
+
+class _FilterBar extends StatelessWidget {
+  final RequestStatus? selectedStatus;
+  final RequestType?   selectedType;
+  final String?        selectedClient;
+  final ValueChanged<RequestStatus?> onStatusChanged;
+  final ValueChanged<RequestType?>   onTypeChanged;
+  final ValueChanged<String?>        onClientChanged;
+
+  const _FilterBar({
+    required this.selectedStatus, required this.selectedType,
+    required this.selectedClient, required this.onStatusChanged,
+    required this.onTypeChanged, required this.onClientChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 46,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        children: [
+          _Chip(label: '🏢 B2B',
+            active: selectedClient == 'b2b',
+            onTap: () => onClientChanged(selectedClient == 'b2b' ? null : 'b2b')),
+          _Chip(label: '👤 B2C',
+            active: selectedClient == 'b2c',
+            onTap: () => onClientChanged(selectedClient == 'b2c' ? null : 'b2c')),
+          Container(width: 1, height: 26, color: AppColors.divider,
+            margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2)),
+          _Chip(label: '🎁',
+            active: selectedType == RequestType.gift,
+            onTap: () => onTypeChanged(selectedType == RequestType.gift ? null : RequestType.gift)),
+          _Chip(label: '🎪',
+            active: selectedType == RequestType.event,
+            onTap: () => onTypeChanged(selectedType == RequestType.event ? null : RequestType.event)),
+          Container(width: 1, height: 26, color: AppColors.divider,
+            margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2)),
+          for (final e in {
+            'En attente': RequestStatus.pending,
+            'Devis': RequestStatus.quoted,
+            'Accepté': RequestStatus.accepted,
+            'Production': RequestStatus.inProduction,
+          }.entries)
+            _Chip(label: e.key,
+              active: selectedStatus == e.value,
+              onTap: () => onStatusChanged(selectedStatus == e.value ? null : e.value)),
+        ],
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  final String label; final bool active; final VoidCallback onTap;
+  const _Chip({required this.label, required this.active, required this.onTap});
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: onTap,
+    child: AnimatedContainer(
+      duration: const Duration(milliseconds: 130),
+      margin: const EdgeInsets.only(right: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      decoration: BoxDecoration(
+        color: active ? AppColors.navyBlue : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: active ? AppColors.navyBlue : AppColors.divider)),
+      child: Text(label, style: TextStyle(
+        fontSize: 12, fontWeight: FontWeight.w500,
+        color: active ? Colors.white : AppColors.textSecondary)),
+    ),
+  );
+}
+
+class _AdminRequestTile extends StatelessWidget {
+  final QuoteRequest request;
+  final VoidCallback onTap;
+  const _AdminRequestTile({required this.request, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final isEvent   = request.type == RequestType.event;
+    final isNew     = request.status == RequestStatus.pending;
+    final isB2C     = (request.details['clientType'] as String? ?? 'b2b') == 'b2c';
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(children: [
+            Stack(clipBehavior: Clip.none, children: [
+              Container(
+                width: 44, height: 44,
+                decoration: BoxDecoration(
+                  color: isEvent
+                      ? AppColors.lightGold.withOpacity(0.1)
+                      : AppColors.navyBlue.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(10)),
+                child: Icon(
+                  isEvent ? Icons.celebration_outlined : Icons.card_giftcard_outlined,
+                  color: isEvent ? AppColors.lightGold : AppColors.navyBlue,
+                  size: 20)),
+              if (isNew)
+                Positioned(top: -3, right: -3,
+                  child: Container(width: 10, height: 10,
+                    decoration: const BoxDecoration(
+                      color: AppColors.cancelled, shape: BoxShape.circle))),
+            ]),
+            const SizedBox(width: 12),
+            Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  Expanded(child: Text(request.customerName,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 14),
+                    overflow: TextOverflow.ellipsis)),
+                  StatusBadge(status: request.status, small: true),
+                ]),
+                const SizedBox(height: 2),
+                Row(children: [
+                  Text(isB2C ? '👤' : '🏢',
+                    style: const TextStyle(fontSize: 11)),
+                  const SizedBox(width: 4),
+                  Expanded(child: Text(
+                    isB2C
+                        ? 'Particulier  ·  ${request.details['eventType'] ?? ''}'
+                        : '${request.companyName ?? ''}  ·  '
+                          '${request.details['category'] ?? request.details['eventType'] ?? ''}',
+                    style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                    overflow: TextOverflow.ellipsis)),
+                ]),
+                const SizedBox(height: 4),
+                Row(children: [
+                  if (request.details['quantity'] != null) ...[
+                    const Icon(Icons.tag, size: 11, color: AppColors.textHint),
+                    const SizedBox(width: 2),
+                    Text('${request.details['quantity']} u.',
+                      style: const TextStyle(fontSize: 11, color: AppColors.textHint)),
+                    const SizedBox(width: 8),
+                  ],
+                  if (request.details['guests'] != null) ...[
+                    const Icon(Icons.people_outline, size: 11, color: AppColors.textHint),
+                    const SizedBox(width: 2),
+                    Text(request.details['guests'],
+                      style: const TextStyle(fontSize: 11, color: AppColors.textHint)),
+                    const SizedBox(width: 8),
+                  ],
+                  if (request.details['budget'] != null) ...[
+                    const Icon(Icons.account_balance_wallet_outlined,
+                        size: 11, color: AppColors.lightGold),
+                    const SizedBox(width: 2),
+                    Flexible(child: Text(request.details['budget'],
+                      style: const TextStyle(fontSize: 11, color: AppColors.lightGold),
+                      overflow: TextOverflow.ellipsis)),
+                  ],
+                  const Spacer(),
+                  Text(DateFormat('dd/MM/yy').format(request.createdAt),
+                    style: const TextStyle(fontSize: 10, color: AppColors.textHint)),
+                ]),
+              ],
+            )),
+            const SizedBox(width: 4),
+            const Icon(Icons.chevron_right, color: AppColors.textHint, size: 18),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+# Check what files we have so far this session
+find /home/claude/inwin_app/lib -name "*.dart" | sort
+echo "---"
+echo "Missing: stats_header, quote_request model (needs companyName nullable), projects screen (needs B2C label)"
+Sortie
+
+/home/claude/inwin_app/lib/core/models/app_user.dart
+/home/claude/inwin_app/lib/core/router/app_router.dart
+/home/claude/inwin_app/lib/core/services/auth_service.dart
+/home/claude/inwin_app/lib/features/admin/presentation/screens/admin_requests_screen.dart
+/home/claude/inwin_app/lib/features/auth/presentation/screens/register_screen.dart
+/home/claude/inwin_app/lib/features/bon_commande/bon_commande_service.dart
+/home/claude/inwin_app/lib/features/events/presentation/screens/b2c_event_form_screen.dart
+/home/claude/inwin_app/lib/features/home/presentation/screens/home_screen.dart
+/home/claude/inwin_app/lib/features/home/presentation/screens/home_shell.dart
+/home/claude/inwin_app/lib/features/profile/presentation/screens/profile_screen.dart
+/home/claude/inwin_app/lib/features/projects/presentation/screens/project_detail_screen.dart
+/home/claude/inwin_app/lib/features/projects/presentation/screens/project_detail_screen_patch.dart
+/home/claude/inwin_app/lib/features/terms/presentation/screens/terms_screen.dart
+---
+Missing: stats_header, quote_request model (needs companyName nullable), projects screen (needs B2C label)

@@ -1,0 +1,2908 @@
+
+
+--- PAGE 1 ---
+Contribution to the Development of INWIN: A Smart
+Platform for Event Organization and Corporate Gift
+Customization
+Mouna Oueldi
+Ferdaws Haded
+Academic Year 2025-2026
+
+--- PAGE 2 ---
+Dedication
+To my mother,To the most precious person in my life, no words will ever be enough
+to express what you mean to me. Thank you for your unconditional love, your patience,
+and your sacrifices. No words will ever be enough to express what you mean to me.Your
+endless patience, kindness, and strength have shaped who I am today. Whenever I felt
+weak, your love lifted me. Whenever I doubted myself, your faith in me gave me
+courage. You are the reason behind every step I take forward in lifeTo my father,
+Thank you for your constant support and your trust in me. You taught me perseverance
+and responsibility. I dedicate this work to you with all my gratitude.To my dear
+family,Thank you for your love, encouragement, and support throughout my journey.
+You have always been my strength in both difficult and joyful moments.To my dear
+cousin Khadija,Thank you for your kindness, your support, and all the beautiful
+moments we shared. Your presence has been a true source of comfort and motivation.
+To my dearest friend Chaima,Words are not enough to express how grateful I am
+to have you in my life. You have been more than a friend—you have been my sister, my
+support system, and my safe place.
+Mouna Oueldi
+1
+
+--- PAGE 3 ---
+Dedication
+To my family,who have supported me more than I could ever say. Through my
+toughest times, you have always been there for me, believing in me even when I did not
+believe in myself, and that truly means the world to me. Thank you for being my family.
+To my friends,Chaima, Minyar, and Chahd, I truly do not know how I can repay you
+for all that you have done for me. Throughout all of the tough days, the exhausting
+days, and the days I felt like I was going nowhere, you have been my rock without
+making me feel like a burden at all.
+Ferdaws Hadded
+2
+
+--- PAGE 4 ---
+Acknowledgement
+We would like to express our sincere gratitude to all those who contributed to the
+successful completion of this project. First and foremost, we would like to extend our
+deepest thanks to Mrs. Haifa Ben Saber, our academic supervisor, for her invaluable
+guidance, constant support, and dedication throughout this work. Her availability,
+patience, and insightful advice helped us overcome many challenges. She always took the
+time to listen, guide, and encourage us, especially during moments of doubt. Her trust
+in our abilities and her continuous motivation played a crucial role in the achievement of
+this project. We would also like to express our heartfelt appreciation to Ms. Sondes
+Chamkhi, our professional supervisor, for her warm welcome, support, and valuable
+guidance during our internship. Her professionalism, availability, and encouragement
+greatly enriched our experience. She provided us with practical insights and continuous
+support, allowing us to develop both our technical and professional skills. We would also
+like to express our heartfelt thanks to the pedagogical team at the Higher Institute of
+Technological Studies in Communication of Tunis for their invaluable support during the
+past three years. We would also like to express our sincere appreciation to the members
+of the jury for accepting to evaluate our work. We are honored by their presence and
+grateful for the time and effort they devoted to reviewing this project. Their valuable
+feedback, insightful remarks, and constructive suggestions are highly appreciated and
+will greatly contribute to the improvement of our work and future endeavors.
+3
+
+--- PAGE 5 ---
+List of Contents
+Liste des figures 10
+General Introduction 12
+1 Project Context and Management Approach 13
+1.1 Host Company Presentation . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+1.1.1 INWIN Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+1.1.2 INWIN Services . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+1.1.3 INWIN Organigram . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+1.2 Project Presentation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+1.2.1 Consumer Behavior . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+1.2.2 Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+1.2.3 Project Idea . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+1.3 Benchmarking . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+1.3.1 Competitor Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+1.3.2 Critiquedel’existant . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+1.4 L’analyse SWOT . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+1.5 Proposed Solution and Objectives . . . . . . . . . . . . . . . . . . . . . . . 23
+1.6 Choice of Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+1.6.1 definition of Methodologies . . . . . . . . . . . . . . . . . . . . . . . 25
+1.6.2 Comparison of Methodologies . . . . . . . . . . . . . . . . . . . . . 27
+1.6.3 chosen Methodology for INWIN . . . . . . . . . . . . . . . . . . . . 28
+1.6.4 Applying Scrum Methodology to the INWIN Project . . . . . . . . 29
+1.7 Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+2 Theoretical Study and Marketing Plan 33
+2.1 Theoretical Study . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+2.1.1 Importance of Event Organization and Corporate Gift Management 33
+2.1.2 Mobile Technologies and Modern Digital Solutions . . . . . . . . . . 34
+2.1.3 The Impact of Modern Digital Technologies on Event Management
+and Corporate Services . . . . . . . . . . . . . . . . . . . . . . . . . 34
+4
+
+--- PAGE 6 ---
+2.1.4 The Role of Modern Development Technologies in Mobile Applica-
+tion Workflows . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+2.2 Questionnaire Presentation and Analysis . . . . . . . . . . . . . . . . . . . 38
+2.2.1 Presentation and Analysis of the Resultsfor business . . . . . . . . 38
+2.3 Survey Findings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+2.3.1 Presentation and Analysis of the Results for business . . . . . . . . 40
+2.4 Survey Findings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+2.5 Marketing Plan . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+2.5.1 Segmentation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+2.5.2 Targeting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+2.5.3 Marketing Mix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+2.5.4 Brand Identity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+3 Functional Analysis and Requirements Engineering 50
+3.1 Functional and Non-Functional Requirements . . . . . . . . . . . . . . . . 50
+3.1.1 Actors Identification . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+3.1.2 Functional Requirements . . . . . . . . . . . . . . . . . . . . . . . . 51
+3.1.3 Non-Functional Requirements . . . . . . . . . . . . . . . . . . . . . 52
+3.2 Use Case Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+3.2.1 Global Use Case Diagram . . . . . . . . . . . . . . . . . . . . . . . 53
+3.2.2 Refined Use Case Diagrams . . . . . . . . . . . . . . . . . . . . . . 54
+3.3 Technical Specification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+3.3.1 Used Tools . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+3.3.2 Firebase Services and External Packages . . . . . . . . . . . . . . . 67
+3.3.3 Software Architecture . . . . . . . . . . . . . . . . . . . . . . . . . 68
+3.3.4 App Security . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 69
+4 System Architecture and Workflow Designs 75
+4.1 Class Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+4.2 Sequence Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76
+4.2.1 Log In Sequence Diagram . . . . . . . . . . . . . . . . . . . . . . . 77
+4.2.2 Submit Request Sequence Diagram . . . . . . . . . . . . . . . . . . 78
+4.2.3 Admin Manages Request Sequence Diagram . . . . . . . . . . . . . 79
+4.2.4 Customer Responds to Quote Sequence Diagram . . . . . . . . . . . 80
+4.2.5 Project Messaging Sequence Diagram . . . . . . . . . . . . . . . . . 81
+4.3 Activity Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82
+4.3.1 User Authentication Workflow Activity Diagram . . . . . . . . . . . 82
+4.3.2 Gift Request Submission Workflow Activity Diagram . . . . . . . . 84
+4.3.3 Event Request Submission Workflow Activity Diagram . . . . . . . 86
+4.3.4 Quote Response Workflow Activity Diagram . . . . . . . . . . . . . 87
+5
+
+--- PAGE 7 ---
+4.3.5 Admin Request Management Workflow Activity Diagram . . . . . . 88
+4.3.6 Project Messaging Workflow Activity Diagram . . . . . . . . . . . . 90
+5 Execution 93
+5.1 Authentication Module . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+5.1.1 Registration and Login Interfaces . . . . . . . . . . . . . . . . . . . 93
+5.1.2 Email Verification . . . . . . . . . . . . . . . . . . . . . . . . . . . . 96
+5.1.3 Authentication Security and Access Logic . . . . . . . . . . . . . . 97
+5.2 Customer Features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+5.2.1 Home Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+5.2.2 Gifts Catalogue Interface . . . . . . . . . . . . . . . . . . . . . . . . 99
+5.2.3 Gift Request Interface . . . . . . . . . . . . . . . . . . . . . . . . . 99
+5.2.4 Event Catalogue Interface . . . . . . . . . . . . . . . . . . . . . . . 101
+5.2.5 Event Request Interface . . . . . . . . . . . . . . . . . . . . . . . . 102
+5.2.6 Project Tracking and Messaging Interfaces . . . . . . . . . . . . . . 103
+5.2.7 Profile Management Interface . . . . . . . . . . . . . . . . . . . . . 105
+5.3 Administrator Features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+5.3.1 Main Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+5.3.2 Details Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+5.3.3 Quote Preparation and Status Updates . . . . . . . . . . . . . . . . 108
+5.4 Backend and Database Integration . . . . . . . . . . . . . . . . . . . . . . 109
+5.4.1 Firebase Authentication . . . . . . . . . . . . . . . . . . . . . . . . 109
+5.4.2 Cloud Firestore . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110
+5.4.3 Firebase Storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110
+5.4.4 Firebase Cloud Messaging and Cloud Functions . . . . . . . . . . . 112
+5.5 Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113
+6
+
+--- PAGE 8 ---
+List of Tables
+1.1 Analyse SWOT . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+1.2 Les solutions proposées . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+1.3 Comparaison entre la méthode traditionnelle et la méthode Agile . . . . . 28
+1.4 Sprint Organization for INWIN . . . . . . . . . . . . . . . . . . . . . . . . 31
+2.1 Mobile Development Technologies Overview . . . . . . . . . . . . . . . . . 36
+2.2 Mobile Development Technologies Comparison . . . . . . . . . . . . . . . . 37
+3.1 Description of the Use Case "Manage Profile" . . . . . . . . . . . . . . . . 55
+3.2 Description of the Use Case " Submit Gift Request " . . . . . . . . . . . . 57
+3.3 Description of the Refined Use Case " Submit Event Request" . . . . . . . 58
+3.4 Description of the Refined Use Case " Submit Event Request" . . . . . . . 60
+3.5 Description of the Refined Use Case " Respond to Quote " . . . . . . . . . 62
+3.6 Description of the Refined Use Case " Respond to Quote " . . . . . . . . . 63
+3.7 Description of the Refined Use Case " Manage Requests" . . . . . . . . . . 65
+3.8 Technologies and Tools Used . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+3.9 Firebase Services and External Packages . . . . . . . . . . . . . . . . . . . 68
+7
+
+--- PAGE 9 ---
+List of Figures
+1.1 company organition chart . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+1.2 Logo My Event . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+1.3 Page de découverte et détails du prestataire . . . . . . . . . . . . . . . . . 17
+1.4 Page de découverte et détails du prestataire . . . . . . . . . . . . . . . . . 18
+1.5 company organition chart . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+1.6 company organition chart . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+1.7 company organition chart . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+1.8 Scrum Process Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+1.9 INWIN Product Backlog . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+2.1 INWIN logo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+2.2 INWIN Colour Palette . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+3.1 Global Use Case Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+3.2 Manage Profile Refined Use Case Diagram . . . . . . . . . . . . . . . . . . 54
+3.3 Submit Gift Request Refined Use Case Diagram . . . . . . . . . . . . . . . 56
+3.4 Submit Event Request Refined Use Case Diagram . . . . . . . . . . . . . 57
+3.5 Track Projects Refined Use Case Diagram . . . . . . . . . . . . . . . . . . 59
+3.6 Respond to Quote Refined Use Case Diagram . . . . . . . . . . . . . . . . 61
+3.7 Exchange Messages Refined Use Case Diagram . . . . . . . . . . . . . . . . 62
+3.8 Manage Requests Refined Use Case Diagram . . . . . . . . . . . . . . . . 64
+3.9 Layered Architecture of the INWIN Application . . . . . . . . . . . . . . . 68
+3.10 Code snippet showing how the authenticated user is linked to the corre-
+sponding user record . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+3.11 Code snippet demonstrating how authentication state changes are moni-
+tored in the application . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+3.12 Code snippet showing how authentication, ownership, and administrator
+role are checked . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 71
+3.13 Code snippet demonstrating how access to user records is restricted . . . . 71
+3.14 Code snippet demonstrating how request permissions are managed accord-
+ing to user role . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 72
+3.15 Code snippet showing how phone number input is validated before submission 72
+8
+
+--- PAGE 10 ---
+3.16 Code snippet showing how user input is validated before submission . . . 73
+3.17 Code snippet showing how initialization errors are caught and handled in
+the application . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73
+3.18 Code snippet showing how user registration is performed before storing
+consistent user data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 74
+4.1 Global Class diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76
+4.2 Log In Sequence Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . 77
+4.3 Submit Request Sequence Diagram . . . . . . . . . . . . . . . . . . . . . . 78
+4.4 Admin Manages Request Sequence Diagram . . . . . . . . . . . . . . . . . 79
+4.5 Customer Responds to Quote Sequence Diagram . . . . . . . . . . . . . . . 81
+4.6 Project Messaging Sequence Diagram . . . . . . . . . . . . . . . . . . . . . 82
+4.7 User Authentication Workflow Activity Diagram . . . . . . . . . . . . . . . 83
+4.8 Gift Request Submission Workflow Activity Diagram . . . . . . . . . . . . 85
+4.9 Event Request Submission Workflow Activity Diagram . . . . . . . . . . . 86
+4.10 Quote Response Workflow Activity Diagram . . . . . . . . . . . . . . . . . 88
+4.11 Admin Request Management Workflow Activity Diagram . . . . . . . . . . 90
+4.12 Project Messaging Workflow Activity Diagram . . . . . . . . . . . . . . . . 91
+5.1 Registration Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 94
+5.2 Login interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+5.3 Logout Button . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 96
+5.4 Email Verification Interface . . . . . . . . . . . . . . . . . . . . . . . . . . 97
+5.5 Home Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+5.6 Gift Catalogue Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99
+5.7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+5.8 Gift Request Interface with Logo Positioning . . . . . . . . . . . . . . . . . 101
+5.9 Event Catalogue Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+5.10 Event Request Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . 103
+5.11 Project Tracking Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+5.12 Purchase Order Generated After Quotation Acceptance . . . . . . . . . . . 105
+5.13 Profile Management Interface . . . . . . . . . . . . . . . . . . . . . . . . . 106
+5.14 Admin Main Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+5.15 Request Detail Management Interface . . . . . . . . . . . . . . . . . . . . . 108
+5.16 Quotation Preparation Interface . . . . . . . . . . . . . . . . . . . . . . . . 109
+5.17 Firebase Authentication Console Containing Registered Users . . . . . . . 110
+5.18 Cloud Firestore Database Structure . . . . . . . . . . . . . . . . . . . . . . 110
+5.19 File Upload Through the Storage Service . . . . . . . . . . . . . . . . . . . 111
+5.20 Attachment URL Integration in Request Creation . . . . . . . . . . . . . . 111
+5.21 Detection of Request Status Change . . . . . . . . . . . . . . . . . . . . . . 112
+9
+
+--- PAGE 11 ---
+5.22 Sending a Request Status Notification . . . . . . . . . . . . . . . . . . . . . 113
+10
+
+--- PAGE 12 ---
+List of Abbreviations
+UI User Interface
+UX User Experience
+API Application Programming Interface
+11
+
+--- PAGE 13 ---
+General Introduction
+In today’s digital era, event management has become an essential service for both
+individuals and businesses. The increasing need for efficient organization, personalized
+services, and smooth communication has led to the emergence of digital platforms that
+simplify the planning process and improve user experience.
+Titled INWIN, this project aims to provide a comprehensive platform dedicated to
+facilitating event organization for both individual clients and businesses. The application
+allows users to request event organization services and communicate directly with service
+providers, ensuring a smooth, efficient, and transparent planning process.
+In addition to event management services, INWIN offers advanced features designed
+for businesses. These include the customization and ordering of corporate gifts, with op-
+tions such as logo integration, personalized text, and color selection. This functionality
+enables companies to strengthen their brand identity and enhance professional relation-
+ships through tailored and meaningful gifting solutions.
+This report presents a comprehensive study of the development of the INWIN ap-
+plication, from its initial conception to its implementation. It begins by introducing the
+project context and objectives, followed by an analysis of user needs and market chal-
+lenges. It then details the functional and technical specifications of the system, as well
+as its architecture and design choices. Finally, the report highlights the application’s
+interface and workflow, demonstrating how usability, efficiency, and personalization are
+combined within a unified platform.
+Ultimately, this project reflects the integration of digital innovation into event man-
+agement, offering a practical and user-centered solution that simplifies organizational
+processes while meeting the evolving needs of both individuals and businesses.
+12
+
+--- PAGE 14 ---
+Chapter 1
+Project Context and Management
+Approach
+Introduction
+This chapter presents INWIN, the initial context that led to the project, an analysis
+of its environment, and the working methodology.
+1.1 Host Company Presentation
+1.1.1 INWIN Overview
+HorizonLux is a Tunisian software development company located in Kelibia, Nabeul,
+that was established in 2021. Their mission is to help businesses grow their online presence
+and streamline their operations. They offer web and mobile app development as well as
+custom Customer Relationship Management (CRM) and Enterprise Resource Planning
+(ERP) system design. They also offer a variety of digital marketing solutions.
+1.1.2 INWIN Services
+The services offered by HorizonLux include:
+•Event Organization Services:Provides comprehensive solutions for planning
+and managing various types of events, including personal events (weddings, birth-
+days, celebrations)andprofessionalevents(seminars, conferences, corporateevents);
+•Service Provider Connection:Connects clients with suitable service providers,
+allowing users to easily request services and choose options that match their needs;
+•DirectCommunication:Enablessmoothandcentralizedcommunicationbetween
+clients and service providers to ensure better coordination and follow-up;
+13
+
+--- PAGE 15 ---
+•Event Customization:Allows users to personalize their events by selecting spe-
+cific options and preferences through an interactive and user-friendly interface;
+•Corporate Gift Management:Offers businesses the ability to customize and
+order corporate gifts with features such as logo integration, personalized text, and
+color selection;
+•User-Friendly Interface (UI/UX):Ensures a simple, intuitive, and efficient
+user experience for both individuals and businesses using the platform.
+1.1.3 INWIN Organigram
+Anorganigram(ororganizationalchart)isagraphicalrepresentationofthestructure
+of an organization, showing the different positions, departments, and the hierarchical
+relationships between them.
+Figure 1.1: company organition chart
+1.2 Project Presentation
+1.2.1 Consumer Behavior
+Consumer behavior in the field of event organization has evolved significantly in
+recent years. Both individuals and businesses are increasingly looking for simple, fast,
+and personalized solutions to organize their events, whether personal or professional.
+Instead of managing complex processes involving multiple service providers separately,
+users now prefer centralized platforms that offer better visibility and save time.
+Usersalsoplacegreatimportanceondirectcommunicationandservicetransparency.
+They expect to easily interact with service providers, track their requests, and ensure that
+the offered services meet their expectations. Personalization has become a key factor,
+especially in choosing event services, themes, and organizational details.
+For businesses, these expectations are even more critical. In addition to organizing
+professional events such as seminars and conferences, companies seek to strengthen their
+brand image through complementary elements like customized corporate gifts. Therefore,
+14
+
+--- PAGE 16 ---
+they prefer solutions that integrate both event management and corporate gift customiza-
+tion within a single platform. Problem Statement
+1.2.2 Problem Statement
+Event organization, whether personal or professional, requires significant effort, co-
+ordination, and time. Many clients struggle to find reliable service providers, manage
+communication, and ensure that all event elements are aligned with their expectations.
+For businesses, the challenge is even more complex, as they must not only organize
+professional events but also manage corporate gifts. These gifts often require customiza-
+tion, such as logo integration, personalized text, and color selection. However, this process
+is usually handled separately from event planning, leading to inefficiencies, lack of coor-
+dination, and limited personalization.
+Without a centralized digital solution, these processes remain manual, fragmented,
+and difficult to manage, which negatively impacts both efficiency and user experience.
+This leads to the following question: How can we design a digital platform that
+simplifies event organization, centralizes communication, and integrates corporate gift
+management with personalized customization for both individuals and businesses?
+1.2.3 Project Idea
+The idea behind the INWIN project emerged from the lack of comprehensive digital
+solutions that effectively support event organization while integrating complementary
+services such as corporate gifting.
+INWIN is designed as a centralized digital platform that enables users to plan and
+managetheireventsinasimpleandefficientway. Theapplicationallowsuserstosearchfor
+service providers, customize services according to their needs, and communicate directly
+with providers to ensure better coordination.
+For businesses, INWIN also offers a dedicated corporate gift management feature,
+including customization options such as logo integration, color selection, and personalized
+text. This functionality helps companies strengthen their brand identity while simplifying
+the ordering process.
+ThemainobjectiveofINWINistoprovideaninnovative, user-friendly, andcomplete
+solution that meets modern user needs in event organization, while enhancing the overall
+experience through centralization, personalization, and ease of use.
+1.3 Benchmarking
+Benchmarking is a management approach that involves a comparative analysis of
+the best practices used by leading organizations in a specific field. It aims to identify
+15
+
+--- PAGE 17 ---
+performance gaps and adopt effective strategies in order to improve products, services, or
+internal processes.
+The main objective of benchmarking is to enhance performance and competitiveness
+by relying on recognized industry standards, while promoting continuous learning and
+adaptation to market changes.
+1.3.1 Competitor Analysis
+In the context of an application development project, competitor analysis is an
+essential step. It helps to understand existing solutions in the market, identify their
+strengths, and highlight their limitations.
+In Tunisia and similar markets, several platforms related to event planning, service
+booking, or business solutions already exist. However, most of these solutions are often
+limited to a single domain, lack personalization, or do not provide a fully integrated
+experience that combines event management and corporate services in one platform.
+The purpose of this study is therefore to analyze existing applications in order to
+identify what works well, what is missing, and how INWIN can differentiate itself by
+offering a more comprehensive, centralized, and user-friendly experience that integrates
+both event organization and corporate gifting services in a single solution.
+1.3.1.1 Event Organization applications in Tunisia
+My Event
+Figure 1.2: Logo My Event
+My Event is one of the most complete event planning applications available in
+Tunisia. It provides users with a set of tools that simplify the organization and man-
+agement of events.
+16
+
+--- PAGE 18 ---
+Figure 1.3: Page de découverte et détails du prestataire
+The service discovery page in the My Event application serves as the main inter-
+face for exploring event organization services such as wedding halls, music, photography,
+decoration, and catering. It allows users to browse different service providers displayed
+in the form of cards containing images, provider names, locations, prices, recommenda-
+tion badges, and favorite options, making the search and comparison process easier and
+more intuitive. In addition, the provider details page offers comprehensive information
+about a selected service provider, including photos, user ratings and reviews, service cate-
+gories, detailed descriptions, and location information. The page also highlights trust and
+popularity indicators to help users make informed decisions before booking or contacting
+a provider, thereby improving the overall user experience through a clear and detailed
+presentation of available services.
+17
+
+--- PAGE 19 ---
+Figure 1.4: Page de découverte et détails du prestataire
+The budget management page in the My Event application enables users to effi-
+ciently monitor and manage the financial aspects of their events. It provides an overview
+of the total budget, expenses made, paid deposits, and the remaining amount available.
+Thepagealsoorganizesexpensesintodifferentcategories, suchasclothingandaccessories,
+allowing users to track each event-related cost more easily. For every service or product,
+users can view the total price, the amount already paid, and the remaining balance. This
+functionality helps users better control their spending, avoid exceeding their budget, and
+ensure effective financial planning throughout the event organization process.
+Figure 1.5: company organition chart
+This interface represents the messaging feature integrated into the INWIN applica-
+tion. It allows users to communicate directly with service providers in real time in order
+to discuss event details, check availability, request pricing information, and negotiate
+18
+
+--- PAGE 20 ---
+services.
+Through this functionality, users can easily exchange messages with providers with-
+out leaving the application, which improves communication and facilitates event planning.
+The chat system also enables users to receive quick responses, discuss payment methods,
+and confirm reservations efficiently.
+Thisfeatureenhancestheuserexperiencebyprovidingasimple, fast, andcentralized
+communication channel between clients and service providers.
+Figure 1.6: company organition chart
+This interface represents the reservation request feature in the INWIN application.
+It allows users to submit a reservation request directly to a service provider by filling in
+important event details.
+Through this page, users can select the event date and time, specify the event lo-
+cation, and write a personalized message describing their needs or requesting additional
+information. This functionality simplifies the reservation process and improves communi-
+cation between clients and service providers.
+The reservation request system helps users organize their events more efficiently
+by centralizing all booking information within a single platform, while enabling service
+providers to respond quickly and manage requests effectively.
+19
+
+--- PAGE 21 ---
+Figure 1.7: company organition chart
+This interface represents the review and rating feature integrated into the INWIN
+application. It allows users to evaluate service providers based on their experience and
+consult feedback from previous clients before making a reservation.
+The page displays the provider’s overall rating, customer reviews, and detailed com-
+ments regarding the quality of the service, professionalism, and event experience. Users
+can also access all reviews to better assess the reliability and reputation of the provider.
+This functionality increases transparency and trust within the platform by helping
+users make informed decisions based on verified experiences and customer satisfaction.
+1.3.1.2 corporate gifts for businesses applications in Tunisia
+There is currently no well-known Tunisian mobile app specifically dedicated to cus-
+tomizable corporate gifts for businesses (such as pens, mugs, t-shirts, bags, goodies, note-
+books, etc.).
+Most Tunisian companies in this field operate mainly through websites and social
+media pages, not mobile applications. Platforms such as Teewinek and Princo provide
+customization services for promotional products and business gifts, but they do not offer
+a dedicated mobile application focused on corporate gift management and customization.
+1.3.2 Critiquedel’existant
+Through the analysis of existing solutions in Tunisia, it was observed that MyEvent
+is currently one of the few platforms available as a mobile application dedicated to event
+organization. The application offers several advantages, such as simplifying communica-
+tion with service providers, facilitating event planning, and providing users with a more
+20
+
+--- PAGE 22 ---
+accessible and practical digital experience. These features make it a useful solution for
+users seeking assistance in organizing personal events.
+However, despiteitsstrengths, MyEventalsopresentscertainlimitations. Theappli-
+cation mainly focuses on personal events and does not fully address the needs of businesses
+and professional event management.
+The study also revealed that most other existing solutions in Tunisia are limited
+to websites rather than complete mobile applications. These platforms generally provide
+only basic services such as provider listings or quotation requests, without offering a fully
+integrated and centralized management experienc
+There is currently no dedicated mobile application in Tunisia specifically designed
+for customizable corporate gifts for businesses (such as pens, mugs, t-shirts, bags, and
+promotional items). Existing solutions in this field are mainly web-based platforms or
+local service providers that operate through websites and direct orders rather than mobile
+apps. This highlights a clear gap in the Tunisian digital market.
+⇒There is currently no Tunisian application that combines both personal and
+professional event organization within a single platform while also integrating corporate
+gift customization services. This represents a significant gap in the market and highlights
+the innovative aspect of the INWIN project, which aims to provide a comprehensive,
+modern, and centralized solution adapted to the needs of both individuals and businesses.
+1.4 L’analyse SWOT
+SWOT analysis is a strategic planning tool widely used by organizations and busi-
+nesses to evaluate their current situation and support decision-making processes. It helps
+identify the internal strengths and weaknesses of an organization, as well as the external
+opportunities and threats present in its environment.
+SWOT analysis enables organizations to understand their competitive position and
+develop strategies that improve performance and achieve objectives. Strengths and weak-
+nesses refer to internal factors such as resources, capabilities, and organizational lim-
+itations, while opportunities and threats relate to external factors like market trends,
+competition, and economic conditions.
+21
+
+--- PAGE 23 ---
+Strengths (advantages of INWIN)Weaknesses (limitations of IN-
+WIN)
+•All-in-one platform combining
+two major services: event or-
+ganization + corporate gift cus-
+tomization, which is rare in the
+market.
+•Centralized digital solution that
+reduces the need to use multiple
+platforms or providers.
+•High level of personalization
+(events + gifts with logos, colors,
+text, preferences).
+•Direct communication system
+between clients and service
+providers (chat + requests).
+•Simplified event management
+tools (budget tracking, reser-
+vations, reviews, provider
+discovery).
+•Addresses both individuals and
+businesses, increasing potential
+user base.
+•Strong user experience focus
+(simple interface, structured in-
+formation, easy booking process).
+•High development complexity,
+because the app integrates multi-
+ple systems (marketplace + mes-
+saging + customization + pay-
+ments).
+•Need for strong supplier net-
+work (event providers + print-
+ing/custom gift suppliers must be
+onboarded).
+•Operational management chal-
+lenge, especially for quality con-
+trol of services and products.
+•Dependence on user adoption, as
+both clients and providers must
+actively use the platform.
+•Initial lack of brand recognition
+compared to existing local solu-
+tions like MyEvent.
+22
+
+--- PAGE 24 ---
+Opportunities(marketadvantages
+INWIN can exploit)
+Threats (risks from the environ-
+ment)
+•Clear market gap in Tunisia: no
+app combines event management
++ corporate gifting.
+•Growing digital transformation
+in event planning and SME mar-
+keting tools.
+•Increasing demand from busi-
+nesses for personalized promo-
+tional items (branding, market-
+ing).
+•Expansion potential beyond
+Tunisia to North African and
+MENA markets.
+•Opportunitytopartnerwithlocal
+suppliers and printing companies.
+•Rise of mobile-first services, espe-
+cially for booking and customiza-
+tion platforms.
+•Corporate branding trend (com-
+panies increasingly invest in cus-
+tomized gifts for marketing).
+•Existing competitors in sepa-
+rate domains (event apps like
+MyEvent, and gift printing web-
+sites).
+•Traditional offline service
+providers (event planners and
+printing shops) resisting digital-
+ization.
+•Lowtrustinonlineservicequality
+in some user segments.
+•Price competition from informal
+or low-cost providers.
+•Rapid technological changes, re-
+quiring continuous updates and
+innovation.
+•Potential entry of international
+platforms offering similar inte-
+grated services in the future.
+Table 1.1: Analyse SWOT
+1.5 Proposed Solution and Objectives
+By conducting a detailed and comparative analysis of the existing solutions available
+in the Tunisian market for event organization and corporate gift management, several
+limitations and gaps were identified that may negatively affect the user experience or fail
+to fully satisfy the needs of both individuals and businesses.
+Through our project INWIN, and based on the results obtained from the SWOT
+analysis, we propose an innovative and centralized mobile solution capable of better ad-
+dressing these needs by combining event management services and corporate gift cus-
+23
+
+--- PAGE 25 ---
+tomization within a single platform.
+The objective of INWIN is to simplify event organization, improve communication
+between clients and service providers, and provide businesses with an easy and modern
+way to manage and customize their corporate gifts.
+Problems Identified Proposed Solutions
+Existing applications mainly fo-
+cus only on personal event orga-
+nization
+Develop a platform that supports
+both personal and professional
+events
+Lack of centralized services in one
+application
+Integrate event planning, reserva-
+tions, communication, and corpo-
+rate gift management in a single
+platform
+Difficulty communicating effi-
+ciently with service providers
+Provide a real-time messag-
+ing system between users and
+providers
+Limited personalization options
+in existing platforms
+Offer customizable services and
+corporate gifts with logo integra-
+tion, colors, and personalized text
+Most corporate gift solutions ex-
+ist only as websites and not mo-
+bile applications
+Develop a dedicated mobile ap-
+plication specialized in corporate
+gift management and customiza-
+tion
+Difficulty managing event bud-
+gets and reservations
+Integrate budget tracking and
+reservation request functionalities
+Lack of trust and transparency in
+some services
+Include verified ratings, reviews,
+and customer feedback systems
+Existing platforms do not fully
+meet business needs
+Provide features specifically de-
+signed for companies and profes-
+sional event management
+Fragmented user experience
+across multiple platforms
+Create a centralized, intuitive,
+and user-friendly interface that
+simplifies all processes
+Table 1.2: Les solutions proposées
+⇒Following the analysis of competing solutions, our project consists of developing a
+mobile application dedicated to both event organization and corporate gift management,
+offering a modern, personalized, and centralized experience adapted to the needs of indi-
+viduals and businesses. In addition to the core functionalities of the application, such as
+24
+
+--- PAGE 26 ---
+service provider discovery, reservation requests, direct communication, budget manage-
+ment, and review systems, INWIN also integrates advanced corporate gifting features that
+allow businesses to customize and order promotional products directly through the plat-
+form. These functionalities aim to simplify event planning, improve service coordination,
+strengthen business branding through personalized gifts, and enhance the overall user
+experience by offering a complete digital ecosystem within a single mobile application.
+1.6 Choice of Methodology
+Several working methodologies are commonly used in software and mobile applica-
+tion development projects. Each methodology has its own principles, advantages, and
+limitations.
+As part of our project, we conducted an in-depth analysis of the different project
+management methodologies in order to identify the one that best meets the project re-
+quirements and objectives.
+1.6.1 definition of Methodologies
+1.6.1.1 Traditional Method (Waterfall / Cascade)
+The Waterfall Model methodology is a traditional software development approach
+based on a linear and sequential process. Each phase of the project must be completed
+before moving to the next one, such as requirements analysis, design, implementation,
+testing, deployment, and maintenance. This model emphasizes detailed planning and
+documentation at the beginning of the project
+Characteristics
+•Sequential and structured development process
+•Detailed planning and documentation
+•Clear definition of project phases
+•Limited flexibility for changes
+•User feedback integrated mainly at the end
+•Easier management of deadlines and resources
+25
+
+--- PAGE 27 ---
+1.6.1.2 Agile Methodology
+Agile Software Development is a flexible software development methodology focused
+on iterative development, customer collaboration, and rapid adaptation to changes. Agile
+promotes continuous delivery of functional software through small development cycles
+called iterations or sprints.
+Characteristics
+•Iterative and incremental development
+•Strong customer collaboration
+•Flexibility toward requirement changes
+•Continuous testing and feedback
+•Fast delivery of working software
+•Team communication and collaboration
+1.6.1.3 Scrum Methodology
+The Scrum methodology is an Agile framework used to manage and develop software
+projects through short iterations called sprints. Scrum encourages teamwork, regular
+feedback, and continuous improvement to deliver high-quality products quickly.
+Characteristics
+•Development divided into short sprints
+•Daily meetings called Daily Scrum
+•Defined roles: Product Owner, Scrum Master,
+•Development Team
+•Continuous product improvement
+•Frequent delivery of functional increments
+•Strong collaboration and transparency
+26
+
+--- PAGE 28 ---
+1.6.1.4 RAD (Rapid Application Development)
+Rapid Application Development is a software development methodology that focuses
+on rapid prototyping, iterative development, and continuous user feedback rather than
+extensive planning. RAD allows developers to quickly build and improve applications
+according to user needs.
+Characteristics
+•Rapid prototyping
+•Iterative development process
+•Continuous user involvement
+•Fast application delivery
+•Flexibility and adaptability
+•Reusable software components
+•Continuous testing and integration
+1.6.2 Comparison of Methodologies
+Methodology Strengths Weaknesses
+Waterfall
+•Simple and structured
+methodology
+•Clear documentation and
+planning
+•Easy to manage and under-
+stand
+•Well defined project phases
+•Not flexible to changes
+•Problems are detected late
+•Difficult to modify require-
+ments after development
+starts
+27
+
+--- PAGE 29 ---
+Agile
+•Flexible and adaptable to
+changes
+•Continuous improvement
+and testing
+•Better customer involve-
+ment
+•Faster delivery of features
+•Requires continuous com-
+munication
+•Difficult to estimate total
+project cost and duration
+•Needs strong team collabo-
+ration
+Scrum
+•Well suited for mobile and
+software projects
+•Improves productivity and
+task management
+•Allows rapid development
+through sprints
+•Encourages teamwork and
+communication
+•Requires experienced and
+organized team members
+•Daily meetings can con-
+sume time
+•Difficult to manage very
+large teams
+RAD
+•Fast development process
+•Quickprototypingandfeed-
+back
+•Good for user interface de-
+velopment
+•Less suitable for complex
+projects
+•Requires highly skilled de-
+velopers
+•Difficult to manage large-
+scale systems
+Table 1.3: Comparaison entre la méthode traditionnelle et la méthode Agile
+1.6.3 chosen Methodology for INWIN
+For the development of the INWIN project, the most suitable methodology is: Agile
+Scrum Methodology
+28
+
+--- PAGE 30 ---
+Reasons for Choosing Scrum
+INWIN is a mobile application that combines several modules such as:
+•Event organization
+•Reservation management
+•Real-time communication
+•Budget management
+•Corporate gift customization
+These features require continuous improvements, testing, and flexibility during de-
+velopment. Scrum allows the project to be developed progressively while facilitating
+modifications and feature integration according to user needs.
+In addition, Scrum improves task management, team collaboration, and project
+monitoring, making it highly suitable for innovative and evolving applications like INWIN.
+1.6.4 Applying Scrum Methodology to the INWIN Project
+TodeveloptheINWINapplicationefficiently, theScrummethodologycanbeapplied
+by organizing the project into iterative development phases called sprints. Each sprint
+focuses on designing, developing, and testing a specific set of functionalities.
+Figure 1.8: Scrum Process Diagram
+1. Define the Scrum Team
+The Scrum methodology is based on three main roles:
+29
+
+--- PAGE 31 ---
+Product Owner
+Responsible for defining the project requirements and prioritizing functionalities
+according to user and business needs. In the INWIN project, the Product Owner defines
+features such as:
+•Event management
+•Corporate gift customization
+•Reservation requests
+•Messaging system
+•Budget management
+Scrum Master
+Responsible for ensuring that the Scrum process is correctly applied and helping the
+team solve organizational problems.
+Development Team
+Responsible for:
+•Mobile application development
+•UI/UX design
+•Database management
+•Testing and integration
+2. Create the Product Backlog
+The Product Backlog contains all project functionalities and requirements organized
+by priority.
+30
+
+--- PAGE 32 ---
+Figure 1.9: INWIN Product Backlog
+3. Organize the Project into Sprints
+The project is divided into short development cycles called sprints (generally 1 to 4
+weeks).
+Sprint Main Objectives
+Sprint 1 Project setup, authentication, database cre-
+ations
+Sprint 2 Service provider discovery and search system
+Sprint 3 Reservation request functionality
+Sprint 4 Messaging and communication system
+Sprint 5 Budget management and reviews
+Sprint 6 Corporate gift customization module
+Sprint 7 Testing, optimization, and deployment
+Table 1.4: Sprint Organization for INWIN
+4. Daily Scrum Meetings
+Short daily meetings are organized to discuss:
+•Completed tasks
+31
+
+--- PAGE 33 ---
+•Current tasks
+•Problems encountered
+5. Sprint Review
+At the end of each sprint, the developed functionalities are presented and evaluated
+to ensure they meet project requirements.
+6. Sprint Retrospective
+The team analyzes:
+•What worked well
+•Problems encountered
+•Possible improvements for the next sprint
+1.7 Conclusion
+This chapter presented the general framework of the INWIN project and analyzed
+existing event organization and corporate gift solutions in Tunisia. The study revealed
+several limitations in current platforms, especially the absence of a centralized mobile
+application combining event management and corporate gift customization. Based on
+this analysis, INWIN was proposed as an innovative and user-friendly solution adapted to
+both individuals and businesses. Finally, after comparing different project management
+methodologies, the Agile Scrum methodology was selected because of its flexibility and
+suitability for mobile application development.
+32
+
+--- PAGE 34 ---
+Chapter 2
+Theoretical Study and Marketing Plan
+Introduction
+This chapter presents the theoretical framework of the project, supported by market
+research conducted through a questionnaire, as well as a marketing plan developed based
+on the obtained results.
+2.1 Theoretical Study
+This section presents the key concepts related to the INWIN project, including the
+importance of digital event organization, service provider management, and corporate
+gift customization. It also highlights the role of mobile technologies and modern develop-
+ment approaches in improving user experience, simplifying event planning, and enhancing
+communication between clients and service providers.
+2.1.1 ImportanceofEventOrganizationandCorporateGiftMan-
+agement
+Event organization has become an essential activity for both individuals and busi-
+nesses, as it helps coordinate different services and ensure successful event planning. Mod-
+ern users increasingly seek digital solutions that simplify the management of reservations,
+communication with service providers, budget tracking, and event customization. Mo-
+bile applications dedicated to event management provide users with a more practical,
+centralized, and efficient experience.
+In addition, corporate gifting has become an important marketing and branding
+strategy for businesses. Customized promotional products such as mugs, pens, t-shirts,
+bags, and notebooks help companies strengthen their brand identity, improve customer
+relationships, and increase brand visibility. However, in Tunisia, most corporate gift
+33
+
+--- PAGE 35 ---
+services are mainly offered through websites and social media pages rather than dedicated
+mobile applications.
+Therefore, integrating event organization and corporate gift customization into a
+single mobile platform represents an innovative solution that simplifies management pro-
+cesses for both individuals and businesses while improving user experience and service
+accessibility.
+2.1.2 Mobile Technologies and Modern Digital Solutions
+The rapid evolution of mobile technologies has significantly transformed the way
+users interact with digital services. Mobile applications now play a major role in sim-
+plifying daily tasks by providing fast, accessible, and user-friendly solutions. In the field
+of event organization, mobile platforms facilitate communication, reservations, service
+discovery, and real-time management of events.
+Modern application development technologies also contribute to improving system
+performance, userexperience, andscalability. Featuressuchasreal-timemessaging, notifi-
+cations, geolocation, online reservations, and personalized customization options enhance
+interaction between clients and service providers while making event planning more effi-
+cient.
+Furthermore, centralized digital platforms help reduce complexity by integrating
+multiple services into a single application. In the case of INWIN, combining event man-
+agement and corporate gift customization within one mobile solution allows users and
+businesses to manage their needs more efficiently while benefiting from a modern, intu-
+itive, and connected digital environment.
+2.1.3 The Impact of Modern Digital Technologies on Event Man-
+agement and Corporate Services
+Theorganizationandmanagementofeventscanoftenbecomplexandtime-consuming,
+especially when users need to coordinate with multiple service providers, manage reserva-
+tions, monitor budgets, and ensure effective communication. Modern digital technologies
+have significantly transformed this process by providing centralized and automated solu-
+tions that simplify event planning and improve overall efficiency.
+Mobile applications now allow users to access services quickly, communicate in real
+time, and manage event-related activities more effectively. Features such as instant mes-
+saging, online reservation requests, notifications, reviews, and budget tracking reduce
+manual effort and improve coordination between clients and service providers.
+In addition, personalization technologies play an important role in enhancing user
+experience. Businesses increasingly require customized corporate gifts that reflect their
+brand identity through logos, colors, and personalized text. Digital customization tools
+34
+
+--- PAGE 36 ---
+simplify this process by allowing companies to manage and personalize promotional prod-
+ucts directly through a mobile application.
+Furthermore, centralized platforms improve accessibility and save time by integrat-
+ing multiple services into a single environment. Instead of relying on different websites
+or traditional communication methods, users can organize events, communicate with
+providers, and customize corporate gifts within one application. This approach improves
+efficiency, user satisfaction, and service management while providing a more modern and
+connected digital experience.
+Through INWIN, these technologies are integrated into a single mobile platform
+designed to simplify event organization, strengthen communication, improve personaliza-
+tion, and provide businesses and individuals with a complete and user-friendly solution
+adapted to modern market needs.
+2.1.4 The Role of Modern Development Technologies in Mobile
+Application Workflows
+Aworkflowrepresentsasequenceoforganizedtasksandprocessesthatworktogether
+to achieve a specific objective. In mobile application development, efficient workflows
+are essential to ensure better task management, faster development, and improved user
+experience.
+Modern development technologies and digital tools have significantly simplified the
+creation and management of mobile applications. These technologies help developers
+design user interfaces, manage databases, integrate APIs, and implement real-time func-
+tionalities more efficiently while reducing development complexity and time.
+In the context of event management applications, modern technologies facilitate
+important processes such as reservation management, real-time communication, notifica-
+tions, geolocation, payment integration, and service customization. These tools improve
+system performance and enable developers to create scalable and user-friendly applica-
+tions adapted to evolving market needs.
+Furthermore, integrated development approaches allow different services and func-
+tionalities to work together within a centralized platform. For the INWIN project, these
+technologies support the integration of event organization services and corporate gift
+customization into a single mobile application. This centralized workflow simplifies man-
+agement processes for users and businesses while improving accessibility, communication,
+and overall service efficiency.
+The use of modern mobile development frameworks and digital solutions also con-
+tributes to faster application development, easier maintenance, and better scalability, en-
+suring that the platform remains flexible and capable of adapting to future improvements
+and user requirements.
+35
+
+--- PAGE 37 ---
+Technology Definition
+Flutter Flutter is an open-source UI software development framework
+developed by Google that allows developers to create cross-
+platform mobile applications using a single codebase for An-
+droid and iOS platforms.
+Firebase Firebase is a backend development platform provided by
+Google that offers services such as authentication, real-time
+databases, cloud storage, notifications, and application host-
+ing.
+Figma Figma is a cloud-based design and prototyping tool used for
+creating user interfaces, wireframes, and interactive applica-
+tion designs collaboratively.
+Table 2.1: Mobile Development Technologies Overview
+The comparison focuses on important criteria such as ease of development, scalabil-
+ity, cross-platform compatibility, backend integration, and suitability for mobile applica-
+tion development.
+36
+
+--- PAGE 38 ---
+Feature/Technology Flutter Firebase Figma
+Type Mobile UI
+Framework
+Backend De-
+velopment
+Platform
+UI/UX Design
+Tool
+Main Use Case Cross-platform
+mobile app de-
+velopment
+Backend services
+and database
+management
+Interface and
+prototype design
+Platform Support An-
+droid
+iOS Mobile Web Applica-
+tions
+Web-based col-
+laborative plat-
+form
+Real-Time Features Supported
+through integra-
+tion
+Real-time
+database and
+notifications
+Not applicable
+Ease of Use Moderate Easy to Moder-
+ate
+Easy
+Scalability High High Moderate
+Development Speed Fast develop-
+ment with single
+codebase
+Simplifies back-
+end development
+Accelerates in-
+terface design
+Collaboration Fea-
+tures
+Team develop-
+ment support
+Shared cloud
+services
+Real-time col-
+laborative
+design
+Ideal For Mobile develop-
+ers
+Backend and
+cloud services
+UI/UX design-
+ers
+Key Advantages Cross-platform,
+responsive UI,
+high perfor-
+mance
+Authentication,
+database, stor-
+age, notifica-
+tions
+Interactive pro-
+totypes and easy
+collaboration
+Table 2.2: Mobile Development Technologies Comparison
+For the development of the INWIN application, Flutter was selected as the main
+development framework due to its ability to create high-performance cross-platform mo-
+bile applications using a single codebase. This significantly reduces development time and
+ensures a consistent user experience across Android and iOS devices.
+In addition, Firebase provides powerful backend services such as authentication,
+cloud database management, real-time communication, and notifications, which are es-
+sential for functionalities like messaging, reservation management, and user interaction
+within the INWIN platform.
+Finally, Figma was used for designing and prototyping the application interfaces,
+37
+
+--- PAGE 39 ---
+allowing the creation of a modern, intuitive, and user-friendly design adapted to both
+individuals and businesses.
+2.2 Questionnaire Presentation and Analysis
+To better understand our target audience, we conducted a questionnaire to identify
+the needs of potential users. This section presents the questionnaire’s structure and
+analyses the results.
+2.2.1 Presentation and Analysis of the Resultsfor business
+In this section, we will analyze the most important statistical graphs in order to
+draw meaningful conclusions. A total of 54 responses were collected.
+2.2.1.1 Target Audience Specification Questions
+The majority of participants (81.5%) belong to the 18–25 age group, followed by
+the 26–35 age group (11.1%), while older age groups remain marginal (36–50 years old
+and over 50 years old). This indicates a very young target audience that is connected and
+strongly integrated into the digital era.
+Regarding their habits, 57.4% of respondents stated that they organize events rarely,
+while 31.5% organize events one to two times per year and 11.1% organize several events
+per year.
+→Conclusion: The typical user of our application is a young person between 18
+and 25 years old who organizes events occasionally or periodically.
+2.2.1.2 Past Experiences and Encountered Obstacles
+Only 29.1% of respondents have already used an event organization application,
+while 70.9% have never used one.
+For those who have never used such applications (50 responses collected for this
+sub-question), the main reasons mentioned are:
+Lack of awareness (66%): The majority simply do not know that such tools exist.
+Perceived usefulness (24%): Nearly a quarter believe that these applications are not
+useful. Complexity (14%): A significant portion fears that the application may be too
+complicated to use.
+→Conclusion: There is a strong market opportunity, provided that users are made
+aware of the application and that the platform remains simple and accessible in order to
+eliminate concerns related to complexity.
+38
+
+--- PAGE 40 ---
+2.2.1.3 Interests, Expectations, and Budget
+When participants were asked about the types of events that interest them the most,
+private parties ranked first (35.2%), followed by birthdays (24.1%) and weddings (14.8%).
+Baby showers remained very limited (3.7%), while other types of celebrations represented
+29.6%.
+The most important criteria for organizing these events are:
+Quality (44.4%) Creativity (42.6%)
+These two factors largely dominate all other expectations, proving that users mainly
+seek memorable, original, and high-quality experiences.
+Price (14.8%), speed (3.7%), and reputation (1.9%) were considered secondary fac-
+tors.
+This search for quality is also reflected in users’ financial resources, as the majority of
+respondents (70.7%) allocate a medium budget for their events. Small budgets represent
+24.1%, while high budgets remain very limited.
+→Conclusion: The application should highlight creative ideas and high-quality
+service providers adapted to users with medium budgets who mainly organize private
+events and birthdays.
+2.2.1.4 Desired Features and Motivation Factors
+Regarding the potential use of the application, the main factor encouraging respon-
+dents to use it is time-saving (53.7%). This is followed by service quality (25.9%) and
+simplicity (18.5%). Attractive pricing only represents 9.3% of motivations.
+To meet these expectations related to simplicity and support, the most desired
+features within the application are:
+Chat with an organizer (51.9%): Demonstrating the need for direct support and
+communication. Inspiration gallery (24.1%): Supporting users’ need for creativity and
+visual inspiration. Quick quotation requests (16.7%): Reflecting the importance of saving
+time. Online payment (11.1%)
+→Conclusion: Users are looking for an efficient tool that saves time. Integrating a
+direct messaging system and an inspirational gallery are essential features for increasing
+application adoption.
+2.2.1.5 Difficulties Encountered During Event Organization
+To better define the platform’s value proposition, the analysis of users’ current
+difficulties revealed that general organization is the main issue (33.3%), closely followed
+by budget management (27.8%). Other difficulties include finding venues (18.5%), finding
+service providers (16.7%), and lack of time (11.1%).
+39
+
+--- PAGE 41 ---
+→Conclusion: The application should position itself as a true event coordination
+assistant capable of simplifying overall planning and helping users manage their budgets
+effectively.
+2.3 Survey Findings
+The analysis of the survey results highlights clear trends that confirm the relevance
+and usefulness of a modern event organization application. The collected responses reveal
+a predominantly young target audience (18–25 years old), connected to digital technolo-
+gies, who occasionally organizes events such as private parties and birthdays while facing
+difficulties related to overall organization and budget management.
+A major finding is that more than 70% of respondents have never used a dedicated
+event organization application, mainly due to a lack of awareness. This demonstrates a
+largely untapped market and a strong opportunity for our solution, provided that the
+application remains simple, intuitive, and easy to use in order to reduce concerns related
+to complexity.
+Future users’ expectations mainly focus on quality, creativity, and time-saving. Al-
+though financial considerations remain important through the dominance of medium bud-
+gets, users place greater emphasis on creating original and successful events. To attract
+this audience, the application should not function as a simple service directory, but rather
+as an interactive and supportive platform, as reflected by the strong interest in direct chat
+with organizers and visual inspiration galleries.
+2.3.1 Presentation and Analysis of the Results for business
+In this section, we will analyze the most important statistical graphs in order to
+draw meaningful conclusions. A total of 17 responses were collected.
+2.3.1.1 Target Audience Specification Questions
+The respondents’ business sectors are mainly concentrated in the commercial field
+(50%), followed equally by the healthcare sector (25% for “Healthcare” and 25% for
+“healthcare”).
+Regarding the size of participating companies, the sample is perfectly balanced be-
+tween small businesses (41.2%) and medium-sized enterprises (41.2%). Large enterprises
+represent 17.6% of respondents.
+→Conclusion: The main target audience consists of small and medium-sized enter-
+prises (SMEs) operating mainly in the commercial and healthcare sectors.
+40
+
+--- PAGE 42 ---
+2.3.1.2 Professional Event Organization Habits
+Nearly half of the respondents (47.1%) organize professional events occasionally,
+while 41.2% organize them regularly. Only 11.8% of participants never organize profes-
+sional events.
+Concerning the most common types of events, conferences rank first with 64.7% of
+responses (11 responses). Seminars and meetings follow with 29.4% each (5 responses).
+Team-building events (23.5%) and product launches (11.8%) are less frequent.
+Faced with event logistics, companies identified two major challenges:
+Lack of reliable service providers (52.9%) Complex event organization (41.2%)
+Budget management difficulties (29.4%) and lack of time (11.8%) complete the list
+of pain points.
+→Conclusion: An overwhelming majority of companies (88.3%) are active in cor-
+porate event organization, mainly conferences and seminars, but they face organizational
+complexity and difficulties finding trustworthy service providers.
+2.3.1.3 Expectations and Preferences for Corporate Gifts
+The use of corporate gifts is strongly established within the participating companies,
+with 89.5% of respondents confirming that they use them.
+Among companies using corporate gifts, preferences are equally divided between:
+Customized goodies (47.1% – 8 responses) Personalized products (47.1% – 8 re-
+sponses)
+Customized gift boxes attracted 23.5% of responses.
+When asked about the usefulness of a digital solution (mobile application), compa-
+nies expressed strong interest in two main functionalities:
+Ordering customized corporate gifts (64.7% – 11 responses) Managing corporate
+events (52.9% – 9 responses)
+→Conclusion: The corporate gifting market is highly present among businesses.
+There is a clear market opportunity for a centralized application that combines personal-
+ized product ordering and event management functionalities.
+2.3.1.4 Expected Features, Budget, and Selection Criteria
+Regarding the expected features of such a platform, quick quotation requests appear
+as the top priority (47.1%), closely followed by product customization options (41.2%).
+Customer support also remains important for 29.4% of respondents.
+From a financial perspective, the survey reveals diverse investment capacities:
+41.2% allocate a budget below 2,000 TND 35.3% allocate between 2,000 and 5,000
+TND 23.5% have a budget exceeding 5,000 TND
+41
+
+--- PAGE 43 ---
+Finally, when selecting a service provider, price (47.1%) and quality (47.1%) are
+tied as the most important criteria, followed closely by service speed (41.2%). Provider
+experience is considered secondary (17.6%).
+→Conclusion: Future users expect responsiveness (quick quotations and fast exe-
+cution), an excellent quality-price ratio, and easily customizable products.
+2.4 Survey Findings
+The analysis of the survey results highlights clear trends confirming the relevance
+and usefulness of a B2B application dedicated to event management and personalized cor-
+porate gift ordering. The collected responses reveal a target audience mainly composed of
+professionals from commercial and healthcare SMEs, who frequently organize conferences
+and seminars while also requiring corporate gifting solutions.
+Participants place strong importance on the reliability of service providers and seek
+to simplify what they perceive as a complex organizational process. The significant inter-
+est in automated functionalities, such as rapid quotation generation and online customiza-
+tion modules, demonstrates a strong demand for time-saving and operational efficiency.
+From a financial perspective, although a significant proportion of businesses operate
+with moderate budgets (below 2,000 TND), more than half of the respondents are willing
+to invest larger amounts (up to more than 5,000 TND), provided that the platform delivers
+an effective balance between price, quality, and service speed.
+2.5 Marketing Plan
+A marketing plan is a strategic document that outlines an organization’s marketing
+objectives, target market, marketing strategies, and actions required to achieve business
+goals within a specific period. It serves as a guide for coordinating marketing activities,
+allocating resources, and evaluating performance. According to scholars, a marketing plan
+helps organizations identify customer needs, analyze competitors, and develop effective
+promotional and communication strategies.
+2.5.1 Segmentation
+Market segmentation is the process of dividing a broad market into smaller groups
+of consumers who share similar needs, characteristics, behaviors, or preferences. This
+approach allows companies to develop targeted marketing strategies and offer products
+or services that better satisfy specific customer groups.
+irmographic Criteria:This refers to segmenting the market according to orga-
+nizational characteristics such as company size, type of business, and industry (event
+42
+
+--- PAGE 44 ---
+agencies, SMEs, startups, and large companies).
+Geographic Criteria:This divides the market based on location, mainly focusing
+on Tunisia and potentially expanding to North African markets where event organization
+and corporate gifting demand is growing.
+Behavioral Criteria:This focuses on how users interact with event planning
+and corporate gifting services, including their needs for customization, digital booking,
+communication tools, and centralized management solutions.
+Why we did NOT choose other criteriaDemographic→not useful for business
+clients and service providers Psychographic→difficult to measure in a technical B2B
+platform Technographic→optional, not essential for defining INWIN’s core market
+Based on these criteria, three main market segments were identified:
+•Individuals (Personal Event Clients)
+This segment includes individuals who organize personal events such as weddings,
+birthdays, engagements, graduations, and private parties. They often lack professional
+experience in event planning and therefore seek simple, centralized, and user-friendly
+solutions.
+Their main challenges include managing multiple service providers, controlling bud-
+gets, and coordinating event details efficiently. For this segment, INWIN offers value
+through features such as service provider discovery, reservation requests, messaging, bud-
+get tracking, and reviews. The platform simplifies the entire planning process and helps
+users organize events more easily and efficiently.
+•Businesses (Corporate Clients)
+This segment includes
+SMEs : companies that fall within a certain size limit in terms of number of em-
+ployees, revenue, or assets, depending on the country.
+Startups : newly created companies in the early stages of development, designed to
+search for a scalable and repeatable business model.
+Large enterprises : well-established organizations with a high number of employees,
+significant financial resources, and complex organizational structures.
+That organize professional events (conferences, seminars, corporate parties) and
+require customized corporate gifts for branding and marketing purposes.
+Their main challenges include managing corporate events efficiently, ensuring brand
+consistency, and ordering personalized gifts in a simple and centralized way.
+INWIN addresses these needs by offering corporate event management tools and
+a dedicated corporate gifting module, allowing businesses to customize products (logos,
+colors, text), place orders, and manage their event-related requirements within a single
+platform.
+43
+
+--- PAGE 45 ---
+2.5.2 Targeting
+Targeting is a strategic process that consists of selecting one or more market seg-
+ments on which a company will focus its marketing and communication efforts. This
+step follows market segmentation and precedes the positioning strategy. Targeting allows
+companies to optimize resources by concentrating on the most relevant and profitable
+customer groups.
+For the INWIN project, we adopted a niche marketing strategy focused mainly on
+individuals, startups, SMEs, and large enterprises that require event organization services
+and corporate gift customization solutions.
+Niche marketing is the process of targeting a specific part of the market whose
+needs are not fully satisfied by existing solutions. In the case of INWIN, current plat-
+forms in Tunisia generally focus either on event organization or on promotional product
+customization, without offering a centralized mobile solution that combines both services.
+Individuals organizing personal events often face challenges such as finding reliable
+service providers, managing reservations, controlling budgets, and coordinating event de-
+tails. Startups and SMEs generally seek flexible and affordable digital solutions to orga-
+nize professional events and manage branded corporate gifts while optimizing time and
+resources.
+Large enterprises, on the other hand, require more advanced and scalable solutions
+capable of supporting large-scale corporate events, multiple service providers, and cus-
+tomized promotional products while ensuring consistency with their brand identity and
+professional standards.
+By targeting these specific segments, INWIN aims to provide a modern, central-
+ized, and user-friendly platform that simplifies event planning, improves communication
+between clients and service providers, and facilitates corporate gift customization. This
+strategy allows INWIN to differentiate itself in the Tunisian market by offering a complete
+digital ecosystem adapted to both personal and professional needs.
+Positioning refers to the place a product, brand, or company occupies in the minds
+of consumers compared to its competitors. For the INWIN project, we adopted a differen-
+tiation strategy by offering a broader and more integrated range of features than existing
+solutions available in the Tunisian market.
+This approach allows INWIN to provide a more comprehensive and centralized ex-
+perience by combining event organization and corporate gift customization services within
+a single mobile application. Unlike most existing platforms that focus only on one specific
+domain, INWIN aims to simplify the entire event management process while addressing
+both personal and professional needs.
+The main differentiating features of INWIN include:
+•Centralized Event Management: A complete platform that allows users to search for
+44
+
+--- PAGE 46 ---
+service providers, manage reservations, communicate directly with providers, and
+organize event details within a single application.
+•CorporateGiftCustomization: Adedicatedfeatureenablingbusinessestocustomize
+promotionalproductssuchasmugs, pens, t-shirts, bags, andnotebooksthroughlogo
+integration, color selection, and personalized text.
+•Real-Time Communication System: An integrated messaging feature that facilitates
+direct communication between clients and service providers, improving coordination
+and service efficiency.
+•Budget Management and Reservation Tracking: Tools that help users monitor ex-
+penses, manage payments, and track reservations efficiently throughout the event
+planning process.
+•Review and Rating System: A transparent feedback system allowing users to consult
+reviews and ratings before selecting service providers, helping improve trust and
+service quality.
+•User-Friendly and Modern Interface: A simple, intuitive, and responsive mobile
+interface designed to provide a smooth and accessible user experience for both in-
+dividuals and businesses.
+Through this differentiation strategy, INWIN positions itself as an innovative and
+moderndigitalsolutionthataddressesasignificantgapintheTunisianmarketbyintegrat-
+ing both event management and corporate gifting services into one centralized platform.
+2.5.3 Marketing Mix
+TheMarketingMixreferstothesetofmarketingtoolsandstrategiesthatacompany
+uses to promote its products or services and satisfy customer needs. Traditionally, the
+marketing mix is composed of the 4Ps: Product, Price, Place, and Promotion. These
+elements help organizations position their offerings effectively in the market and achieve
+their marketing objectives. The 4Ps of the Marketing Mix:
+2.5.3.1 Product
+INWIN is a mobile application designed to simplify event organization and corporate
+gift management by providing a centralized and user-friendly digital platform.
+For businesses, the platform also provides tools to manage professional events and
+customize promotional products such as mugs, pens, bags, notebooks, and t-shirts in order
+to strengthen brand identity and improve corporate communication.
+45
+
+--- PAGE 47 ---
+2.5.3.2 Price
+The pricing strategy for INWIN has not yet been fully finalized. However, the
+objective is to create a flexible and accessible pricing model adapted to the needs and
+budgets of individuals, startups, SMEs, and large enterprises.
+The application may offer:
+•Free basic access for standard users
+•Customized pricing for businesses and large enterprises
+•Service commission fees for reservations or corporate gift orders
+2.5.3.3 Place
+INWIN will mainly be available as a mobile application accessible through Android
+and iOS platforms. Users will be able to download the application online and access its
+services anywhere and at any time.
+In addition, the platform may also be supported by:
+•An official website presenting the application and services
+•Social media platforms for communication and customer support
+•Partnerships with local event service providers and corporate gift suppliers
+This digital distribution strategy ensures accessibility, convenience, and wider mar-
+ket reach within Tunisia and potentially other markets in the future.
+2.5.3.4 Promotion
+The promotional strategy of INWIN aims to increase brand awareness, attract users,
+and establish trust with both individuals and businesses.
+The promotion strategy will mainly rely on digital marketing channels such as:
+•Social Media Marketing: Promoting the application through platforms such as
+Facebook, Instagram, and LinkedIn by sharing event-related content, application
+features, customer experiences, and promotional campaigns.
+•Website and Online Presence: Developing a website to present the platform, show-
+case services, and provide information about event organization and corporate gift
+customization.
+•Partnership Marketing: Collaborating with event service providers, photographers,
+decorators, and corporate gift suppliers to increase platform visibility and attract
+more users.
+46
+
+--- PAGE 48 ---
+•Digital Advertising: Using targeted online advertisements and sponsored social me-
+dia campaigns to reach potential customers and businesses interested in event man-
+agement services.
+Throughthesepromotionalactivities, INWINaimstobuildastrongdigitalpresence,
+increase user engagement, and position itself as an innovative and comprehensive solution
+in the Tunisian market.
+2.5.4 Brand Identity
+ThebrandidentityofINWINhasbeendevelopedwithafocusonconveyingelegance,
+creativity, and professionalism. As a platform specialised in customizable corporate gifts
+and business solutions, its visual identity reflects the company’s core values: innovation,
+quality, and customer satisfaction. This section presents the logic behind the logo design,
+colour palette, typography, and slogan used throughout the application and branding
+materials.
+2.5.4.1 Application Name Choice
+The term “IN” refers to integration and inclusion, representing a centralized platform
+where all services related to event organization and corporate gifting are brought together
+in one place. It also conveys the idea of being “in,” meaning modern, trendy, and aligned
+with current user needs.
+The word “WIN” symbolizes success, achievement, and satisfaction. It reflects the
+main goal of the application: to ensure a successful and satisfying experience for users,
+whether they are organizing events or managing corporate gifts.
+Therefore, INWIN represents a winning solution for both individuals and businesses
+by providing a smooth, efficient, and successful experience.
+2.5.4.2 Application Logo Choice
+Le logo InWin reflète une identité visuelle élégante, moderne et haut de gamme, en
+parfaite cohérence avec le positionnement de l’entreprise dans l’organisation d’événements
+et la création de cadeaux d’affaires personnalisés.
+Figure 2.1: INWIN logo
+47
+
+--- PAGE 49 ---
+•Star Element:
+The golden star positioned above the logo symbolises innovation, inspiration, and excel-
+lence. It represents the idea of transforming simple concepts into successful achievements,
+perfectly aligning with the slogan “From Idea to Realisation.” The star also reinforces the
+premium image of the brand by adding a sense of brilliance and distinction.
+2.5.4.3 Colour Palette
+The colour palette of INWIN was selected to create a premium, modern, and visually
+appealing identity. Each colour was chosen carefully to reflect the company’s values and
+strengthen brand recognition.
+Royal Blue (041C64):Used as the primary background colour, royal blue symbol-
+ises professionalism, trust, stability, and confidence. It creates a strong corporate identity
+while enhancing the luxurious appearance of the brand.
+Elegant Gold (D4B484):Used for the logo typography and decorative elements,
+gold represents prestige, sophistication, success, and quality. It reinforces the premium
+positioning of the brand and draws attention to important visual elements.
+Soft White (FFFFFF):Used for secondary backgrounds and clean spaces, soft
+white creates balance and improves readability while maintaining a minimalist and elegant
+design.
+Figure 2.2: INWIN Colour Palette
+48
+
+--- PAGE 50 ---
+2.5.4.4 Typography
+Typography in INWIN was selected to reflect elegance, readability, and brand con-
+sistency. The following fonts are used throughout the application and branding materials:
+Primary Typography:The main font used in the logo is Iridescent BC. This font
+was chosen for its luxurious and distinctive appearance, helping the brand stand out while
+conveying creativity and sophistication.
+Secondary Typography:The secondary font used is Carrois Gothic SC. This
+typeface offers a clean and modern structure that complements the elegance of the primary
+font. It is mainly used for subtitles, interface elements, and supporting text to ensure
+readability and consistency across digital and printed materials.
+Interface Typography:
+Titles and Headings:Styled using bold variations of Carrois Gothic SC to create strong
+visual hierarchy and clear section organisation;
+Body Text:Presented in a simple and readable sans serif style to ensure user comfort
+and maintain focus on the content.
+Conclusion
+This chapter presented the theoretical study and market research conducted for the
+INWIN application, including the survey analysis, market segmentation, benchmarking
+study, and the marketing plan established for the platform. It also highlighted the brand
+identityofINWIN,itstargetcustomers, andthemarketingstrategiesproposedtopromote
+the application effectively. The next chapter will outline the functional and non-functional
+specifications necessary for the design and development of the application.
+49
+
+--- PAGE 51 ---
+Chapter 3
+Functional Analysis and Requirements
+Engineering
+Introduction
+This chapter presents the requirements necessary for the development of our appli-
+cation, including the functional and non-functional requirements, use case diagrams, and
+technical specifications.
+3.1 Functional and Non-Functional Requirements
+This section presents the actors of the platform along with the functional and non-
+functional requirements necessary for the system’s operation and development.
+3.1.1 Actors Identification
+The platform includes several actors, each with specific roles and responsibilities in
+interacting with the system and managing its different functionalities.
+Primary Actors
+Primary actors are those users who interact directly with the software in order to
+perform certain actions and enjoy the service of the software. The following are the main
+primary actors in the INWIN case:
+•Administrator:Controls the operations of the system by reviewing requests com-
+ing in, studying details of the requests, preparing and sending quotes to the clients,
+updating status of the request, canceling requests and replying to the customers.
+50
+
+--- PAGE 52 ---
+•Business Customer:Makes use of the software on behalf of the organization in
+browsing the gifts catalog, accessing the events area, making gift and event requests,
+checkingprogressontheprojects, managingtheprofiledetails, respondingtoquotes,
+and interacting with the administrator.
+•Individual Customer:Interacts with the system primarily for making requests re-
+lated to events, monitoring the progress of his project submission, reviewing quotes,
+updating his personal information, and communicating with the administrator.
+Secondary Actors
+While secondary actors do not interact with the application in the same manner as
+primary actors, they offer the technical framework that enables proper functionality of
+the platform. The secondary actors include:
+•Firebase Authentication:assists in managing the user signup and login process
+and enables access control.Firebase Storage:provides the ability to store media
+content and other documents, such as the logos associated with the companies
+registered.Firebase Cloud Messaging:facilitates the delivery of notifications in
+relation to quotations, requests, and messages sent.
+3.1.2 Functional Requirements
+Functional requirements describe the main functionalities and services provided by
+the system to its users. They define what the application should accomplish and how
+users interact with it. Below are the core features of our application.
+Customer Functional Requirements:
+•The customer must have the capability to register and login as well as edit personal
+information.
+•The customer must be able to access the list of gifts and the list of events.
+•The customer must have the capability to request for the gifts that include the product
+preference, number of products, logo location, attachment, and other notes.
+•The customer must have the capability to request for events that include the event type,
+date, location, attendees, budget, services needed, colors, atmosphere, and notes.
+•The customer must be able to track down his/her requested projects as well as review
+their information such as status, attachments, and quotations.
+•The customer must be able to respond to quotations by accepting or rejecting them and
+download or share the purchase order when applicable.
+•The customer must be able to exchange messages with the administrator and receive
+notifications related to requests, quotations, and project updates.
+Admin Functional Requirements:
+51
+
+--- PAGE 53 ---
+•The admin will be able to authenticate himself/herself and log into the administration
+section of the system.
+•The admin will be able to browse, filter, and view all customer requests.
+•The admin will be able to generate and send quotations to customers.
+•The admin will be able to modify the status of all requests based on the project life
+cycle and even cancel requests where required.
+•The admin will be able to interact with customers and track the progress of all ongoing
+projects.
+System Functional Requirements:
+•The system should be able to provide functionality for authentication and role-based
+access control.
+•The system should be able to maintain records of user information, requests, projects,
+and message exchanges.
+•The system should be able to upload files like logos and other supporting documenta-
+tion.
+•The system should be able to notify users about quotations, status updates, and new
+messages.
+3.1.3 Non-Functional Requirements
+Non-functional requirements specify the quality features and performance require-
+ments that the INWIN program has to meet for its effective operation. The major non-
+functional requirements of the system are outlined below:
+•Performance:The system will have to respond adequately to user operations, extract
+data about the projects, and present information about the requests.
+•Usability:The system will have to possess an intuitive user interface that would be
+convenient for both the customers and administrators.
+•Compatibility:The system will have to work effectively on the targeted platform,
+especially Android mobile devices.
+•Security:The system will have to ensure the security of users’ credentials, their mes-
+sages, and uploaded documents.
+•Reliability:The application will ensure consistent access to requests, quotations,
+messages, and notifications without loss of essential data.
+3.2 Use Case Diagrams
+The use case diagrams give a visual depiction of how the actors interact with the
+INWINapplication. Theusecasediagramsforthisprojectarelistedbelowtodemonstrate
+52
+
+--- PAGE 54 ---
+the system’s functionality and user interaction within the software.
+3.2.1 Global Use Case Diagram
+The global use case diagram presents an overview of the INWIN system by describ-
+ing its main functions and their association with the various actors. The diagram focuses
+on the primary services provided by the system, such as submitting requests, monitoring
+projects, managing profiles, sending messages, handling quotes, and conducting adminis-
+tration activities. Below is the global use case diagram for the INWIN application.
+Figure 3.1: Global Use Case Diagram
+53
+
+--- PAGE 55 ---
+3.2.2 Refined Use Case Diagrams
+For a deeper analysis of the INWIN application, the global use case diagram is
+supplemented by a number of use case diagrams. Each diagram focuses on a specific
+functionality of the system and illustrates the interactions between the corresponding
+actor and the specific service provided by the platform. next section describes some of
+these use cases in detail.
+3.2.2.1 Manage Profile
+This use case diagram shows how the customer uses the system to access and modify
+their profile details such as personal information, company name, telephone number, and
+profile picture.
+Figure 3.2: Manage Profile Refined Use Case Diagram
+54
+
+--- PAGE 56 ---
+Below is a description of the use case "Manage Users".
+Use Case
+Name
+Manage Users
+Description This use case allows the customer to view
+and update their profile information.
+Actors Customer
+Pre-conditions The customer must be authenticated.
+Normal Flow 1. The customer accesses the profile section.
+2. The system displays the current profile in-
+formation.
+3. The customer updates one or more pro-
+file fields such as full name, company name,
+phone number.
+4. The system saves the updated information
+in the database.
+AlternativeFlow 1. If the profile data cannot be loaded, an
+error message is displayed.
+2. If the update operation fails, the system
+displays an error message and keeps the pre-
+vious data unchanged.
+Table 3.1: Description of the Use Case "Manage Profile"
+3.2.2.2 Submit Gift Request
+This use case diagram presents the interactions that allow the business customer
+to browse the gifts catalogue and submit a customised gift request according to their
+preferences and requirements.
+55
+
+--- PAGE 57 ---
+Figure 3.3: Submit Gift Request Refined Use Case Diagram
+Below is a description of the use case " Submit Gift Request".
+Use Case
+Name
+Access IT Trends Dashboard
+Description This use case allows the business customer to
+create and submit a customised gift request.
+Actors Business Customer
+Pre-conditions The customer must be authenticated.
+Normal Flow 1. The customer accesses the profile section.
+2. The system displays the the gifts cata-
+logue..
+3. The customer selects a category and con-
+figures the gift by choosing the model, ma-
+terial, quantity, logo position, and optional
+notes.
+4. The customer submits the request
+5. The system stores the request in the
+database.
+56
+
+--- PAGE 58 ---
+AlternativeFlow 1. If required information is missing, the sys-
+tem asks the user to complete the form.
+2. If the request submission fails, an error
+message is displayed.
+Table 3.2: Description of the Use Case " Submit Gift Request "
+3.2.2.3 Submit Event
+Request This use case diagram shows how the customer can submit an event request
+by providing the necessary information.
+Figure 3.4: Submit Event Request Refined Use Case Diagram
+57
+
+--- PAGE 59 ---
+Use Case
+Name
+Access IT Trends Dashboard
+Description This use case allows the business customer to
+create and submit a customised gift request.
+Actors Business Customer
+Pre-conditions The customer must be authenticated.
+Normal Flow 1. The customer accesses the profile section.
+2. The system displays the the gifts cata-
+logue.
+3. The customer selects a category and con-
+figures the gift by choosing the model, ma-
+terial, quantity, logo position, and optional
+notes.
+4. The customer submits the request
+5. The system stores the request in the
+database.
+AlternativeFlow 1. If required information is missing, the sys-
+tem asks the user to complete the form.
+2. If the request submission fails, an error
+message is displayed.
+Table 3.3: Description of the Refined Use Case " Submit Event Request"
+3.2.2.4 Track Projects
+This use case diagram describes how the customer can follow the progress of submit-
+ted projects, consult request details, view attachments and quotation information, and
+access the related conversation.
+58
+
+--- PAGE 60 ---
+Figure 3.5: Track Projects Refined Use Case Diagram
+Below is a description of the use case " Track Projects ".
+59
+
+--- PAGE 61 ---
+Use Case
+Name
+Track Projects
+Description This use case allows the customer to follow
+the progress of submitted projects and con-
+sult their details.
+Actors Customer
+Pre-conditions The customer must be authenticated.
+Normal Flow 1. The customer accesses the projects sec-
+tion.
+The system displays the list of submitted
+projects.
+3. The customer selects a project.
+4. The system displays the project details,
+including status, attachments, quotation in-
+formation, and conversation access.
+AlternativeFlow 1. If no projects are found, the system dis-
+plays an empty-state message.
+2. If the selected project details cannot be re-
+trieved, the system displays an error or not-
+found message.
+Table 3.4: Description of the Refined Use Case " Submit Event Request"
+3.2.2.5 Respond to Quote
+This use case diagram illustrates how the customer interacts with the system to
+consult quotation details, read the terms and conditions, and respond by accepting or
+rejecting the proposed quote.
+60
+
+--- PAGE 62 ---
+Figure 3.6: Respond to Quote Refined Use Case Diagram
+Below is a Below is a description of the use case " Respond to Quote ".
+Use Case
+Name
+Respond to Quote
+Description This use case allows the customer to review
+a quotation and respond by accepting or re-
+jecting it.
+Actors Customer
+Pre-conditions The customer must be authenticated and a
+quotation must be available for the selected
+request.
+Normal Flow 1. The customer opens the quotation details.
+2. The system displays the quoted price and
+the related terms and conditions.
+3. The customer chooses to accept or reject
+the quotation.
+4. The system updates the quotation status
+in the database.
+5. If accepted, the customer may download
+or share the purchase order.
+61
+
+--- PAGE 63 ---
+AlternativeFlow 1. If the project or quotation data cannot
+be retrieved, the system displays an error or
+not-found message.
+2. If the customer cancels the confirmation
+process, no response is recorded.
+Table 3.5: Description of the Refined Use Case " Respond to Quote "
+3.2.2.6 Exchange Messages
+This use case diagram represents the communication process between the customer
+and the administrator through the project conversation space.
+Figure 3.7: Exchange Messages Refined Use Case Diagram
+Below is a description of the use case "Exchange Messages ".
+62
+
+--- PAGE 64 ---
+Use Case
+Name
+Exchange Messages
+Description This use case allows the customer and the
+admin to communicate through the project
+conversation space.
+Actors Customer, Admin
+Pre-conditions The user must be authenticated and the re-
+lated project must exist.
+Normal Flow 1. The user opens the conversation linked to
+a project.
+2. The system displays previous messages.
+3. The user writes a new message.
+4. The system sends and stores the message.
+5. The other party can read the message
+when accessing the conversation.
+AlternativeFlow If no messages are available, the conversation
+area remains empty or displays a placeholder
+message.
+Table 3.6: Description of the Refined Use Case " Respond to Quote "
+3.2.2.7 Manage Requests
+Manage Requests This use case diagram presents the actions available to the ad-
+ministrator for handling customer requests, including viewing requests, reviewing details,
+filtering requests, sending quotations, updating status, cancelling requests, and replying
+to customers.
+63
+
+--- PAGE 65 ---
+Figure 3.8: Manage Requests Refined Use Case Diagram
+Below is a description of the use case " Manage Requests ".
+Use Case
+Name
+Manage Requests
+Description This use case allows the admin to handle
+customer requests and perform the necessary
+management actions.
+Actors Admin
+Pre-conditions The admin must be authenticated.
+64
+
+--- PAGE 66 ---
+Normal Flow 1. The admin accesses the requests manage-
+ment section.
+2. The system displays all customer requests.
+3. The admin may filter requests and select
+one to review its details.
+4. The admin performs an action such as
+sending a quotation, updating the request
+status, cancelling the request, or replying to
+the customer.
+5. The system updates the corresponding
+data in the database.
+AlternativeFlow 1.If requests cannot be loaded, the system
+displays an error message.
+If an action fails, the system informs the ad-
+ministrator through an error message, and
+the requested update is not saved.
+Table 3.7: Description of the Refined Use Case " Manage Requests"
+3.3 Technical Specification
+This section presents the main technologies, tools, external packages, architectural
+choices, and security mechanisms adopted in the development of the INWIN application.
+3.3.1 Used Tools
+The table below presents the used tools and technologies.
+65
+
+--- PAGE 67 ---
+Logo Description
+For Mobile Application Development
+[1]
+Flutter is a UI framework that was created by Google to en-
+able developers to create applications natively on different
+platforms using a single codebase.
+[2]
+Dart is an optimized programming language for clients and
+is open source. This means it can be used to develop appli-
+cations on different platforms efficiently. Dart has advanced
+features like null safety and pattern matching.
+For Backend Development
+[3]
+Firebase Authentication was used to manage all aspects of
+identity management within the app, including registration,
+login, and onboarding processes.
+Development Tools
+[4]
+Android Studio is the recommended software development kit
+for developing Android applications, which includes a wide
+range of tools for development, debugging, testing, and opti-
+mizing performance.
+For Design and Prototyping
+[5]
+Design.com is an AI-based branding solution used in the cre-
+ation of the application’s logo, and it features several options
+for designing logos.
+[6]
+Figma is a web-based graphic designing software used to de-
+sign the application’s user interface mockups and prototypes,
+and it runs exclusively on the browser.
+For UML Modeling
+[7]
+Visual Paradigm Online is an online diagramming software
+that was utilized in designing the diagrams of the application.
+The tool can create various kinds of diagrams, such as UML
+diagrams.
+Table 3.8: Technologies and Tools Used
+66
+
+--- PAGE 68 ---
+3.3.2 Firebase Services and External Packages
+This subsection presents the key Firebase services and external packages integrated
+into the INWIN application. Each technology was selected to address a particular re-
+quirement within the project, such as user authentication, data storage and retrieval, file
+management, push notifications, screen navigation, or UI development.
+Service/Package Description
+For Firebase Services
+Firebase
+Authentication
+Manages user registration, login, and password recovery, en-
+suring secure access to the application.
+Cloud Firestore Acts as the primary database for storing and retrieving user
+profiles, requests, messages, and project data.
+Firebase Storage Acts as the primary database for storing and retrieving user
+profiles, requests, messages, and project data.
+Firebase Cloud
+Messaging
+(FCM)
+Delivers notifications to users related to quotations, request
+updates, and new messages.
+Cloud Functions
+for Firebase
+Automates certain backend operations, particularly those in-
+volved in triggering and managing notifications.
+For External Packages
+flutter-riverpod Manages state across the application, keeping data consistent
+between screens.
+go-router Controls screen navigation and defines how users move
+through the application.
+file-picker Allows users to browse their device and select files for upload.
+intl Handles the formatting of dates and other displayed data
+within the application.
+pdf Generates purchase order documents in PDF format directly
+from the application.
+67
+
+--- PAGE 69 ---
+Service/Package Description
+share-plus Enables users to share generated documents straight from ap-
+plication.
+Table 3.9: Firebase Services and External Packages
+3.3.3 Software Architecture
+Figure 3.9: Layered Architecture of the INWIN Application
+The architecture of the INWIN application represents a layered architecture that
+ensures the complete isolation of user interface logic from application logic, and further
+from backend services. The separation of logic into distinct modules allows maintaining
+the source code base, its scalability, and provides a well-defined communication between
+separate parts of the system. There are three layers in total in the INWIN application,
+as can be seen on the diagram provided above:
+•Presentation Layer: This is what users actually see and interact with. It includes
+all the screens and widgets designed for both customers and administrators.
+•Service Layer: the core logic of the app and processes the main operations inside.
+68
+
+--- PAGE 70 ---
+•Backend Layer: responsible for managing internal processes including data storage,
+user authentication, file operations, and other things, all based on Firebase services.
+To put it simply, implementation of separate layers will look like this:
+•presentation layer implemented using Flutter and responsible for creating the mobile
+user interface of INWIN app.
+•The service layer is made up of dedicated Dart service classes covering authentica-
+tion, request management, messaging, storage, and notifications.
+•The backend layer relies on Firebase, using Firebase Authentication for access con-
+trol, Cloud Firestore as the main database, Firebase Storage for uploaded files,
+Firebase Cloud Messaging for notifications, and Cloud Functions for backend au-
+tomation.
+3.3.4 App Security
+Application Security is one of the core components of the INWIN framework, since
+the framework manages users’ accounts, customers’ queries, communications, and docu-
+ments shared between the parties. This sub-section describes the key application security
+approaches used for securing user data, managing system feature access, and ensuring the
+integrity of data storage.
+3.3.4.1 Authentication
+Authentication basically involves ensuring the identity of the user accessing the
+application. In the case of the INWIN application, authentication was carried out through
+Firebase Authentication. Once logged in, Firebase authenticates the user and links him
+to his respective record in Cloud Firestore, ensuring that each authenticated user has
+a user record within the Firestore database, and the sessions stay consistent with other
+application data.
+Authentication is achieved through logic that determines whether the authenticated
+user already has a record in the users collection. If there is no record, a default record
+will be created automatically, guaranteeing that each user has at least a record in the
+database. Moreover, the application listens continually to the changes in authentication
+status, thus being able to authenticate each user instantly upon logging in and binding
+him to the correct Firestore record.
+The following figure illustrates the part of the authentication logic that accomplishes
+this task
+69
+
+--- PAGE 71 ---
+Figure 3.10: Code snippet showing how the authenticated user is linked to the corre-
+sponding user record
+The following figure presents a code snippet where the application listens to authen-
+tication state changes and handles the authenticated session.
+Figure 3.11: Code snippet demonstrating how authentication state changes are monitored
+in the application
+70
+
+--- PAGE 72 ---
+3.3.4.2 Authorisation and Role Management
+Authorisation determines what authenticated user is allowed to access or modify in
+the application. In this project, authorisation was implemented using role-based access
+control. The system mainly distinguishes between two roles: customer and admin. After
+authentication, the role of the user is checked before access to data is granted.
+In our application, access is controlled using three main conditions: the user must
+be authenticated, the user may access only his or her own data, and an admin has broader
+permissions across the system. This means that ordinary users are restricted to their own
+information, while administrators can manage a wider range of records. Some actions,
+such as deletion, are also denied to better protect stored data.
+The figure on the next page presents the part of the authorisation logic responsible
+for checking authentication, ownership, and administrator privileges.
+Figure 3.12: Code snippet showing how authentication, ownership, and administrator role
+are checked
+The following figure presents a code snippet where access to user records is controlled
+according to ownership and administrator privileges.
+Figure 3.13: Code snippet demonstrating how access to user records is restricted
+71
+
+--- PAGE 73 ---
+The following figure presents a code snippet where access to requests is controlled
+according to the role of the authenticated user.
+Figure3.14: Codesnippetdemonstratinghowrequestpermissionsaremanagedaccording
+to user role
+3.3.4.3 Data Validation and Protection
+Data validation refers to the process by which the program checks whether the
+information provided by the user has been validated before any action takes place. In the
+current project, validation has been done on various fields in order to identify errors and
+incomplete information. For example, the program validates that all required fields have
+been filled and that phone numbers are in the correct format.
+Similar attention was paid to uploading files. Only those who have logged in can
+upload files, and there is also control over the size of files and their types. In this way, no
+invalid data is passed to the system and creates problems later on.
+The figure on the next page presents a code snippet showing how user input is
+validated before being accepted by the application.
+Figure3.15: Codesnippetshowinghowphonenumberinputisvalidatedbeforesubmission
+72
+
+--- PAGE 74 ---
+Figure 3.16: Code snippet showing how user input is validated before submission
+3.3.4.4 Error Handling
+Error handling involves the manner in which an application reacts when presented
+with exceptional circumstances or failure scenarios. Error handling was applied in this
+project using the try and catch blocks so as to ensure that errors are captured without
+leading to the crash of the application. In case of any error encountered by the application,
+the system manages the situation effectively through either logging of errors or simply
+informing the user about the error. This helps in stabilizing the running application.
+The following is a diagram of the error capturing process done by the application.
+Figure 3.17: Code snippet showing how initialization errors are caught and handled in
+the application
+73
+
+--- PAGE 75 ---
+3.3.4.5 Database Integrity
+Database integrity will ensure that the information present within the database is
+accurate and consistent. For our system, integrity will be enhanced by ensuring that
+whenever a user signs up for our application, the user information that will be added to
+the database will be unique. This is achieved because upon signing up, the application
+registers the new user using their email address and password through Firebase Authen-
+tication. The authentication tool will not create more than one user with the same email
+address. The figure below illustrates how a new account is created before the user record
+is stored in the database.
+Figure 3.18: Code snippet showing how user registration is performed before storing
+consistent user data
+Conclusion
+This chapter covered the development requirements of the INWIN application, from
+the functional and non-functional requirements to the use case diagrams and the technical
+specification. The following chapter moves into the structural and behavioural design of
+the system, presenting the class diagram, sequence diagrams, and activity diagrams.
+74
+
+--- PAGE 76 ---
+Chapter 4
+System Architecture and Workflow
+Designs
+Introduction
+This chapter offers insight into the design of the INWIN application through the
+use of UML diagrams. The intention behind this approach is to ensure that the users can
+easily understand how the software system functions through both static and dynamic
+representations of the system. On this note, the use of class diagrams illustrates how the
+different classes interact within the software application.
+4.1 Class Diagram
+The class diagram represents the static structure of the INWIN system. In other
+words, it represents the fundamental classes making up the system alongside their at-
+tributes, methods, and associations. The following is a brief explanation of some of the
+fundamental classes represented in the class diagram presented on the following page.
+•AuthService:Handles authentication operations such as registration, login, email
+verification, password reset, profile update, and logout.
+•AppUser:An object representing an end user with personal attributes including
+full name, organization name, email, phone number, role, category of the customer,
+and creation date of the account.
+•QuoteRequest:Represents the quote request from the customer who used the
+application including type, status, description, file attachment, quotation data, and
+additional remarks.
+•RequestService:Handles request processing including quotation generation and
+change of statuses.
+75
+
+--- PAGE 77 ---
+•ChatMessage:Represents the message exchanged between the customer and ad-
+ministrator while discussing projects.
+•MessageService:Deals with sending and retrieving messages regarding the par-
+ticular request.
+•StorageService:Handlestheuploadanddeletionoffilesinregardtotheparticular
+request.
+•NotificationService:Handles notification-related operations including token han-
+dling and request status notifications.
+Figure 4.1: Global Class diagram
+4.2 Sequence Diagrams
+Sequence diagrams illustrate the dynamic aspect of the INWIN application based
+on the interaction among all the different actors and components within the system. The
+process enables one to understand how the request is handled and how data is passed from
+the user interface, through the service layer to the back end services during execution of
+a certain function.
+76
+
+--- PAGE 78 ---
+4.2.1 Log In Sequence Diagram
+Below is the sequence diagram for authentication process for the user within the
+INWIN application. The sequence diagram below demonstrates how the user gets au-
+thenticated using the interactions between the login UI, authentication service, Firebase
+Authentication, Cloud Firestore, and the router component used for routing purposes
+according to user roles.
+Figure 4.2: Log In Sequence Diagram
+•The user provides their email and password via the login screen.
+•The application ensures that all required input fields are not left blank.
+•In case an input field is left blank, a validation message pops up.
+•Otherwise, the login credentials are submitted to the authentication service.
+•The authentication service sends the user’s mail and password to Firebase Au-
+thentication. In the case of an invalid username and password combination, the
+application will return an error message in the login window.
+•If the entered credentials are valid, the authentication process will fetch the respec-
+tive user data from the Cloud Firestore database.
+•After that, the role of the user is established based on the authenticated identity.
+•If the user is an administrator, then the administrator area is loaded.
+77
+
+--- PAGE 79 ---
+•In case the user is a customer, then the application redirects the customer to the
+customer area.
+•For customer accounts, the router will also validate the status of the email address.
+•If the email is not verified, the application will redirect the user to the email vali-
+dation page first.
+4.2.2 Submit Request Sequence Diagram
+Below is the sequence diagram of "Submit Request", together with its step descrip-
+tion, illustrating how the customer submits a request and how it is processed by the
+system.
+Figure 4.3: Submit Request Sequence Diagram
+•If it is related to a gift, then the customer uploads a logo/file through the request
+form.
+•The request form transfers the uploaded file to the storage service.
+•The storage service uploads the file and provides the URL back to the request form.
+•If it is related to an event, then no need for uploading a file.
+•After filling out all the details, the customer sends the request.
+78
+
+--- PAGE 80 ---
+•The request form transfers the request data to the request service.
+•The request service creates a QuoteRequest object and saves it into Cloud Firestore.
+•Cloud Firestore saves the request into the database.
+•When the process finishes, then it gives the saved request back.
+•Lastly, the user interface shows a success message indicating that the request was
+sent successfully.
+4.2.3 Admin Manages Request Sequence Diagram
+The sequence diagram for the scenario "Admin Manages Request" is depicted below,
+along with its step description, illustrating how an administrator reviews a customer
+request and prepares a quote for it.
+Figure 4.4: Admin Manages Request Sequence Diagram
+•The administrator clicks on the details of a selected request.
+•The request detail screen passes the request id to the request service.
+•The request service fetches the corresponding request data from Cloud Firestore.
+•Cloud Firestore provides the request data back to the request service.
+•Next, the request details will be shown to the administrator.
+•The administrator fills in the supplier quote, quote, and note if needed.
+•The administrator proceeds to make the quotation.
+79
+
+--- PAGE 81 ---
+•The request detail screen transfers the quotation details to the request service.
+•The request service updates the request by updating the quotation and requesting
+state to quoted in Cloud Firestore.
+•Cloud Firestore acknowledges the operation of updating.
+•Later, the system shows that the quote is made successfully. message indicating
+that the request was sent successfully.
+4.2.4 Customer Responds to Quote Sequence Diagram
+The sequence diagram for "Customer Responds to Quote" can be seen on the fol-
+lowing page, along with the steps involved in this activity as described below.
+The customer views the details of the quote request.
+The project detail screen sends the request id to the request service.
+The request service retrieves the corresponding request data from Cloud Firestore.
+The request details are received from Cloud Firestore to the request service.
+The quoted request is then shown to the customer.If the customer accepts the quote:
+•The customer chooses the accept option.
+•The terms and conditions will be shown.
+•The customer confirms acceptance.
+•The project detail screen sends the response to the request service with the value
+accepted = true.
+•The request service updates the status of the request in Cloud Firestore to accepted.
+•Following confirmation, the purchase order service prepares the purchase order doc-
+ument.
+•The generated PDF is sent back to the user interface.
+•The customer can then download or share the purchase order document.
+If the customer rejects the quote:
+•The customer selects the rejection option.
+•The project detail screen sends the response to the request service with the value
+accepted = false.
+80
+
+--- PAGE 82 ---
+•The request service changes the request status to rejected on Cloud Firestore.
+•On confirmation, the rejection confirmation message pops up.
+Figure 4.5: Customer Responds to Quote Sequence Diagram
+4.2.5 Project Messaging Sequence Diagram
+Below is the sequence diagram of "Project Messaging," together with its step de-
+scription below to demonstrate how messages are sent and received in a project discussion.
+81
+
+--- PAGE 83 ---
+Figure 4.6: Project Messaging Sequence Diagram
+•The sender opens the interface for the project conversation.
+•The sender types message in the conversation panel.
+•The sender sends the message.
+•Message data from conversation interface gets sent to messaging service.
+•The Messaging service saves the message in Cloud Firestore.
+•Confirmation of successful saving of message in Cloud Firestore is sent back.
+•Saved message list gets returned back to conversation interface.
+•Final step, the sent message gets displayed in the conversation window.
+4.3 Activity Diagrams
+Activity diagrams show the sequence of activities and decisions in the process, which
+makes it simpler to comprehend how the system works. This part will discuss the
+major processes that were developed in the INWIN application.
+4.3.1 User Authentication Workflow Activity Diagram
+The activity diagram of "User Authentication Workflow" is presented below, and
+its description is provided in the next page.
+82
+
+--- PAGE 84 ---
+Figure 4.7: User Authentication Workflow Activity Diagram
+•The user navigates to the login interface.
+•The user inputs their email ID and password.
+83
+
+--- PAGE 85 ---
+•The system validates whether the inputs entered by the user are correct.
+•In case of incorrect data inputs, a validation error message appears on the screen.
+•In case of correct data inputs, the system sends out the login request.
+•The user is validated using Firebase Authentication service.
+•In case of login failure, the user sees an error message.
+•In case of successful login attempt, the user’s profile is fetched.
+•The role of the user account is validated.
+•If the user is an administrator, the system redirects them to the admin dashboard.
+•Otherwise, the system redirects the user to the customer home page.
+4.3.2 Gift Request Submission Workflow Activity Diagram
+The activity diagram of "Gift Request Submission Workflow" is presented on the
+next page, and its description is provided below.
+•The user navigates to the gift catalog.
+•The user chooses a gift category.
+•The user completes the gift request form.
+•The user uploads a file containing the logo/marking.
+•The system checks whether the uploaded file is an image file.
+•If the file is an image, the user adjusts the position of the logo.
+•Otherwise, the positioning step is skipped.
+•The system checks the form for validity.
+•In case the form is not valid or if there is no file attached, the system shows an error
+message.
+•In case the form is valid and the file is attached, the file is uploaded.
+•The gift request is created.
+•The gift request is stored in the database.
+•The system shows the success message.
+84
+
+--- PAGE 86 ---
+•Lastly, the user is redirected to the projects page.
+Figure 4.8: Gift Request Submission Workflow Activity Diagram
+85
+
+--- PAGE 87 ---
+4.3.3 Event Request Submission Workflow Activity Diagram
+Below are the description and the activity diagram " Event Request Submission
+Workflow Activity Diagram ".
+Figure 4.9: Event Request Submission Workflow Activity Diagram
+•The user clicks on the events page.
+86
+
+--- PAGE 88 ---
+•The user chooses the type of event.
+•The user fills out the event request form.
+•The user provides the required event information, including the date, location, num-
+ber of participants, budget, and requested services.
+•The user chooses the colours and atmosphere of the event.
+•The user can even write a note if they want to.
+•The application validates the form.
+•In case the form is invalid and the necessary details are not provided, then the
+application shows validation errors.
+•When the form is validated successfully and the date of the event is chosen, the
+application generates the event request.
+•The event request is stored in the database.
+•The application shows a success message.
+•Later, the user is forwarded to the projects page.
+4.3.4 Quote Response Workflow Activity Diagram
+The activity diagram of "Quote Response Workflow" is presented on the next page,
+and its description is provided below.
+•The customer opens the project details page.
+•The customer views the quotation information.
+•The system waits for the customer’s decision.
+•When the customer accepts the quotation, the system shows the terms and condi-
+tions.
+•The system verifies if the terms are accepted by the user.
+•When the terms are not accepted, the acceptance process is stopped.
+•When the terms are accepted, the system marks the request status as accepted.
+•The system creates the purchase order in PDF format.
+•The system shows the purchase order to the user.
+87
+
+--- PAGE 89 ---
+•The customer can then download or share the purchase order.
+•When the user rejects the quotation, the system confirms the rejection of the quo-
+tation.
+•The system changes the request status to rejected.
+•Finally, the system shows a rejection confirmation message.
+Figure 4.10: Quote Response Workflow Activity Diagram
+4.3.5 Admin Request Management Workflow Activity Diagram
+The activity diagram of "Admin Request Management Workflow" is presented on
+the next page, and its description is provided below.
+88
+
+--- PAGE 90 ---
+•The administrator opens the admin requests page.
+•The application displays all customer requests.
+•The administrator clicks on one of the customer requests.
+•The selected request details are opened.
+•The administrator decides which action to take next.
+•In case the administrator opts for reviewing action, then the request status is set to
+reviewing.
+•If the administrator decides to send a quotation, then he/she adds the supplier price,
+quoted price, and a note.
+•The request status is then changed to quoted.
+•If the administrator decides to start production, the request status is updated to in
+production.
+•If the administrator decides to mark the request as delivered, then the request status
+is changed to delivered.
+•If the administrator decides to cancel the request, then the request status is changed
+to cancelled.
+•The request status is finally saved by the system.
+89
+
+--- PAGE 91 ---
+Figure 4.11: Admin Request Management Workflow Activity Diagram
+4.3.6 Project Messaging Workflow Activity Diagram
+Below are the activity diagram of "Project Messaging Workflow" and its description.
+90
+
+--- PAGE 92 ---
+Figure 4.12: Project Messaging Workflow Activity Diagram
+•The user begins the conversation for the project.
+•The application shows the old messages.
+91
+
+--- PAGE 93 ---
+•The user enters his/her message.
+•The system examines if the message is blank.
+•If the message is blank, it won’t be transmitted.
+•In case that the message is not blank, it will be sent out.
+•Next, the message gets stored in the database.
+•At last, the conversation gets refreshed.
+Conclusion
+This chapter walked through the class diagram, sequence diagrams, and activity
+diagrams of the application. The following chapter shifts focus to the execution.
+92
+
+--- PAGE 94 ---
+Chapter 5
+Execution
+Introduction
+In this chapter, we discuss the interfaces used in the INWIN application and the
+functionalities implemented in it. It provides an overview of the different user interfaces,
+explains their role within the system, and highlights the backend services and processes
+that support their operation.
+5.1 Authentication Module
+This section describes the authentication characteristics of the INWIN application.
+It covers the login and registration interface, email verification and other methods that
+can be applied to manage users’ access.
+5.1.1 Registration and Login Interfaces
+The INWIN application uses a self-registration model, where users create their own
+accounts by providing their personal information and login credentials. After registration,
+theuserlogsinandistakentotherelevantpartofthesystemdependingontheirposition.
+5.1.1.1 Registration Interface
+The figure below represents the registration pages.
+93
+
+--- PAGE 95 ---
+Figure 5.1: Registration Interface
+The Registration Interface serves as the first phase of the authentication process in
+the INWIN application. Here, users can register themselves by providing their personal
+information and the credentials that will be used to login to the system. In this phase,
+users select their client type and fill out all the required fields before submitting the
+registration form.
+5.1.1.2 Login Interface
+The login screen is the starting point that will enable registered users to log into the
+INWINsoftware. Theloginscreencomprisesaverystraightforwardformwhereusersenter
+their email address and password. Once they have been authenticated, the system gets
+their profiles and then redirects them to the respective part of the application depending
+on their role. Therefore, the login screen plays a critical role in ensuring secure access to
+the application. The diagram below shows the login screen.
+94
+
+--- PAGE 96 ---
+Figure 5.2: Login interface
+5.1.1.3 Logout
+The logout function helps the authenticated user to terminate their session securely.
+In the INWIN application, this feature can be accessed via the user interface and will allow
+the user to log out from the application at any point in time. After the logout process
+has been completed, the user’s session will be terminated, and they will be directed back
+to the authentication process. This feature enhances the security of the application since
+unauthorized access will not be possible after terminating the user’s session.
+95
+
+--- PAGE 97 ---
+Figure 5.3: Logout Button
+5.1.2 Email Verification
+The figure below represents the email verification interface.
+96
+
+--- PAGE 98 ---
+Figure 5.4: Email Verification Interface
+The email verification interface is an important part of the authentication procedure
+within the INWIN application. After creating an account, the user needs to verify their
+email address in order to have full access to the customer zone of the application. Such a
+function is helpful for improving account security and ensuring that only authorized users
+have access to restricted features.
+The verification screen displays information about the sent email and suggests to
+the user that they should confirm their account using the link contained in that email. In
+addition, the user is provided with the opportunity to resend the verification email and
+return to the login page. Upon confirming the email address, the user gains access to the
+main interface of the application.
+5.1.3 Authentication Security and Access Logic
+The authentication security of the INWIN application is guaranteed by using Fire-
+base authentication, email verification, and routing protection. After the user logs into
+the system, their profile is fetched, and the role assigned to them is identified. They are
+then redirected to the corresponding interface. Access control is strengthened by limit-
+97
+
+--- PAGE 99 ---
+ing access to protected routes to only authenticated users, while customers need to go
+through email verification before accessing the application. Code examples can be found
+in Annexes 1 to 4.
+5.2 Customer Features
+This section presents the primary functions accessible to users within the INWIN
+application. It highlights the user interfaces and interactions that allow customers to
+browse services, submit requests, track project progress, communicate with the adminis-
+trator, and manage their profile information.
+5.2.1 Home Interface
+This section highlights the home interface of the INWIN application which acts
+as the main portal for users upon authentication. This enables easy navigation to the
+key features of the application. In addition, it gives the user an idea of the various
+services offered by the system. The interface has been designed in a manner that makes
+it easy to navigate through the system. It is mainly composed of the following parts:•
+Navigation Area:allows the user to access the main sections of the application, such
+as home, gifts, events, projects, profile, and notifications;•Service Shortcuts:provide
+direct access to important customer actions, including browsing the gifts catalogue and
+exploring the events section;•General Interface Elements:ensure a smooth and
+intuitive user experience by structuring the content of the screen clearly. The figure next
+page represents the main home interface of the INWIN application.
+Figure 5.5: Home Interface
+98
+
+--- PAGE 100 ---
+5.2.2 Gifts Catalogue Interface
+This section presents the gifts catalogue interface of the INWIN application. It
+allows business customers to browse the different gift categories offered by the platform
+and to access the corresponding request configuration screens. The catalogue is designed
+to provide a clear and organised presentation of the available products, making it easier
+for the user to select the most suitable category before submitting a gift request.
+Figure 5.6: Gift Catalogue Interface
+The interface shown above allows business customers to browse the different gift
+categories offered by the platform. Each category is presented with a title, a short de-
+scription, and a representative image, enabling the user to quickly identify the appropriate
+product type before accessing the corresponding gift request configuration interface.
+5.2.3 Gift Request Interface
+This section presents the gift request interface of the INWIN application. It allows
+business customers to configure and submit a personalised gift request by specifying the
+product characteristics, uploading the required file, and providing additional information
+99
+
+--- PAGE 101 ---
+related to the request. Depending on the uploaded file type, the interface may also provide
+an interactive logo positioning feature. The figure below represents the initial state of the
+gift request interface before a file is uploaded
+Figure 5.7:
+The following figure illustrates the gift request interface after an image file has been
+uploaded, enabling the logo positioning functionality.
+100
+
+--- PAGE 102 ---
+Figure 5.8: Gift Request Interface with Logo Positioning
+The interface shown above is supported by the request submission process imple-
+mented in the application. When the customer submits the form, the uploaded file is first
+stored in Firebase Storage, after which the request data is structured and saved in Cloud
+Firestore as a new request entry. This process ensures that both the request information
+and the related attachment are properly associated and stored for later processing by the
+administrator.
+5.2.4 Event Catalogue Interface
+This section presents the events catalogue interface of the INWIN application. It
+allows users to browse the different event categories proposed by the platform before
+accessing the corresponding request form. The interface is designed to provide a clear
+overview of the available event types and to help the user select the category that best
+matches their needs. The figure below represents the events catalogue interface of the
+INWIN application.
+101
+
+--- PAGE 103 ---
+Figure 5.9: Event Catalogue Interface
+5.2.5 Event Request Interface
+This section presents the event request interface of the INWIN application. It allows
+customers to submit event-related requests by providing the information required for the
+preparation and organisation of the event. Through this interface, the user can define the
+main characteristics of the request, including the event type, location, date, number of
+participants, budget, required services, preferred colours, ambiance, and an optional note.
+The figure next page represents the event request interface of the INWIN application.
+102
+
+--- PAGE 104 ---
+Figure 5.10: Event Request Interface
+The interface shown above is supported by the event request creation process im-
+plemented in the application. When the customer submits the form, the system validates
+the entered information, structures the request data, and stores it in Cloud Firestore as
+a new request entry. This process ensures that the submitted event details are properly
+recorded and made available for later processing by the administrator.
+5.2.6 Project Tracking and Messaging Interfaces
+This section presents the project tracking and messaging interface of the INWIN
+application. It allows customers to follow the progress of their submitted requests and
+to communicate directly with the administrator within the same project space. Through
+this interface, the user can consult request details, view status updates, access quotation
+information, and exchange messages related to the project. It is mainly composed of the
+following parts:•Project Details Area:displays the main information related to the
+selected request;•Status Tracking Area:shows the progress of the request through
+its different stages;•Quotation Area:allows the customer to consult and respond to
+the quotation when available;•Messaging Area:allows the customer to read previous
+messages and send new ones to the administrator. The following figure represents the
+project tracking and messaging interface of the INWIN application.
+103
+
+--- PAGE 105 ---
+Figure 5.11: Project Tracking Interface
+This interface, which is seen above, is facilitated by both the quotation response
+process and messaging process that have been integrated into the application. When
+there is a quotation provided, the customer can either accept or reject the same, and
+then the status of the request will be updated accordingly. Any messages sent via the
+conversation area will be saved in Cloud Firestore, making it accessible by both the client
+and administrator. The following figure illustrates the purchase order generated after the
+customer accepts the quotation.
+104
+
+--- PAGE 106 ---
+Figure 5.12: Purchase Order Generated After Quotation Acceptance
+5.2.7 Profile Management Interface
+This section presents the profile management interface of the INWIN application.
+It allows users to view and manage their personal account information, access account-
+related options, and perform actions related to session control. Through this interface, the
+user can update profile details, request a password reset, consult additional application
+pages, and log out securely. It is mainly composed of the following parts:•Profile
+Information Area:displays the user’s main personal information, such as name and
+account type;•Account Management Area:allows the user to modify profile details
+and request password reset;•Navigation and Support Area:provides access to
+105
+
+--- PAGE 107 ---
+additional pages such as terms and conditions and assistance;•Logout Option:allows
+the user to securely end their session. The figure below represents the profile management
+interface of the INWIN application.
+Figure 5.13: Profile Management Interface
+5.3 Administrator Features
+This section presents the different functions of the INWIN application which are at
+the disposal of the administrator. It highlights the different interfaces that the adminis-
+trator uses to manage the requests, quotations, project statuses, and communication with
+the customers.
+5.3.1 Main Interface
+ThissectionpresentstherequestsdashboardoftheINWINapplication. Itactsasthe
+primary administration dashboard from where the administrator can get an insight into
+all the requests that have been made by customers via the application. The dashboard
+gives a global perspective on the requests and makes it easy to manage them. It is
+mainly composed of the following parts:•Requests Overview Area:displays the
+list of submitted customer requests;•Filtering Area:allows the administrator to
+106
+
+--- PAGE 108 ---
+filter requests according to specific criteria such as status, type, or client category;•
+Navigation Function:allows the administrator to open the detail interface of a selected
+request for further processing. The figure below represents the requests dashboard of the
+INWIN application.
+Figure 5.14: Admin Main Interface
+5.3.2 Details Interface
+This section presents the request detail management interface of the INWIN appli-
+cation. It enables the administrator to look at all the details of the customer request
+107
+
+--- PAGE 109 ---
+selected and view all the key steps necessary for handling the request. Through this in-
+terface, the administrator will be able to view request details, check the current status
+of the request, and plan for the next step. It is mainly composed of the following parts:
+•Request Information Area:displays the complete details of the selected customer
+request.•Status Monitoring Area:shows the current status of the request within its
+processing lifecycle.•Action Access Area:provides access to the main management
+actions available to the administrator.•Conversation Area:displays the messages
+exchanged between the administrator and the customer. The figure below represents the
+request detail management interface of the INWIN application.
+Figure 5.15: Request Detail Management Interface
+5.3.3 Quote Preparation and Status Updates
+This section presents the functionalities that allow the administrator to prepare
+quotations and manage the evolution of customer requests. Through the request detail
+interface, the administrator can input the data regarding quotations, keep track of the
+request status based on its development, and follow up on every project. The figure below
+represents the quotation and status management interface of the application.
+108
+
+--- PAGE 110 ---
+Figure 5.16: Quotation Preparation Interface
+5.4 Backend and Database Integration
+This section presents the main backend services integrated into the INWIN appli-
+cation, highlighting the role of Firebase in authentication, data storage, file management,
+and notifications.
+5.4.1 Firebase Authentication
+Firebase Authentication was integrated into the INWIN application to manage ac-
+count creation, login, email verification, password reset, and secure session handling. The
+figurebelowillustratestheFirebaseAuthenticationconsoleusedintheINWINapplication
+to manage registered users and support the authentication process.
+109
+
+--- PAGE 111 ---
+Figure 5.17: Firebase Authentication Console Containing Registered Users
+5.4.2 Cloud Firestore
+The integration of Cloud Firestore within the INWIN application was done for
+purposes of making it the major database management software for storing structured
+data within the application. This has been instrumental in enabling the storage of user
+profiles, customer requests, projects, and messages. The figure below illustrates the Cloud
+Firestore database structure used in the INWIN application.
+Figure 5.18: Cloud Firestore Database Structure
+5.4.3 Firebase Storage
+The integration of Cloud Firestore within the INWIN application was done for
+purposes of making it the major database management software for storing structured
+110
+
+--- PAGE 112 ---
+data within the application. This has been instrumental in enabling the storage of user
+profiles, customer requests, projects, and messages. The following code snippet illustrates
+how the uploaded file is sent to the storage service during the gift request submission
+process.
+Figure 5.19: File Upload Through the Storage Service
+The following code snippet shows how the returned file URL is attached to the
+request data before the request is saved in the database.
+Figure 5.20: Attachment URL Integration in Request Creation
+111
+
+--- PAGE 113 ---
+5.4.4 Firebase Cloud Messaging and Cloud Functions
+Firebase Cloud Messaging and Cloud Functions were integrated into the INWIN
+application to support notification delivery and automated backend event handling, par-
+ticularly for request status updates and project messages. The following figure illustrates
+the beginning of the Cloud Function that detects a change in request status and retrieves
+the customer notification token.
+Figure 5.21: Detection of Request Status Change
+The following figure illustrates the part of the Cloud Function that sends the noti-
+fication after the new request status has been identified.
+112
+
+--- PAGE 114 ---
+Figure 5.22: Sending a Request Status Notification
+5.5 Conclusion
+This chapter presented a detailed overview of the main interfaces of the INWIN
+application, highlighting their roles within the system, accompanied by short explanations
+on the backend processes that enable their functionality.
+113
+
+--- PAGE 115 ---
+General Conclusion
+Digital technologies are continuously transforming the way individuals and busi-
+nesses organize events and manage corporate services, and INWIN aims to contribute
+effectively to this evolution. This report explored how a centralized mobile platform can
+simplifyeventorganization, improvecommunicationbetweenclientsandserviceproviders,
+and facilitate corporate gift customization through a modern and user-friendly digital so-
+lution.
+Thedevelopmentprocesspresentedthroughoutthisreporthighlightstheimportance
+of combining technical implementation, market analysis, user needs, and modern project
+management approaches in order to design an efficient and innovative application. INWIN
+was developed with flexibility, scalability, and usability in mind to ensure that it responds
+to the evolving expectations of both individuals and businesses in the digital era.
+Furthermore, the project demonstrated the significance of integrating multiple ser-
+vices within a single platform to improve user experience and simplify management pro-
+cesses. Features such as reservation management, real-time messaging, budget tracking,
+review systems, and corporate gift customization contribute to creating a complete and
+centralized ecosystem adapted to modern event management needs.
+Lookingahead, severalimprovementsandfutureenhancementscanfurtherstrengthen
+the platform. Future developments may include online payment integration, advanced rec-
+ommendation systems, AI-based personalization, event analytics, and expanded corporate
+management functionalities. These additions would help improve efficiency, increase user
+engagement, and support the continuous evolution of the platform.
+This report has demonstrated the practical viability of INWIN as an innovative
+solution in the Tunisian market. By focusing on accessibility, personalization, communi-
+cation, and centralized management, the application provides a strong foundation for a
+114
+
+--- PAGE 116 ---
+smarter and more modern approach to event organization and corporate gifting services.
+115
+
+--- PAGE 117 ---
+Bibliography
+[1] Organigram : Amanawa, D. E., & Adedeji, B. (2022). An introduction to manage-
+ment concepts. International Journal of Academic Management Science Research,
+6(6), 1-16.
+[2] Benchmarking : Camp, R. C. (1989). Benchmarking: The search for industry best
+practices that lead to superior performance. Quality Press.
+[3] SWOT analysis : Gürel, E., & Tat, M. (2017). SWOT analysis : A theoretical review.
+Journal of International Social Research, 10(51), 994–1006.
+[4] Traditional Method / Waterfall Methodology : Royce, W. W. (1970). Managing the
+development of large software systems. Proceedings of IEEE WESCON.
+[5] RAD (Rapid Application Development) : Martin, J. (1991). Rapid Application De-
+velopment. New York: Macmillan Publishing Company.
+[6] Scrum Methodology : Schwaber, K., Sutherland, J. (2020). The Scrum Guide.
+Scrum.org.
+[7] Agile Methodology : Beck, K., et al. (2001). Manifesto for Agile Software Develop-
+ment. Agile Alliance.
+[8] Plan Marketing : Kotler, P., & Keller, K. L. (2016). Marketing management (15th
+ed.). Pearson Education.
+[9] Startup : Ries, E. (2011). The Lean Startup: How today’s entrepreneurs use contin-
+uous innovation to create radically successful businesses. Crown Business. Small and
+Medium Enterprises : Concepts and Policies OECD. (2019). SMEs and entrepreneur-
+ship policy. OECD Publishing.
+[10] Flutter. (2026, May 05). Brand. Récupéré sur https://docs.flutter.dev/brand [2]Dart.
+(2026, May 05).
+[11] Dart programming language. Retrieved from https://dart.dev [3]Firebase. (2026,
+May 06).
+116
+
+--- PAGE 118 ---
+[12] FirebaseBrandGuidelines.Retrievedfromhttps://firebase.google.com/brandguidelines
+[13] Android Studio. (2026, May 06). Retrieved from Android Studio Icon SVG Vector
+[14] Design.com. (2026, May 06). Facebook. Retrieved from
+https://www.facebook.com/design.com.official/
+[15] Figma. (2026, May 06). Figma Logo & Brand Assets. Retrieved from
+https://brandfetch.com/figma.com
+[16] Visual Paradigm. (2026, May 05). Log in Visual Paradigm Online. Retrieved from
+https://online.visualparadigm.com/w/xlnhgekg/login.jsp?r=drive/#proj=0&dashboard
+117
+
+--- PAGE 119 ---
+118
+
+--- PAGE 120 ---
+Annexes
+Annex 1 : Questionnaire for Customer
+119
+
+--- PAGE 121 ---
+120
+
+--- PAGE 122 ---
+121
+
+--- PAGE 123 ---
+122
+
+--- PAGE 124 ---
+Annex 2 : Questionnaire for Business
+123
+
+--- PAGE 125 ---
+124
+
+--- PAGE 126 ---
+125
+
+--- PAGE 127 ---
+126
+
+--- PAGE 128 ---
+Annex 3: Questionnaire for Customer Responses
+127
+
+--- PAGE 129 ---
+128
+
+--- PAGE 130 ---
+129
+
+--- PAGE 131 ---
+130
+
+--- PAGE 132 ---
+131
+
+--- PAGE 133 ---
+Annex 4 : Questionnaire for business Responses
+132
+
+--- PAGE 134 ---
+133
+
+--- PAGE 135 ---
+134
+
+--- PAGE 136 ---
+135
+
+--- PAGE 137 ---
+Annexe 5 : La charte graphique de l’application
+136
+
+--- PAGE 138 ---
+137
+
+--- PAGE 139 ---
+138
+
+--- PAGE 140 ---
+139
+
+--- PAGE 141 ---
+140
+
+--- PAGE 142 ---
+141
+
+--- PAGE 143 ---
+142
+
+--- PAGE 144 ---
+143
+
+--- PAGE 145 ---
+144
+
+--- PAGE 146 ---
+145
+
+--- PAGE 147 ---
+146
+
+--- PAGE 148 ---
+147
+
+--- PAGE 149 ---
+148
+
+--- PAGE 150 ---
+149
+
+--- PAGE 151 ---
+150
+
+--- PAGE 152 ---
+151
+
+--- PAGE 153 ---
+152
+
+--- PAGE 154 ---
+153
+
+--- PAGE 155 ---
+154
+
+--- PAGE 156 ---
+155
+
+--- PAGE 157 ---
+156
+
+--- PAGE 158 ---
+157
+
+--- PAGE 159 ---
+158
+
+--- PAGE 160 ---
+Annex 6: Login Logic
+Annex 7: Email Verification Logic
+159
+
+--- PAGE 161 ---
+Annex 8: Route Protection and Role-Based Redirec-
+tion Logic
+160
+
+--- PAGE 162 ---
+Annex 9: Firestore Security Rules
+161
+
+--- PAGE 163 ---
+162
